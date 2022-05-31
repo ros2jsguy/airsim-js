@@ -1,7 +1,8 @@
 
 import * as fs from 'fs';
 
-import { AirSimClient, CarClient } from "./airsim-client";
+import { AirSimClient} from "./airsim-client";
+import { CarClient } from './car-client';
 import { CarControls, Pose } from "./types";
 // const { createCanvas, loadImage } = require('canvas');
 
