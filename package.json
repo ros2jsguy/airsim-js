@@ -1,33 +1,33 @@
 {
-  "name": "airsim-client-node",
+  "name": "airsim-node",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
-  "types": "./types/global.d.ts",
+  "description": "Nodejs client for AirSim",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "npm run lint && tsc -p .",
-    "start:local": "npm run lint && NODE_ENV=local nodemon index.js",
-    "start:test": "npm run lint && NODE_ENV=test node build/server.js",
-    "start:staging": "npm run lint && NODE_ENV=staging node build/server.js",
-    "start:production": "npm run lint && NODE_ENV=production node build/server.js",
+    "clean": "rimraf coverage dist",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "build:release": "npm run clean && tsc -p tsconfig.release.json",
     "lint": "eslint src/**/*.ts",
     "lint-fix": "eslint --fix src/**/*.ts",
     "pretty": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install",
-    "test:custom": "npm test -- tests/unit-tests/lib/crypto.spec.ts",
     "precommit": "npm run lint-fix && npm run pretty",
     "prepush": "npm run lint ",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test": "mocha -r ts-node/register 'tests/**/*.ts'"
   },
   "author": "ros2jsguy [ros2jsguy@gmail.com]",
   "license": "Apache-2.0",
   "dependencies": {
+    "@ros2jsguy/three-math-ts": "^0.127.2",
     "dotenv": "^16.0.0",
+    "msgpack-rpc-node": "0.1.0-alpha.3",
     "winston": "^3.7.2"
   },
   "devDependencies": {
+    "@types/mocha": "^9.1.1",
     "@types/node": "^17.0.29",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
@@ -38,10 +38,12 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
+    "rimraf": "~3.0",
     "supertest": "^6.2.3",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.3",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.6.3"
   }
 }

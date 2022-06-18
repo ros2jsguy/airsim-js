@@ -1,0 +1,32 @@
+
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "Car",
+  "Vehicles": {
+    "Car1": {
+      "VehicleType": "PhysXCar",
+      "AutoCreate": true,
+      "Sensors": {
+        "Distance": {
+            "SensorType": 5,
+            "Enabled" : true,
+            "DrawDebugPoints": true
+        },
+        "Lidar": {
+          "SensorType": 6,
+          "Enabled" : true,
+          "NumberOfChannels": 4,
+          "RotationsPerSecond": 10,
+          "PointsPerSecond": 10000,
+          "X": 0, "Y": 0, "Z": -1,
+          "Roll": 0, "Pitch": 0, "Yaw" : 0,
+          "VerticalFOVUpper": 0,
+          "VerticalFOVLower": 0,
+          "HorizontalFOVStart": -30,
+          "HorizontalFOVEnd": 30,
+          "DrawDebugPoints": true
+        }
+      }
+    }
+  }
+}

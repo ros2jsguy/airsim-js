@@ -1,33 +1,26 @@
 {
   "compilerOptions": {
-    "lib": ["es2018"],
-    "rootDirs": ["tests", "src"],
-    "target": "es2018",
+    "target": "ES2022",
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./dist",
-    "skipLibCheck": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "lib": ["ES2022"],
+    "rootDir": ".",
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "alwaysStrict": true,
     "sourceMap": true,
-    "esModuleInterop": true,
-    "baseUrl": ".",
-       "paths": {
-           "*": [
-               "node_modules/*",
-               "tests/*",
-           ]
-     }
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false
   },
   "include": [
     "src/**/*.ts",
-    ".env",
-    ".env.*",
     "tests/**/*.ts",
-    "index.js",
-    "config/*.config.js" // for *.config.js files
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+    "examples**/*.ts" ]
 }
