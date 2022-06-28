@@ -1,6 +1,5 @@
 import { Box2, Box3, Quaternion, Vector2, Vector3 } from '@ros2jsguy/three-math-ts';
 
-
 export type Vector2r = {
   x_val: number,
   y_val: number
@@ -35,7 +34,7 @@ export type Pose = {
 }
 
 export type ProjectionMatrix = {
-  matrix: Array<number>  // todo confirm
+  matrix: Array<number> 
 }
 
 export type GeoPoint = {

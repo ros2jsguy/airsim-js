@@ -1,9 +1,14 @@
 
+
 import { Client, TcpClient } from 'msgpack-rpc-node';
-import { ImageType } from './image';
-import { CarControls, CarState, CollisionInfo, WeatherParameter } from './internal-session-types';
+import { ImageRequest, ImageResponse, ImageType } from './image';
+import { CameraInfo, CarControls, CarState, CollisionInfo, 
+        DEFAULT_YAW_MODE, 
+        DrivetrainType, 
+        MultirotorState, RGBA, RotorStates, WeatherParameter
+      } from './internal-types';
 import { GeoPoint, Pose, Vector3r } from './math';
-import { DistanceSensorData, LidarData } from './sensor';
+import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData } from './sensor';
 
 type MsgpackrpcClient = Client<TcpClient>;
 
@@ -193,6 +198,20 @@ export class Session {
    */
    simSetLightIntensity(lightName: string, intensity: number): Promise<boolean> {
     return this._call('simSetLightIntensity', lightName, intensity) as Promise<boolean>;
+  }
+
+  /**
+   * Get details about the camera
+   * @param cameraName - Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
+   * @param vehcileName - Vehicle which the camera is associated with
+   * @param isExternal - Whether the camera is an external camera
+   */
+  simGetCameraInfo(cameraName: string | number, vehicleName = '', isExternal = false): Promise<CameraInfo> {
+    return this._call(
+      'simGetCameraInfo',
+      typeof cameraName === 'number' ? cameraName.toString() : cameraName,
+      vehicleName,
+      isExternal) as Promise<CameraInfo>;
   }
 
   /**
@@ -421,12 +440,37 @@ export class Session {
    * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
    * @returns 
    */
-   simPlotTransforms(poses: Array<Pose>, scale = 5.0, thickness = 5.0, 
+  simPlotTransforms(poses: Array<Pose>, scale = 5.0, thickness = 5.0, 
     duration = -1.0, isPersistent = false): Promise<void> {
 
     return this._call('simPlotTransforms', poses, scale, thickness, 
         duration, isPersistent) as Promise<void>;
   }
+
+  /**
+   * Plots a list of transforms with their names in World NED frame.
+   * @param poses - Pose objects representing the transforms to plot
+   * @param names - Strings with one-to-one correspondence to list of poses 
+   * @param scale - Length of transforms' axes
+   * @param thickness -Thickness of transforms' axes
+   * @param textScale - Font scale of transform name
+   * @param textColor - RGBA values from 0.0 to 1.0 for the transform name
+   * @param duration - Duration (seconds) to plot for
+   * @returns  A void promise to await on.
+   */
+  simPlotTransformsWithNames(poses: Array<Pose>, names: Array<string>, scale = 5.0,
+      thickness = 5.0, textScale = 10.0, textColor = [1.0, 0.0, 0.0, 1.0],
+      duration = -1.0): Promise<void> {
+    return this._call(
+        'simPlotTransformsWithNames',
+        poses,
+        names,
+        scale,
+        thickness,
+        textScale,
+        textColor,
+        duration) as Promise<void>;
+}
 
   // Vehicle ---------------
 
@@ -506,6 +550,17 @@ export class Session {
   }
 
   /**
+   * Modify the color and thickness of the line when tracing is enabled.
+   * Tracing can be enabled by pressing T in the Editor or
+   * setting `EnableTrace` to `True` in the Vehicle Settings
+   * @param color - the RGBA color
+   * @param thickness - thickness of the trace line
+   */
+   simSetTraceLine(color: RGBA, thickness = 1.0, vehicleName = ''): Promise<void> {
+    return this._call('simSetTraceLine', color, thickness, vehicleName) as Promise<void>;
+  }
+
+  /**
    * 
    * @param vehicleName 
    * @returns 
@@ -522,9 +577,30 @@ export class Session {
    * @param external - Whether the camera is an External Camera
    * @returns Binary string literal of compressed png image
    */
-   simGetImage(cameraName: string, imageType: ImageType, vehicleName = '', isExternal = false): Promise<unknown> {
-      return this._call('simGetImage', cameraName, imageType, vehicleName, isExternal) as Promise<unknown>;
-    }
+  simGetImage(cameraName: string, imageType: ImageType, vehicleName = '', isExternal = false): Promise<unknown> {
+    return this._call(
+        'simGetImage',
+        cameraName,
+        imageType,
+        vehicleName,
+        isExternal) as Promise<unknown>;
+  }
+
+  /**
+   * Get multiple images
+   * See https://microsoft.github.io/AirSim/image_apis/ for details and examples
+   * @param requests (list[ImageRequest]): Images required
+   * @param vehicleName - Name of vehicle associated with the camera
+   * @param external - Whether the camera is an External Camera
+   * @returns list[ImageResponse]
+   */
+  simGetImages(requests: Array<ImageRequest>, vehicleName = '', external = false): Promise<Array<ImageResponse>> {
+    return this._call(
+        'simGetImages',
+        requests,
+        vehicleName,
+        external) as Promise<Array<ImageResponse>>;
+  }
 
   // Sensor Data
 
@@ -535,17 +611,55 @@ export class Session {
    * @returns The distance data
    */
   getDistanceSensorData(distanceSensorName = '', vehicleName = ''): Promise<DistanceSensorData> {
-    return this._call('getDistanceSensorData', distanceSensorName, vehicleName) as Promise<DistanceSensorData>;
+    return this._call(
+        'getDistanceSensorData',
+        distanceSensorName,
+        vehicleName) as Promise<DistanceSensorData>;
   }
 
   /**
-   * 
-   * @param lidarName 
-   * @param vehicleName 
-   * @returns 
+   * Access the data from a LIDAR sensor
+   * @param lidarName - Name of IMU to get data from, specified in settings.json
+   * @param vehicleName -Name of vehicle to which the sensor corresponds to
+   * @returns The LIDAR sensor data
    */
   getLidarData(lidarName = '', vehicleName = ''): Promise<LidarData> {
     return this._call('getLidarData', lidarName, vehicleName) as Promise<LidarData>;
+  }
+
+  /**
+   * Access the data from an IMU sensor.
+   * @param imuName - Name of IMU to get data from, specified in settings.json
+   * @param vehicleName - Name of vehicle to which the sensor corresponds to
+   * @returns The IMU sensor data
+   */
+   getImuData(imuName = '', vehicleName = ''): Promise<ImuData> {
+    return this._call('getImuData', imuName, vehicleName) as Promise<ImuData>;
+  }
+
+  /**
+   *  Access the data from an magnetometer sensor.
+   * @param magnetometerName - Name of Magnetometer to get data from, specified in settings.json
+   * @param vehicleName - Name of vehicle to which the sensor corresponds to
+   * @returns The magnetometer sensor data
+   */
+    getMagnetometerData(magnetometerName = '', vehicleName = ''): Promise<MagnetometerData> {
+      return this._call(
+          'getMagnetometerData',
+          magnetometerName,
+          vehicleName) as Promise<MagnetometerData>;
+    }
+
+  /**
+   * Access the data from an barometer sensor.
+   * @param barometerName - Name of barometer to get data from, specified in settings.json
+   * @returns The barometer sensor data
+   */
+   getBarometerData(barometerName = '', vehicleName = ''): Promise<BarometerData> {
+    return this._call(
+        'getBarometerData',
+        barometerName,
+        vehicleName) as Promise<BarometerData>;
   }
 
   // CAR
@@ -562,6 +676,122 @@ export class Session {
     return this._call('setCarControls', controls, vehicleName) as Promise<void>;
   }
 
+  // Multirotor
+  /**
+   * The position inside the returned MultirotorState is in the frame of the vehicle's starting point
+   * @param vehicleName - Vehicle to get the state of
+   * @returns The drone state
+   */
+   getMultirotorState(vehicleName = ''): Promise<MultirotorState> {
+    return this._call('getMultirotorState', vehicleName) as Promise<MultirotorState>;
+  }
+
+  /**
+   * Obtain the current state of all a multirotor's rotors. The state includes the speeds,
+        thrusts and torques for all rotors.
+   * @param vehicleName - Vehicle to get the rotor state of
+   * @returns RotorStates containing a timestamp and the speed, thrust and torque of all rotors
+   */
+  getRotorStates(vehicleName = ''): Promise<RotorStates> {
+    return this._call('getRotorStates', vehicleName) as Promise<RotorStates>;
+  }
+
+  /**
+   * Takeoff vehicle to 3m above ground. Vehicle should not be moving when this API is used
+   * @param timeoutSec - Timeout for the vehicle to reach desired altitude
+   * @param vehicleName - Name of the vehicle to send this command to
+   * @returns A boolean Promise
+   */
+   takeoff(timeoutSec = 20, vehicleName = ''): Promise<boolean> {
+    return this._call('takeoff', timeoutSec, vehicleName) as Promise<boolean>;
+  }
+
+  /**
+   * Hover vehicle now.
+   * @returns A void promise to await on.
+   */
+   hover(vehicleName = ''): Promise<void> {
+    return this._call('hover', vehicleName) as Promise<void>;
+  }
+
+  /**
+   * Land the vehicle.
+   * @param timeoutSec - Timeout for the vehicle to land
+   * @param vehicleName - Name of the vehicle to send this command to
+   * @returns A boolean Promise
+   */
+   land(timeoutSec = 60, vehicleName = ''): Promise<boolean> {
+    return this._call('land', timeoutSec, vehicleName) as Promise<boolean>;
+  }
+
+  /**
+   * Return vehicle to Home i.e. Launch location
+   * @param timeoutSec - Timeout for the vehicle to return home
+   * @param vehicleName - Name of the vehicle to send this command to
+   * @returns A boolean Promise
+   */
+   goHome(timeoutSec = 3e+38, vehicleName = ''): Promise<boolean> {
+    return this._call('goHome', timeoutSec, vehicleName) as Promise<boolean>;
+  }
+
+  /**
+   * Move vehile to position.
+   * @param position - The target position.
+   * @param velocity - The velocity by which to relocate.
+   * @param timeoutSec - The maximum time to complete this relocation.
+   * @param drivetrain - Limits not to exceed on the drivetrain 
+   * @param yawMode - The rate of yaw maneuvering
+   * @param lookahead - not sure atm - todo
+   * @param adaptiveLookahead - not sure at - todo
+   * @param vehicleName - Name of the vehicle to send this command to
+   * @returns A void promise to await on
+   */
+  moveToPosition(x: number, y: number, z: number, velocity: number, 
+    timeoutSec = 3e+38,
+    drivetrain = DrivetrainType.MaxDegreeOfFreedom, 
+    yawMode = DEFAULT_YAW_MODE, 
+    lookahead = -1,
+    adaptiveLookahead = 1,
+    vehicleName = ''): Promise<void> {
+      return this._call(
+        'moveToPosition', 
+        x, y, z,
+        velocity,
+        timeoutSec,
+        drivetrain,
+        yawMode,
+        lookahead,
+        adaptiveLookahead,
+        vehicleName) as Promise<void>;
+  }
+
+  /**
+   * Move vehile to Z position.
+   * @param z - The target Z position.
+   * @param velocity - The velocity by which to relocate.
+   * @param timeoutSec - The maximum time to complete this relocation.
+   * @param yawMode - The rate of yaw maneuvering
+   * @param lookahead - not sure atm - todo
+   * @param adaptiveLookahead - not sure at - todo
+   * @param vehicleName - Name of the vehicle to send this command to
+   * @returns A void promise to await on
+   */
+  moveToZ(z: number, velocity: number, 
+    timeoutSec = 3e+38, 
+    yawMode = DEFAULT_YAW_MODE, 
+    lookahead = -1,
+    adaptiveLookahead = 1,
+    vehicleName = ''): Promise<void> {
+      return this._call(
+        'moveToZ',
+        z,
+        velocity,
+        timeoutSec,
+        yawMode,
+        lookahead,
+        adaptiveLookahead,
+        vehicleName) as Promise<void>;
+  }
 }
 
 

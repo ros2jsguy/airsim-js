@@ -2,10 +2,9 @@
   "name": "airsim-node",
   "version": "0.1.0",
   "description": "Nodejs client for AirSim",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "scripts": {
-    "start": "nodemon index.js",
     "clean": "rimraf coverage dist",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
@@ -23,7 +22,7 @@
   "dependencies": {
     "@ros2jsguy/three-math-ts": "^0.127.2",
     "dotenv": "^16.0.0",
-    "msgpack-rpc-node": "0.1.0-alpha.3",
+    "msgpack-rpc-node": "file:../msgpack-rpc-node",
     "winston": "^3.7.2"
   },
   "devDependencies": {

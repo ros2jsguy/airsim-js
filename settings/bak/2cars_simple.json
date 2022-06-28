@@ -1,0 +1,15 @@
+
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "Car",
+  "Vehicles": {
+    "Car1": {
+      "VehicleType": "PhysXCar",
+      "X": 0, "Y": 0, "Z": -2
+    },
+    "Car2": {
+      "VehicleType": "PhysXCar",
+      "X": 10, "Y": 10, "Z": -2
+    }
+  }
+}

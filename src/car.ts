@@ -1,35 +1,21 @@
 
-import { CollisionInfo, KinematicsState, Vehicle } from './vehicle';
+import { CarControls, CarState  } from './internal-types';
+import { Vehicle } from './vehicle';
 
-export type CarState = {
-  speed: number,
-  gear: number,
-  rpm: number,
-  maxrpm: number,
-  handbrake: boolean,
-  collision: CollisionInfo,
-  kinematics_estimated: KinematicsState,
-  timestamp: number
-}
+export const DEFAULT_CONTROLLER = 'PhysXCar';
 
-export type CarControls = {
-  throttle: number,
-  steering: number,
-  brake: number,
-  handbrake: boolean,
-  is_manual_gear: boolean,
-  manual_gear: number,
-  gear_immediate: boolean
-}
+const DEFAULT_CAMERAS = [
+  'front_center',
+  'front_right',
+  'front_left',
+  'fpv',
+  'back_center',
+];
 
-export const DEFAULT_CAR_TYPE = 'PhysXCar';
-export const DEFAULT_CAR = 'Car1';
-
-// eslint-disable-next-line import/prefer-default-export
 export class Car extends Vehicle {
 
-  constructor(readonly name, type = DEFAULT_CAR_TYPE, pawnPath = '') {
-    super(name, type, pawnPath);
+  constructor(readonly name, controller = DEFAULT_CONTROLLER, pawnPath = '') {
+    super(name, controller, pawnPath);
   }
 
   getState(): Promise<CarState> {
@@ -42,5 +28,9 @@ export class Car extends Vehicle {
 
   setControls(controls: CarControls): Promise<void> {
     return this._session.setCarControls(controls, this.name) as Promise<void>;
+  }
+
+  getDefaultCameraNames(): Array<string> {
+    return DEFAULT_CAMERAS;
   }
 }

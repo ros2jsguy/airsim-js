@@ -1,59 +1,32 @@
-
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-useless-constructor */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-// import { Camera } from './camera';
-import { GeoPoint, Box2D, Box3D, Pose, Vector3r, Quaternionr, MathConverter, Pose3 } from './math';
-import { DistanceSensorData, LidarData } from './sensor';
+
+import { ImageRequest, ImageResponse, ImageType } from './image';
+import { CameraInfo, CollisionInfo, RGBA } from './internal-types';
+import { GeoPoint, MathConverter, Pose3 } from './math';
+import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData } from './sensor';
 import { Session } from './session';
 
-// TODO: convert to three.math
-export type DetectionInfo = {
-  name: string,
-  geoPoint: GeoPoint,
-  box2D: Box2D,
-  box3D: Box3D,
-  relativePose: Pose
-}
-
-// TODO: convert to three.math
-export type CollisionInfo = {
-  has_collided: boolean,
-  normal: Vector3r,
-  impact_point: Vector3r,
-  position: Vector3r,
-  penetration_depth: number,
-  time_stamp: number
-  object_name: string
-  object_id: number
-}
-
-// TODO: convert to three.math
-export type KinematicsState = {
-  position: Vector3r,
-  orientation: Quaternionr,
-  linear_velocity: Vector3r,
-  angular_velocity: Vector3r,
-  linear_acceleration: Vector3r,
-  angular_acceleration: Vector3r
-}
-
 export class Vehicle  {
-  // implements CameraManager {
 
   _session: Session;
-
-  // private _cameraManager: CameraManagerImpl;
 
   /**
    * Create vehicle
    * @param name - Name of the vehicle being created
-   * @param type - Type of vehicle, e.g. "simpleflight"
+   * @param flightController - Type of vehicle, e.g. "simpleflight"
    * @param pawnPath - Vehicle blueprint path, default empty wbich uses the
    *                    default blueprint for the vehicle type
    * @returns Whether vehicle was created
    */
-  // eslint-disable-next-line no-useless-constructor
-  constructor(readonly name, readonly type = '', readonly pawnPath = '') {
+  constructor(readonly name, readonly controller = '', readonly pawnPath = '') {
+  }
+
+  getDefaultCameraNames(): Array<string> {
+    return [];
   }
 
   /**
@@ -144,6 +117,17 @@ export class Vehicle  {
   }
 
   /**
+   * Modify the color and thickness of the line when tracing is enabled.
+   * Tracing can be enabled by pressing T in the Editor or
+   * setting `EnableTrace` to `True` in the Vehicle Settings
+   * @param color - the RGBA color
+   * @param thickness - 
+   */
+  setTraceLine(color: RGBA, thickness = 1.0): Promise<void> {
+    return this._session.simSetTraceLine(color, thickness, this.name);
+  }
+
+  /**
    * 
    * @param vehicleName 
    * @returns 
@@ -152,7 +136,19 @@ export class Vehicle  {
     return this._session.simGetCollisionInfo(this.name);
   }
 
-    /**
+  /**
+   * Get details about the vehicle camera.
+   * 
+   * Note if the cameraName is unknown to airsim, the server may crash.
+   * @param cameraName - Name of the camera, for backwards compatibility,
+   *                     ID numbers such as 0,1,etc. can also be used
+   * @returns A CameraInfo promise
+   */
+   getCameraInfo(cameraName: string | number): Promise<CameraInfo> {
+    return this._session.simGetCameraInfo(cameraName, this.name, true);
+  }
+
+  /**
    * Control the pose of a selected camera
    * @param cameraName - Name of the camera to be controlled
    * @param pose - Pose representing the desired position and orientation of the camera
@@ -177,27 +173,23 @@ export class Vehicle  {
    * @param external - Whether the camera is an External Camera
    * @returns Binary string literal of compressed png image
    */
-  getImage(cameraName: string, imageType = 0): Promise<unknown> {
+  getImage(cameraName: string, imageType = ImageType.Scene): Promise<unknown> {
     return this._session.simGetImage(cameraName, imageType, this.name, false);
   }
   
   /**
    * Get multiple images
    * See https://microsoft.github.io/AirSim/image_apis/ for details and examples
-   * @param requests (list[ImageRequest]): Images required
-   * @param vehicleName - Name of vehicle associated with the camera
-   * @param external - Whether the camera is an External Camera
-   * @returns list[ImageResponse]
+   * @param requests - Images required
+   * @returns The ImageResponse(s)
    */
-  // simGetImages(requests: ArrayLike<ImageRequest>, vehicleName = '', external = false): Promise<unknown> {
-  //   const responsesRaw = this.client.call('simGetImages', requests, vehicleName, external);
-  //   return [ImageResponse(response_raw) for response_raw in responses_raw]
-  // }
+  getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
+    return this._session.simGetImages(requests, this.name, false);
+  }
 
   /**
    * Access distance sensor data.
-   * @param distanceSensorName - Name of Distance Sensor to get data from, specified in settings.json
-   * @param vehicleName - Name of vehicle to which the sensor corresponds to
+   * @param distanceSensorName - Name of distance sensor to get data from, specified in settings.json
    * @returns The distance data
    */
   getDistanceSensorData(distanceSensorName = ''): Promise<DistanceSensorData> {
@@ -205,13 +197,42 @@ export class Vehicle  {
   }
   
   /**
-   * 
-   * @param lidarName 
-   * @param vehicleName 
-   * @returns 
+   * Access the data from a LIDAR sensor.
+   * @param lidarName - Name of IMU to get data from, specified in settings.json
+   * @returns The LIDAR sensor data
    */
   getLidarData(lidarName = ''): Promise<LidarData> {
     return this._session.getLidarData(lidarName, this.name) as Promise<LidarData>;
   }
 
+  /**
+   * Access the data from an IMU sensor.
+   * @param imuName - Name of IMU to get data from, specified in settings.json
+   * @returns The IMU sensor data
+   */
+  getImuData(imuName = ''): Promise<ImuData> {
+    return this._session.getImuData(imuName, this.name) as Promise<ImuData>;
+  }
+
+  /**
+   * Access the data from an magnetometer sensor.
+   * @param magnetometerName - Name of Magnetometer to get data from, specified in settings.json
+   * @returns The magnetometer sensor data
+   */
+  getMagnetometerData(magnetometerName = ''): Promise<MagnetometerData> {
+    return this._session.getMagnetometerData(magnetometerName, this.name);
+  }
+
+  /**
+   * Access the data from an barometer sensor.
+   * @param barometerName - Name of barometer to get data from, specified in settings.json
+   * @returns The barometer sensor data
+   */
+  getBarometerData(barometerName = ''): Promise<BarometerData> {
+    return this._session.getBarometerData(barometerName, this.name);
+  }
+
 }
+
+// todo impl
+// getGpsData

@@ -14,20 +14,20 @@ export enum ImageType {
 };
 
 export type ImageRequest = {
-  cameraName?: string,
-  imageType: ImageType,
-  pixelsAsFloat: boolean,
+  camera_name?: string,
+  image_type: ImageType,
+  pixels_as_float: boolean,
   compress: boolean
 }
 
 export type ImageResponse = {
-  image_data_uint8: Array<Uint8Array>,
+  image_data_uint8: Uint8Array,
   image_data_float: number,
   camera_position: Vector3r,
   camera_orientation: Quaternionr,
   time_stamp: number,
   message: string,
-  pixelsAsFloat: number,
+  pixel_as_floatloat: number,
   compress: boolean,
   width: number,
   height: number,

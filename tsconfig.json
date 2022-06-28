@@ -6,6 +6,7 @@
     "lib": ["ES2022"],
     "rootDir": ".",
     "outDir": "dist",
+    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "alwaysStrict": true,
@@ -22,5 +23,9 @@
   "include": [
     "src/**/*.ts",
     "tests/**/*.ts",
-    "examples**/*.ts" ]
+    "examples/**/*.ts" 
+   ],
+  "exclude": [
+    "unused/**/*.ts"
+  ]
 }

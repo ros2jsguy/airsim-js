@@ -3,18 +3,17 @@
 
 // Requires Blocks w/ Car1 setting
 
-import { AirSimClient } from '../src/airsim';
+import { AirSim } from '../src/airsim';
 import { Car } from '../src/car';
-import { CAR } from '../src/constants';
 import { Vehicle } from '../src/vehicle';
 
 async function main() {
 
-  const airsim = new AirSimClient(Vehicle);
+  const airsim = new AirSim(Vehicle);
   const connectResult = await airsim.connect();
   console.log(`Connecting: ${connectResult}`);
 
-  const vehicle = await airsim.getVehicle(CAR);
+  const vehicle = await airsim.getVehicles()[0];
   if (!vehicle) {
     console.error('Unable to locate car.');
     await airsim.close();
@@ -32,6 +31,8 @@ async function main() {
   const result = await airsim.addVehicle(car, pose3);
   console.log('new vehicle created: ', result);
   
+  await vehicle.disableApiControl();
+
   airsim.close();
 }
 

@@ -1,11 +1,11 @@
 
 /* eslint-disable no-console */
 
-import { AirSimClient } from 'airsim';
-import { Vehicle } from 'vehicle';
+import { AirSim } from '../src/airsim';
+import { Vehicle } from '../src/vehicle';
 
 async function main() {
-  const airsim = new AirSimClient(Vehicle);
+  const airsim = new AirSim(Vehicle);
   const connectResult = await airsim.connect();
   console.log(`Connecting: ${connectResult}`);
 ;
@@ -14,7 +14,6 @@ async function main() {
   const settings = await airsim.getSettingsString();
   console.log('settings: ', settings);
 
-  console.log('client connection.');
   airsim.close();
 }
 

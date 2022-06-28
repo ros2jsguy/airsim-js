@@ -21,11 +21,13 @@ async function main() {
   
   await vehicle.enableApiControl();
 
-  const dist = await vehicle.getDistanceSensorData('Distance');
-  console.log('dist: ', dist);
-  
+  const lidar = await vehicle.getLidarData('Lidar');
+  console.log('lidar: ', lidar);
+  console.log('point_cloud size: ', lidar.point_cloud.length);
+  lidar.point_cloud.forEach(element => console.log(element));
+    
   await vehicle.disableApiControl();
-  
+
   await Utils.delay(1000);
   airsim.close();
 }

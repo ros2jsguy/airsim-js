@@ -1,55 +1,56 @@
 /* eslint-disable prefer-arrow-callback */
 
-import { ok, notEqual, doesNotThrow } from 'assert';
-import { BasicClient } from '../src/clients/basic-client';
+import { ok } from 'assert';
+import { AirSim } from '../src/airsim';
+import { Vehicle } from '../src/vehicle';
 
 describe('Sim control tests', () => {
-  let client: BasicClient;
+  let airsim: AirSim<Vehicle>;
 
   before(async () => {
-    client = new BasicClient();
-    await client.connect();
+    airsim = new AirSim(Vehicle);
+    await airsim.connect();
   });
 
   beforeEach(async () => {
-    await client.simPause(false);
+    await airsim.pause();
   });
   
   afterEach(async () => {
-    await client.simPause(false);
+    await airsim.resume();
   });
 
   after(() => {
-    client.close();
+    airsim.close();
   });
 
   it('simPause() default param', async () => {
-    const paused = client.simIsPaused();
+    const paused = airsim.isPaused();
     ok(paused, 'Expected sim to be paused');
   });
 
   it('simPause(true/false)', async () => {
-    await client.simPause(true);
-    let paused = await client.simIsPaused();
+    await airsim.pause();
+    let paused = await airsim.isPaused();
     ok(paused, 'Expected sim to be paused');
 
-    await client.simPause(false);
-    paused = await client.simIsPaused();
+    await airsim.resume();
+    paused = await airsim.isPaused();
     ok(!paused, 'Expected sim to be active');
   });
 
   // eslint-disable-next-line func-names
   it('simContinueForTime', async function () {
-    await client.simPause(true);
-    let paused = await client.simIsPaused();
+    await airsim.pause();
+    let paused = await airsim.isPaused();
     ok(paused, 'Expected sim to be paused');
 
-    await client.simContinueForTime(1.0);
-    paused = await client.simIsPaused();
+    await airsim.continueForTime(1.0);
+    paused = await airsim.isPaused();
     ok(!paused, 'Expected sim to be active for 1 second');
 
     setTimeout(async () => {
-      paused = await client.simIsPaused();
+      paused = await airsim.isPaused();
       ok(paused, 'Expected sim to be paused after 1 seconds of execution');
     }, 1100);
     
@@ -57,14 +58,14 @@ describe('Sim control tests', () => {
 
   // eslint-disable-next-line func-names
   it('simContinueForFrames', async function () {
-    await client.simContinueForFrames(10);
-    let paused = await client.simIsPaused();
+    await airsim.continueForFrames(10);
+    let paused = await airsim.isPaused();
     ok(!paused, 'Expected sim to be active for 1 second');
 
     setTimeout(async () => {
-      paused = await client.simIsPaused();
+      paused = await airsim.isPaused();
       ok(paused, 'Expected sim to be paused after 1 seconds of execution');
-      client.close();
+      airsim.close();
     }, 500);
   });
 

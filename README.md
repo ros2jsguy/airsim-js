@@ -1,12 +1,11 @@
-# [Node-Typescript-Boilerplate](https://blog.santoshshinde.com/skeleton-for-node-js-apps-written-in-typescript-444fa1695b30)
-
-Skeleton for Node.js applications written in TypeScript
+A Nodejs AirSim client library 
 
 ## Purpose
 
-Our main purpose with this Skeleton is to start server application with node js and typescript.
+Use TypeScript/JavaScript to programmatically configure and control the
+Microsoft AirSim simulation environment and hosted virtual cars and
+multirotor vehicles.
 
-Try it!! I am happy to hear your feedback or any kind of new features.
 
 ## Common Features
 

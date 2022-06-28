@@ -1,11 +1,11 @@
 
 /* eslint-disable no-console */
 
-import { AirSimClient, LogSeverity } from 'airsim';
-import { Vehicle } from 'vehicle';
+import { AirSim, LogSeverity } from '../src/airsim';
+import { Vehicle } from '../src/vehicle';
 
 async function main() {
-  const airsim = new AirSimClient(Vehicle);
+  const airsim = new AirSim(Vehicle);
   
   console.log('Connecting');
   const result = await airsim.connect();

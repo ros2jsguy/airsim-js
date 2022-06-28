@@ -1,11 +1,11 @@
-
+/* eslint-disable new-cap */
 /* eslint-disable no-console */
-/* eslint-disable max-classes-per-file */
 
-// import { Camera, CameraManager, CameraManagerImpl } from './camera';
 import { Vector3 } from '@ros2jsguy/three-math-ts';
 import { DEFAULT_HOST_IP, DEFAULT_PORT } from './constants';
-import { Vector3r, GeoPoint, MathConverter, Pose3 } from './math';
+import {  ImageRequest, ImageResponse, ImageType } from './image';
+import { WeatherParameter, CameraInfo } from './internal-types';
+import { GeoPoint, MathConverter, Pose3 } from './math';
 import { Session } from './session';
 import { Vehicle } from './vehicle';
 
@@ -16,28 +16,6 @@ export enum LogSeverity {
   ERROR
 }
 
-// TODO: convert to three.math
-export type EnvironmentState = {
-  position: Vector3r,
-  geoPoint: GeoPoint,
-  gravity: Vector3r,
-  airPressure: number,
-  temperature: number
-  air_density: number
-}
-
-export enum WeatherParameter {
-  Rain = 0,
-  Roadwetness = 1,
-  Snow = 2,
-  RoadSnow = 3,
-  MapleLeaf = 4,
-  RoadLeaf = 5,
-  Dust = 6,
-  Fog = 7,
-  Enabled = 8,
-}
-
 type Constructor<T> = new (name: string) => T;
 
 /**
@@ -45,7 +23,7 @@ type Constructor<T> = new (name: string) => T;
  * https://github.com/microsoft/AirSim/blob/master/PythonClient/airsim/client.py
  */
 // eslint-disable-next-line import/prefer-default-export
-export class AirSimClient<T extends Vehicle>  {
+export class AirSim<T extends Vehicle>  {
 
   private _session: Session | undefined;
 
@@ -67,16 +45,19 @@ export class AirSimClient<T extends Vehicle>  {
     const result = await newSession.connect();
     if (result) {
       this._session = newSession;
-      this.init();
+      await this.init();
     }
     return result;
   }
 
-  private init(): void {
+  public async init(): Promise<void> {
     // load vehicles
-
-    // load cameras
-    // this._cameraManager = new CameraManager(this.session);
+    const vehicleNames = await this.session.listVehicles();
+    vehicleNames.forEach( name => {
+      const vehicle = new this.vehicleClass(name);
+      vehicle._session = this.session;
+      this._vehicles.set(name, vehicle);
+    });
   }
 
   hasSession(): boolean {
@@ -174,11 +155,18 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * Pauses simulation
-   * @param shouldPause - True (default) to pause the simulation, False to release
    * @returns A void promise to await on.
    */
-  pause(shouldPause = true): Promise<void> {
-    return this.session.simPause(shouldPause);
+  pause(): Promise<void> {
+    return this.session.simPause(true);
+  }
+
+  /**
+   * Resume simulation
+   * @returns A void promise to await on.
+   */
+   resume(): Promise<void> {
+    return this.session.simPause(false);
   }
 
   /**
@@ -228,7 +216,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Disable Weather effects. Needs to be called before using `setWeatherParameter` API
    * @returns A void promise to await on.
    */
-   disableWeather(): Promise<void> {
+  disableWeather(): Promise<void> {
     return this.session.simEnableWeather(false);
   }
 
@@ -307,6 +295,19 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
   
   /**
+   * Get details about the external camera.
+   * 
+   * Note if the cameraName is unknown to airsim, the server may crash.
+   * @param cameraName - Name of the camera, for backwards compatibility,
+   *                     ID numbers such as 0,1,etc. can also be used
+   * @returns A CameraInfo promise
+   */
+  getCameraInfo(cameraName: string | number): Promise<CameraInfo> {
+    return this.session.simGetCameraInfo(cameraName, undefined, true);
+  }
+
+
+  /**
    * Control the pose of a selected camera
    * @param cameraName - Name of the camera to be controlled
    * @param pose - Pose representing the desired position and orientation of the camera
@@ -318,24 +319,12 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
     this.session.simSetCameraPose(cameraName, MathConverter.toPose(pose), vehicleName, external);
   }
 
-  // getCameras(): Array<Camera> {
-  //   return Array.from(this._cameras.values());
-  // }
-
-  // getCamera(name: string): Camera | undefined {
-  //   return this._cameras.get(name);
-  // }
-
-  // hasCamera(name: string): boolean {
-  //   return this._cameras.has(name);
-  // }
-
   /**
    * 
    * @param regEx 
    * @returns 
    */
-  getSceneObjects(regEx = '.*'): Promise<Array<string>> {
+  getSceneObjectNames(regEx = '.*'): Promise<Array<string>> {
     return this.session.simListSceneObjects(regEx);
   }
 
@@ -430,37 +419,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @returns List containing names of all vehicles
    */
   async getVehicles() : Promise<Array<T>> {
-    const vehicleNames = await this.session.listVehicles();
-        
-    const vehicles: T[] = [];
-    vehicleNames.forEach(name => {
-      if (this._vehicles.has(name)) {
-        return this._vehicles.get(name);
-      }
-
-      // eslint-disable-next-line new-cap
-      const vehicle = new this.vehicleClass(name);
-      vehicle._session = this.session;
-      this._vehicles.set(name, vehicle);
-      vehicles.push(vehicle);
-      return vehicle;
-    });
-
-    // return vehicleNames.map((name) => {
-
-    //   if (this._vehicles.has(name)) {
-    //     return this._vehicles.get(name);
-    //   }
-
-    //   // eslint-disable-next-line new-cap
-    //   const vehicle = new this.vehicleClass(name);
-    //   vehicle._session = this.session;
-    //   this._vehicles.set(name, vehicle);
-
-    //   return vehicle;
-    // });
-
-    return vehicles;
+    return Array.from(this._vehicles.values());
   }
 
   async getVehicle(name: string): Promise<T | undefined> {
@@ -479,7 +438,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    */
    async addVehicle(vehicle: T, pose: Pose3): Promise<boolean> {
     const result = 
-      await this.session.simAddVehicle(vehicle.name, vehicle.type,
+      await this.session.simAddVehicle(vehicle.name, vehicle.controller,
             MathConverter.toPose(pose), vehicle.pawnPath) as boolean;
     if (result) this._vehicles.set(vehicle.name, vehicle);
     return result;
@@ -590,7 +549,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    *                    plotted. Should be in one-to-one correspondence
    *                    with the strings' list
    * @param scale - Font scale of transform name
-   * @param colorRGBA - desired RGBA values from 0.0 to 1.0
+   * @param colorRGBA - RGBA values from 0.0 to 1.0
    * @param duration - Duration (seconds) to plot for
    * @returns A void promise to await on. 
    */
@@ -602,18 +561,37 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * Plots a list of transforms in World NED frame.
-   * @param poses - array of Pose objects representing the transforms to plot
+   * @param poses - Pose objects representing the transforms to plot
    * @param scale - Length of transforms' axes
    * @param thickness -Thickness of transforms' axes
    * @param duration - Duration (seconds) to plot for
-   * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
-   * @returns 
+   * @param isPersistent - WHen true, the desired object will be plotted for infinite time.
+   * @returns  A void promise to await on.
    */
   plotTransforms(poses: Array<Pose3>, scale = 5.0, thickness = 5.0, 
         duration = -1.0, isPersistent = false): Promise<void> {
     const newPoses = poses.map(pose3 => MathConverter.toPose(pose3));
     return this.session.simPlotTransforms(newPoses, scale, thickness,
-                duration, isPersistent);
+                duration, isPersistent) as Promise<void>;
+  }
+
+  /**
+   * Plots a list of transforms with their names in World NED frame.
+   * @param poses - Pose objects representing the transforms to plot
+   * @param names - Strings with one-to-one correspondence to list of poses 
+   * @param scale - Length of transforms' axes
+   * @param thickness -Thickness of transforms' axes
+   * @param textScale - Font scale of transform name
+   * @param textColor - RGBA values from 0.0 to 1.0 for the transform name
+   * @param duration - Duration (seconds) to plot for
+   * @returns  A void promise to await on.
+   */
+   plotTransformsWithNames(poses: Array<Pose3>, names: Array<string>, scale = 5.0,
+        thickness = 5.0, textScale = 10.0, textColor = [1.0, 0.0, 0.0, 1.0],
+        duration = -1.0): Promise<void> {
+    const newPoses = poses.map(pose3 => MathConverter.toPose(pose3));
+    return this.session.simPlotTransformsWithNames(newPoses, names, scale, thickness,
+            textScale, textColor, duration) as Promise<void>;
   }
 
   /**
@@ -625,52 +603,33 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   testLineOfSightBetweenPoints(point1: GeoPoint, point2: GeoPoint): Promise<boolean> {
     return this._session.simTestLineOfSightBetweenPoints(point1, point2);
   }
+
+  /**
+   * Get a single image
+   * @param cameraName - Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
+   * @param imageType - Type of image required
+   * @param vehicleName - Name of the vehicle with the camera
+   * @param external - Whether the camera is an External Camera
+   * @returns Binary string literal of compressed png image
+   */
+  getImage(cameraName: string, imageType: ImageType): Promise<unknown> {
+    return this.session.simGetImage(cameraName, imageType, undefined, true) as Promise<unknown>;
+  }
+
+  /**
+   * Get multiple external images
+   * See https://microsoft.github.io/AirSim/image_apis/ for details and examples
+   * @param requests - Images required
+   * @returns The ImageResponse(s)
+   */
+   getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
+    return this._session.simGetImages(requests, undefined, true);
+  }
 }
 
-// class SessionImpl implements Session {
-  
-//   _client: MsgpackrpcClient;
-
-//   constructor(readonly port = DEFAULT_PORT, readonly ip = DEFAULT_HOST_IP) {
-//     this._client = new Client(TcpClient, port, ip);
-//   }
-
-//   private get client(): MsgpackrpcClient {
-//     return this._client;
-//   }
-
-//   connect(): Promise<boolean> {
-//     return this.client.connect() as Promise<boolean>;
-//   }
-
-//   call(method: string, ...params: unknown[]): Promise<unknown> {
-//     return this._client.call(method, ...params) as Promise<unknown>;
-//   }
-
-//   ping(): Promise<boolean> {
-//     return this.call('ping') as Promise<boolean>;
-//   }
-
-//   close(): void {
-//     this.client.close();
-//   }
-
-// }
-
-
+// TODO implement the following:
 // simSetTraceLine
 // simRunConsoleCommand
-// simGetImages
-// getImuData
-// getBarometerData
-// getMagnetometerData
-// getGpsData
-// getDistanceSensorData
-// getLidarData
-// simGetLidarSegmentation
-// getSettingsString
-// simPlotTransforms
-// simPlotTransformsWithNames
-// cancelLastTas
+// cancelLastTask
 
 
