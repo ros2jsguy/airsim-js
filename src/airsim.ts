@@ -29,16 +29,26 @@ export class AirSim<T extends Vehicle>  {
 
   private _vehicles: Map<string,T>;
 
-  // private _cameraManager: CameraManagerImpl;
-
-  // eslint-disable-next-line no-useless-constructor
+  /**
+   * Create an AirSim client.
+   * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
+   * hosted in an AirSim environment. When constructing a new AirSim
+   * client instance you must provide the class of Vehicle hosted by AirSim.
+   * @param vehicleClass - The type of vehicle hosted by the AirSim server
+   * @param port - The AirSim server port number
+   * @param ip - The AirSim server IP address
+   */
   constructor(
       private vehicleClass: Constructor<T>,
-      public port = DEFAULT_PORT,
+      public port: string | number = DEFAULT_PORT,
       public readonly ip = DEFAULT_HOST_IP) {
     this._vehicles = new Map<string, T>();
   }
 
+  /**
+   * 
+   * @returns 
+   */
   async connect(): Promise<boolean> {
     // eslint-disable-next-line no-use-before-define
     const newSession = new Session(this.port, this.ip);
@@ -50,7 +60,10 @@ export class AirSim<T extends Vehicle>  {
     return result;
   }
 
-  public async init(): Promise<void> {
+  /**
+   * 
+   */
+  protected async init(): Promise<void> {
     // load vehicles
     const vehicleNames = await this.session.listVehicles();
     vehicleNames.forEach( name => {
@@ -60,36 +73,66 @@ export class AirSim<T extends Vehicle>  {
     });
   }
 
+  /**
+   * 
+   * @returns 
+   */
   hasSession(): boolean {
     return !!this._session;
   }
 
+  /**
+   * 
+   */
   get session(): Session {
     if (this._session) return this._session;
     throw(new Error('No session available. Use connect() to create a session.'));
   }
 
+  /**
+   * 
+   * @returns 
+   */
   ping(): Promise<boolean> {
     return this.session.ping();
   }
 
+  /**
+   * 
+   */
   close(): void {
     this.session.close();
     this._session = undefined;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   getClientVersion(): number {
     return 1; // sync with C++ client
   }
 
+  /**
+   * 
+   * @returns 
+   */
   getServerVersion(): Promise<number> {
     return this.session.getServerVersion();
   }
 
+  /**
+   * 
+   * @returns 
+   */
   getMinRequiredServerVersion(): number {
     return 1; // sync with C++ client
   }
 
+  /**
+   * 
+   * @returns 
+   */
   getMinRequiredClientVersion(): Promise<number> {
     return this.session.getMinRequiredClientVersion();
   }
@@ -305,7 +348,6 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   getCameraInfo(cameraName: string | number): Promise<CameraInfo> {
     return this.session.simGetCameraInfo(cameraName, undefined, true);
   }
-
 
   /**
    * Control the pose of a selected camera

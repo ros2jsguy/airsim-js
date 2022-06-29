@@ -46,9 +46,9 @@ export class Multirotor extends Vehicle {
    *                     ID numbers such as 0,1,etc. can also be used
    * @returns A CameraInfo promise
    */
-     getDefaultCameraNames(): Array<string> {
-      return DEFAULT_CAMERAS;
-    }
+  getDefaultCameraNames(): Array<string> {
+    return DEFAULT_CAMERAS;
+  }
 
   /**
    * Takeoff vehicle to 3m above ground. Vehicle should not be moving when this API is used
@@ -63,7 +63,7 @@ export class Multirotor extends Vehicle {
    * Hover vehicle now.
    * @returns A void promise to await on.
    */
-   hover(): Promise<void> {
+  hover(): Promise<void> {
     return this._session.hover(this.name);
   }
 

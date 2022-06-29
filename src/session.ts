@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 
 
 import { Client, TcpClient } from '@ros2jsguy/msgpack-rpc-node';
@@ -12,39 +13,74 @@ import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData
 
 type MsgpackrpcClient = Client<TcpClient>;
 
-// eslint-disable-next-line import/prefer-default-export
+/**
+ * 
+ */
 export class Session {
   
   private _client: MsgpackrpcClient;
 
-  constructor(readonly port, readonly ip) {
-    this._client = new Client(TcpClient, port, ip);
+  /**
+   * 
+   * @param port 
+   * @param ip 
+   */
+  constructor(readonly port: string | number, readonly ip: string) {
+    this._client = 
+      new Client(TcpClient,
+      typeof port === 'string' ? parseInt(port, 10) : port,
+      ip);
   }
 
   private get client(): MsgpackrpcClient {
     return this._client;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   connect(): Promise<boolean> {
     return this.client.connect() as Promise<boolean>;
   }
 
+  /**
+   * 
+   * @param method 
+   * @param params 
+   * @returns 
+   */
   _call(method: string, ...params: unknown[]): Promise<unknown> {
     return this.client.call(method, ...params) as Promise<unknown>;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   ping(): Promise<boolean> {
     return this._call('ping') as Promise<boolean>;
   }
 
+  /**
+   * 
+   */
   close(): void {
     this.client.close();
   }
 
+  /**
+   * 
+   * @returns 
+   */
   getServerVersion(): Promise<number> {
     return this._call('getServerVersion') as Promise<number>;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   getMinRequiredClientVersion(): Promise<number> {
     return this._call('getMinRequiredClientVersion') as Promise<number>;
   }

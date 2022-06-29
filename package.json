@@ -1,11 +1,11 @@
 {
-  "name": "airsim-node",
+  "name": "airsim",
   "version": "0.1.0",
   "description": "Nodejs client for AirSim",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "scripts": {
-    "clean": "rimraf coverage dist",
+    "clean": "rimraf dist",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
     "build:release": "npm run clean && tsc -p tsconfig.release.json",
