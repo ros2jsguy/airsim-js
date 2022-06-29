@@ -20,9 +20,9 @@
   "author": "ros2jsguy [ros2jsguy@gmail.com]",
   "license": "Apache-2.0",
   "dependencies": {
+    "@ros2jsguy/msgpack-rpc-node": "^0.2.0",
     "@ros2jsguy/three-math-ts": "^0.127.2",
     "dotenv": "^16.0.0",
-    "msgpack-rpc-node": "file:../msgpack-rpc-node",
     "winston": "^3.7.2"
   },
   "devDependencies": {

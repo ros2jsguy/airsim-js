@@ -1,6 +1,6 @@
 
 
-import { Client, TcpClient } from 'msgpack-rpc-node';
+import { Client, TcpClient } from '@ros2jsguy/msgpack-rpc-node';
 import { ImageRequest, ImageResponse, ImageType } from './image';
 import { CameraInfo, CarControls, CarState, CollisionInfo, 
         DEFAULT_YAW_MODE, 
