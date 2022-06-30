@@ -5,6 +5,7 @@ dist/
 .project
 node_modules/
 build/
+docs/
 tmp/
 temp/
 /coverage/

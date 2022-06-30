@@ -56,7 +56,7 @@ export class Multirotor extends Vehicle {
    * @returns A boolean Promise
    */
   takeoff(timeoutSec = 20): Promise<boolean> {
-    return this._session.takeoff(timeoutSec, this.name) as Promise<boolean>;
+    return this._session.takeoff(timeoutSec, '') as Promise<boolean>;
   }
 
   /**
@@ -70,7 +70,6 @@ export class Multirotor extends Vehicle {
   /**
    * Land the vehicle.
    * @param timeoutSec - Timeout for the vehicle to land
-   * @param vehicleName - Name of the vehicle to send this command to
    * @returnsA boolean Promise
    */
   land(timeoutSec = 60): Promise<boolean> {
@@ -80,7 +79,6 @@ export class Multirotor extends Vehicle {
   /**
    * Return vehicle to Home i.e. Launch location
    * @param timeoutSec - Timeout for the vehicle to return home
-   * @param vehicleName - Name of the vehicle to send this command to
    * @returns Promise
    */
   goHome(timeoutSec = 3e+38): Promise<boolean> {
@@ -139,6 +137,19 @@ export class Multirotor extends Vehicle {
         adaptiveLookahead,
         this.name);
   }
+
+  /**
+   * Rotate to absolute yaw angle of home position in degrees.
+   * @param yaw - angle in degrees 
+   * @param timeoutSec - maximum time in seconds to complete manuever
+   * @param margin - +/- allowable error in degrees
+   * @returns Promise<true> on success
+   */
+  rotateToYaw(yaw: number, timeoutSec = 3e+38, margin = 5): Promise<unknown> {
+    return this._session.rotateToYaw(yaw, timeoutSec, margin, this.name);
+  }
+
+
 }
 
 

@@ -664,14 +664,26 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param requests - Images required
    * @returns The ImageResponse(s)
    */
-   getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
+  getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
     return this._session.simGetImages(requests, undefined, true);
+  }
+
+  /**
+   * Allows the client to execute a command in Unreal's native console, via an API.
+   * Affords access to the countless built-in commands such as "stat unit", "stat fps",
+   * "open [map]", adjust any config settings, etc. 
+   * Allows the user to create bespoke APIs very easily, by adding a custom event to
+   * the level blueprint, and then calling the console command "ce MyEventName [args]".
+   * No recompilation of AirSim needed!
+   * @param cmd - Unreal Engine Console command to run
+   * @returns Promise<true> if successful. 
+   */
+  runConsoleCommand(cmd: string): Promise<boolean> {
+    return this._session.simRunConsoleCommand(cmd);
   }
 }
 
 // TODO implement the following:
-// simSetTraceLine
-// simRunConsoleCommand
 // cancelLastTask
-
+// simSetObjectMaterialFromTexture
 

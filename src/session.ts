@@ -506,7 +506,21 @@ export class Session {
         textScale,
         textColor,
         duration) as Promise<void>;
-}
+  }
+
+  /**
+   * Allows the client to execute a command in Unreal's native console, via an API.
+   * Affords access to the countless built-in commands such as "stat unit", "stat fps",
+   * "open [map]", adjust any config settings, etc. 
+   * Allows the user to create bespoke APIs very easily, by adding a custom event to
+   * the level blueprint, and then calling the console command "ce MyEventName [args]".
+   * No recompilation of AirSim needed!
+   * @param cmd - Unreal Engine Console command to run
+   * @returns Promise<true> if successful. 
+   */
+  simRunConsoleCommand(cmd: string): Promise<boolean> {
+    return this._call('simRunConsoleCommand', cmd) as  Promise<boolean>;
+  }
 
   // Vehicle ---------------
 
@@ -827,6 +841,17 @@ export class Session {
         lookahead,
         adaptiveLookahead,
         vehicleName) as Promise<void>;
+  }
+
+  /**
+   * Rotate to absolute yaw angle of home position in degrees.
+   * @param yaw - angle in degrees 
+   * @param timeoutSec - maximum time in seconds to complete manuever
+   * @param margin - +/- allowable error in degrees
+   * @returns Promise<true> on success
+   */
+   rotateToYaw(yaw: number, timeoutSec = 3e+38, margin = 5, vehicleName = ''): Promise<unknown> {
+    return this._call('rotateToYaw', yaw, timeoutSec, margin, vehicleName) as Promise<unknown>;
   }
 }
 

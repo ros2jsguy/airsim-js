@@ -5,6 +5,7 @@ simulation environment and hosted virtual cars and multirotor vehicles from a No
 API is documented and super easy to use. To facilitate your learning a wide range of examples and AirSim
 settings files is provided.
 
+![Blocks World](blocks.png)
 # Quick Start
 You will need to have the Nodejs environment installed on your system to complete this Quick Start. 
 See [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for instructions.
