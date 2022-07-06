@@ -1,4 +1,4 @@
-# An AirSim client library
+# An AirSim client library for NodejsS
 
 Programmatically configure and control the [Microsoft AirSim](https://microsoft.github.io/AirSim/) 
 simulation environment and hosted virtual cars and multirotor vehicles from a Nodejs app. The TypeScript
