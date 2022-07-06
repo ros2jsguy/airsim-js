@@ -35,8 +35,8 @@ export class AirSim<T extends Vehicle>  {
    * hosted in an AirSim environment. When constructing a new AirSim
    * client instance you must provide the class of Vehicle hosted by AirSim.
    * @param vehicleClass - The type of vehicle hosted by the AirSim server
-   * @param port - The AirSim server port number
-   * @param ip - The AirSim server IP address
+   * @param port - The AirSim server port number, default = localhost
+   * @param ip - The AirSim server IP address, default = 41451
    */
   constructor(
       private vehicleClass: Constructor<T>,
@@ -46,8 +46,8 @@ export class AirSim<T extends Vehicle>  {
   }
 
   /**
-   * 
-   * @returns 
+   * Create a network connection to an AirSim server.
+   * @returns Promise<true> if successful.
    */
   async connect(): Promise<boolean> {
     // eslint-disable-next-line no-use-before-define
@@ -61,7 +61,8 @@ export class AirSim<T extends Vehicle>  {
   }
 
   /**
-   * 
+   * Initialize the internal state such as
+   * cache vehicles from an AirSim server.
    */
   protected async init(): Promise<void> {
     // load vehicles
@@ -74,15 +75,18 @@ export class AirSim<T extends Vehicle>  {
   }
 
   /**
-   * 
-   * @returns 
+   * Test if a Session with an AirSim server exists.
+   * @returns True if session exists.
    */
   hasSession(): boolean {
     return !!this._session;
   }
 
   /**
-   * 
+   * Access the Session with an AirSim server.
+   * Use `hasSession()` if you are not sure if the
+   * session has been created.
+   * @thows Error - When no session exists. 
    */
   get session(): Session {
     if (this._session) return this._session;
@@ -90,15 +94,16 @@ export class AirSim<T extends Vehicle>  {
   }
 
   /**
-   * 
-   * @returns 
+   * Ensure the AirSim server is reachable and active to respond to
+   * api requests.
+   * @returns Promise<true> on success.
    */
   ping(): Promise<boolean> {
     return this.session.ping();
   }
 
   /**
-   * 
+   * Close and shutdown the AirSim session.  
    */
   close(): void {
     this.session.close();
@@ -106,39 +111,39 @@ export class AirSim<T extends Vehicle>  {
   }
 
   /**
-   * 
-   * @returns 
+   * Get the client version number, an increaing sequence 1, 2, 3, ...
+   * @returns The client version number.
    */
   getClientVersion(): number {
     return 1; // sync with C++ client
   }
 
   /**
-   * 
-   * @returns 
+   * Get the AirSim server version number, an increaing sequence 1, 2, 3, ...
+   * @returns The server version number.
    */
   getServerVersion(): Promise<number> {
     return this.session.getServerVersion();
   }
 
   /**
-   * 
-   * @returns 
+   * Get the lowest compatible server version.
+   * @returns The minimum compatible server version.
    */
   getMinRequiredServerVersion(): number {
     return 1; // sync with C++ client
   }
 
   /**
-   * 
-   * @returns 
+   * Get the lowest compatible client version.
+   * @returns The minimum compatible client version. 
    */
   getMinRequiredClientVersion(): Promise<number> {
     return this.session.getMinRequiredClientVersion();
   }
 
   /**
-   * Checks state of connection and report in Console
+   * Checks state of connection and reports in Console
    * so user can see the progress for connection.
    */
   async confirmConnection(): Promise<void> {
@@ -170,8 +175,8 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * Reset the vehicle to its original starting state
-   * Note that you must call `enableApiControl` and `armDisarm` again after the call to reset
-   * @returns A void promise to await on.
+   * Note that you must call `enableApiControl()` and `arm()` again after the call to reset
+   * @returns A Promise<void> to await on.
    */
   reset(): Promise<void> {
     return this.session.reset();
@@ -183,30 +188,30 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * and in that case if this API is called with same message value
    * but different messageParam again then previous line is overwritten
    * with new line (instead of API creating new line on display).
-   * For example, `simPrintLogMessage("Iteration: ", i.toString())`
+   * For example, `printLogMessage("Iteration: ", i.toString())`
    * keeps updating same line on display when API is called with different
    * values of i. The valid values of severity parameter corresponds
    * to different colors.
    * @param message - Message to be printed
    * @param messageParam - Parameter to be printed next to the message
    * @param severity - The severity level of the message
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   printLogMessage(message: string, messageParam = '', severity = LogSeverity.INFO): Promise<void> {
     return this.session.simPrintLogMessage(message, messageParam, severity);
   }
 
   /**
-   * Pauses simulation
-   * @returns A void promise to await on.
+   * Pauses simulation execution. Use resume() to continue.
+   * @returns A Promise<void> to await on.
    */
   pause(): Promise<void> {
     return this.session.simPause(true);
   }
 
   /**
-   * Resume simulation
-   * @returns A void promise to await on.
+   * Resume simulation execution.
+   * @returns A Promise<void> to await on.
    */
    resume(): Promise<void> {
     return this.session.simPause(false);
@@ -214,7 +219,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * Returns true if the simulation is paused
-   * @returns Promise<true> if the simulation is paused
+   * @returns A Promise<true> if the simulation is paused
    */
   isPaused(): Promise<boolean> {
     return this.session.simIsPaused();
@@ -222,8 +227,8 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * Continue the simulation for the specified number of seconds
-   * @param seconds - Time to run the simulation for (float)
-   * @returns An empty promise to await on.
+   * @param seconds - Time (seconds) to run the simulation
+   * @returns A Promise<void> to await on.
    */
   continueForTime(seconds: number): Promise<void> {
     return this.session.simContinueForTime(seconds);
@@ -233,23 +238,24 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Continue (or resume if paused) the simulation for the specified number
    * of frames, after which the simulation will be paused.
    * @param frames - Frames to run the simulation for
-   * @returns An empty promise to await on.
+   * @returns A Promise<void> to await on.
    */
   continueForFrames(frames: number): Promise<void> {
     return this.session.simContinueForFrames(frames);
   }
 
   /**
-   * 
-   * @returns 
+   * Get a JSON string of the AirSim server settings.
+   * @see @Link{https://microsoft.github.io/AirSim/settings|AirSim setting discussion }
+   * @returns A JSON string.
    */
   getSettingsString(): Promise<string> {
     return this.session.getSettingsString();
   }
 
   /**
-   * Enable Weather effects. Needs to be called before using `setWeatherParameter` API
-   * @returns A void promise to await on.
+   * Enable Weather effects. Needs to be called before using `setWeatherParameter()` API
+   * @returns A Promise<void> to await on.
    */
   enableWeather(): Promise<void> {
     return this.session.simEnableWeather(true);
@@ -257,7 +263,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * Disable Weather effects. Needs to be called before using `setWeatherParameter` API
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   disableWeather(): Promise<void> {
     return this.session.simEnableWeather(false);
@@ -266,7 +272,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   /**
    * Set simulated wind, in World frame, NED direction, m/s
    * @param wind - Wind, in World frame, NED direction, in m/s
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   setWind(wind: Vector3): Promise<void> {
     return this.session.simSetWind(MathConverter.toVector3r(wind));
@@ -276,7 +282,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Enable various weather effects
    * @param param - Weather effect to be enabled
    * @param val - Intensity of the effect, Range 0-1
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   setWeatherParameter(param: WeatherParameter, val: number): Promise<void> {
     return this.session.simSetWeatherParameter(param, val);
@@ -284,10 +290,11 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 
   /**
    * 
-   * Control the position of Sun in the environment Sun's position is
-   * computed using the coordinates specified in `OriginGeopoint`
-   * in settings for the date-time specified in the argument,
-   * else if the string is empty, current date & time is used
+   * Control the position of Sun in the environment. 
+   * The Sun's position is computed using the coordinates
+   * specified in `OriginGeopoint` in settings for the
+   * date-time specified in the argument, else if the
+   * string is empty, current date & time is used
    * @param isEnabled - True to enable time-of-day effect, False to reset the position to original
    * @param startDatetime - Date & Time in %Y-%m-%d %H:%M:%S format, e.g. `2018-02-12 15:20:00`
    * @param isStartDatetimeDst - True to adjust for Daylight Savings Time
@@ -296,7 +303,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
                                                      so Sun will move in sky much faster
    * @param updateIntervalSecs - Interval to update the Sun's position
    * @param moveSun - Whether or not to move the Sun
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   setTimeOfDay(
       isEnabled: boolean,
@@ -331,7 +338,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Change intensity of named light
    * @param lightName - Name of light to change
    * @param intensity - New intensity value [0-1]
-   * @returns True if successful, otherwise False
+   * @returns Promise<true> if successful, otherwise False
    */
   setLightIntensity(lightName: string, intensity: number): Promise<boolean> {
     return this.session.simSetLightIntensity(lightName, intensity);
@@ -355,31 +362,31 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param pose - Pose representing the desired position and orientation of the camera
    * @param vehicleName - Name of vehicle which the camera corresponds to
    * @param external - Whether the camera is an External Camera
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   setCameraPose(cameraName: string, pose: Pose3, vehicleName = '', external = false): void {
     this.session.simSetCameraPose(cameraName, MathConverter.toPose(pose), vehicleName, external);
   }
 
   /**
-   * 
-   * @param regEx 
-   * @returns 
+   * Get a listing of the names of all objects that makeup the AirSim seem.
+   * @param regEx - A regex for filtering the names.
+   * @returns An array of object names.
    */
   getSceneObjectNames(regEx = '.*'): Promise<Array<string>> {
     return this.session.simListSceneObjects(regEx);
   }
 
   /**
-   * 
-   * @returns 
+   * The name of the assets that make up the scene.
+   * @returns An array of asset names.
    */
-  getAssets(): Promise<unknown> {
+  getAssets(): Promise<Array<string>> {
     return this.session.simListAssets();
   }
 
   /**
-   * Spawned selected object in the world
+   * Spawn a new instance of an existing sim object
    * @param objectName -  Desired name of new object
    * @param assetName - Name of asset(mesh) in the project database
    * @param pose - Desired pose of object
@@ -400,17 +407,17 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
 
   /**
-   * 
-   * @param objectName 
-   * @returns 
+   * Delete an object from the AirSim server environment.
+   * @param objectName - Name of object to delete
+   * @returns Promise<true> if success
    */
   destroyObject(objectName: string): Promise<boolean> {
     return this.session.simDestroyObject(objectName);
   }
 
   /**
-   * The position inside the returned Pose is in the world frame
-   * @param objectName 
+   * Get the pose of a simulation object in the world frame.
+   * @param objectName - The name of the object who's pose is being requested.
    * @returns The pose
    */
   async getObjectPose(objectName: string): Promise<Pose3 | undefined> {
@@ -422,19 +429,19 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Set the pose of the object(actor) in the environment
    * The specified actor must have Mobility set to movable,
    * otherwise there will be undefined behaviour.
-   * See https://www.unrealengine.com/en-US/blog/moving-physical-objects for
+   * @ see @link {https://www.unrealengine.com/en-US/blog/moving-physical-objects | moving phyical objects} for
    * details on how to set Mobility and the effect of Teleport parameter
    * @param objectName - Name of the object(actor) to move
    * @param pose - Desired Pose of the object
    * @param teleport - Whether to move the object immediately without affecting their velocity
-   * @returns If the move was successful
+   * @returns Promise<true> when the move was successful
    */
   setObjectPose(objectName: string, pose: Pose3, teleport = true): Promise<boolean> {
     return this.session.simSetObjectPose(objectName, MathConverter.toPose(pose), teleport);
   }
 
   /**
-   * Gets scale of an object in the world
+   * Gets scale of an object in the world frame
    * @param objectName - Object to get the scale of
    * @returns The object scale
    */
@@ -444,10 +451,10 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
 
   /**
-   * Sets scale of an object in the world
+   * Sets scale of an object in the world frame
    * @param objectName - Object to set the scale of
    * @param scaleVector - Desired scale of object
-   * @returns True if scale change was successful
+   * @returns Promise<true> when scale change was successful
    */
   setObjectScale(objectName: string, scaleVector: Vector3): Promise<boolean> {
     return this.session
@@ -457,13 +464,18 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
 
   /**
-   * Lists the names of current vehicles
+   * Lists the names of vehicles in the simulation.
    * @returns List containing names of all vehicles
    */
   async getVehicles() : Promise<Array<T>> {
     return Array.from(this._vehicles.values());
   }
 
+  /**
+   * Access a vehicle instance by name.
+   * @param name - The name of the vehicle.
+   * @returns The vehicle
+   */
   async getVehicle(name: string): Promise<T | undefined> {
     await this.getVehicles();
     return this._vehicles.get(name);
@@ -476,7 +488,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param pose - Initial pose of the vehicle
    * @param pawnPath - Vehicle blueprint path, default empty wbich uses the
    *                    default blueprint for the vehicle type
-   * @returns Whether vehicle was created
+   * @returns Promise<true> when vehicle was created
    */
    async addVehicle(vehicle: T, pose: Pose3): Promise<boolean> {
     const result = 
@@ -487,9 +499,9 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
 
   /**
-   * Clear any persistent markers - those plotted with setting 
-   * `isPersistent=true` in the APIs below
-   * @returns A void promise to await on.
+   * Clear any persistent markers from being displayed, 
+   * i.e., those plotted with parameter `isPersistent=true`
+   * @returns A Promise<void> to await on.
    */
   clearPersistentMarkers(): Promise<void> {
     return this.session.simFlushPersistentMarkers();
@@ -502,7 +514,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param size - Size of plotted point
    * @param duration -Duration (seconds) to plot for
    * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   plotPoints(points: Array<Vector3>, colorRGBA=[1.0, 0.0, 0.0, 1.0],
              size = 10.0, duration = -1.0, isPersistent = false): Promise<void> {
@@ -524,7 +536,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param thickness - Thickness of line
    * @param duration - Duration (seconds) to plot for
    * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   plotLineStrip(points: Array<Vector3>, colorRGBA=[1.0, 0.0, 0.0, 1.0], thickness = 5.0, duration = -1.0, 
                   isPersistent = false): Promise<void> {
@@ -547,7 +559,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param duration - Duration (seconds) to plot for
    * @param isPersistent - If set to True, the desired object will
    *                       be plotted for infinite time.
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   plotLineList(points: Array<Vector3>, colorRGBA=[1.0, 0.0, 0.0, 1.0], thickness = 5.0,
        duration = -1.0, isPersistent = false): Promise<void> {
@@ -572,7 +584,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param arrowSize - Size of arrow head
    * @param duration - Duration (seconds) to plot for
    * @param isPersistent - If set to true, the desired object will be plotted for infinite time.
-   * @returns A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
   plotArrows(pointsStart: Array<Vector3>, pointsEnd: Array<Vector3>, 
                 colorRGBA=[1.0, 0.0, 0.0, 1.0],
@@ -593,7 +605,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param scale - Font scale of transform name
    * @param colorRGBA - RGBA values from 0.0 to 1.0
    * @param duration - Duration (seconds) to plot for
-   * @returns A void promise to await on. 
+   * @returns A Promise<void> to await on. 
    */
   plotStrings(strings: Array<string>, positions: Array<Vector3>,
                  scale = 5, colorRGBA=[1.0, 0.0, 0.0, 1.0], duration = -1.0): Promise<void> {
@@ -608,7 +620,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param thickness -Thickness of transforms' axes
    * @param duration - Duration (seconds) to plot for
    * @param isPersistent - WHen true, the desired object will be plotted for infinite time.
-   * @returns  A void promise to await on.
+   * @returns  A Promise<void> to await on.
    */
   plotTransforms(poses: Array<Pose3>, scale = 5.0, thickness = 5.0, 
         duration = -1.0, isPersistent = false): Promise<void> {
@@ -626,7 +638,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param textScale - Font scale of transform name
    * @param textColor - RGBA values from 0.0 to 1.0 for the transform name
    * @param duration - Duration (seconds) to plot for
-   * @returns  A void promise to await on.
+   * @returns A Promise<void> to await on.
    */
    plotTransformsWithNames(poses: Array<Pose3>, names: Array<string>, scale = 5.0,
         thickness = 5.0, textScale = 10.0, textColor = [1.0, 0.0, 0.0, 1.0],
@@ -652,14 +664,14 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param imageType - Type of image required
    * @param vehicleName - Name of the vehicle with the camera
    * @param external - Whether the camera is an External Camera
-   * @returns Binary string literal of compressed png image
+   * @returns Uint8Array of compressed png image
    */
-  getImage(cameraName: string, imageType: ImageType): Promise<unknown> {
-    return this.session.simGetImage(cameraName, imageType, undefined, true) as Promise<unknown>;
+  getImage(cameraName: string, imageType: ImageType): Promise<Uint8Array> {
+    return this.session.simGetImage(cameraName, imageType, undefined, true) as Promise<Uint8Array>;
   }
 
   /**
-   * Get multiple external images
+   * Get images from 1 or more cameras.
    * See https://microsoft.github.io/AirSim/image_apis/ for details and examples
    * @param requests - Images required
    * @returns The ImageResponse(s)
@@ -684,6 +696,5 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
 }
 
 // TODO implement the following:
-// cancelLastTask
 // simSetObjectMaterialFromTexture
 

@@ -9,8 +9,13 @@ async function main() {
   const connectResult = await airsim.connect();
   console.log(`Connecting: ${connectResult}`);
 
-  const names = await airsim.getSceneObjectNames();
-  names.forEach(name => console.log(name));
+
+  const img = await airsim.session.simGetImage('0', 3);
+  console.log(img);
+
+
+  // const names = await airsim.getSceneObjectNames();
+  // names.forEach(name => console.log(name));
 
   // console.log('foobar: ', await airsim.getSceneObjectNames('foobar'));
   // console.log('pose: ', await airsim.getObjectPose('PhysXCar_camera_driver'));
@@ -19,8 +24,8 @@ async function main() {
   // const info1 = await airsim.session.simGetCameraInfo('fixed1', '', true);
   // console.log('cameraInfo:', info1);
 
-  const info1 = await airsim.session.simGetCameraInfo('cam1', 'Car1', false);
-  console.log('cameraInfo:', info1);
+  // const info1 = await airsim.session.simGetCameraInfo('cam1', 'Car1', false);
+  // console.log('cameraInfo:', info1);
 
   // const info2 = await airsim.session.simGetCameraInfo(0, 'Car2', false);
   // console.log('cameraInfo:', info2);

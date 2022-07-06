@@ -1,5 +1,6 @@
 
 /* eslint-disable no-console */
+/* eslint-disable no-plusplus */
 // Requires Blocks w/ Car1 settings
 
 import { AirSim } from '../src/airsim';
@@ -12,7 +13,7 @@ async function main() {
   const connectResult = await airsim.connect();
   console.log(`Connecting: ${connectResult}`);
 
-  const vehicle = await airsim.getVehicles()[0];
+  const vehicle = (await airsim.getVehicles())[0];
   if (!vehicle) {
     console.error('Unable to locate car.');
     await airsim.close();
@@ -22,9 +23,12 @@ async function main() {
   await vehicle.enableApiControl();
 
   const lidar = await vehicle.getLidarData('Lidar');
-  console.log('lidar: ', lidar);
-  console.log('point_cloud size: ', lidar.point_cloud.length);
-  lidar.point_cloud.forEach(element => console.log(element));
+  console.log('lidar: ', lidar.point_cloud.length);
+  for (let i=0; i < lidar.point_cloud.length / 3; i++) {
+    console.log( lidar.point_cloud[i * 3],  lidar.point_cloud[i * 3 + 1],  lidar.point_cloud[i * 3 + 2]);
+  }
+  // console.log('point_cloud size: ', lidar.point_cloud.length);
+  // lidar.point_cloud.forEach(element => console.log(element));
     
   await vehicle.disableApiControl();
 

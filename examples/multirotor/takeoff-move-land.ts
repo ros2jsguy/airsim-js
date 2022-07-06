@@ -14,7 +14,7 @@ async function main() {
   const result = await airsim.connect();
   console.log('connected: ', result);
 
-  await airsim.reset();
+  // await airsim.reset();
 
   const drones = await airsim.getVehicles();
   if (drones.length < 1) {
@@ -51,7 +51,7 @@ async function main() {
   console.log('Landing');
   await drone.moveToZ(-2, 5);
   await drone.moveToZ(0.01, 0.5);
-  await drone.land();
+  console.log('landing: ', await drone.land());
 
   await waitKey('Landed! Press any key to quit');
   console.log('drone state: ', await drone.getState());

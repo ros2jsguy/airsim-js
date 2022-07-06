@@ -1,16 +1,17 @@
+/* eslint-disable no-console */
 import { AirSim } from '../src/airsim';
+import { ImageType } from '../src/image';
 import * as Utils from '../src/utils';
 import { Vehicle } from '../src/vehicle';
-import { ImageType } from '../src/image';
 
 async function main() {
   const airsim = new AirSim(Vehicle, undefined, '10.249.1.223');
   
   console.log('Connecting');
-  let result = await airsim.connect();
+  const result = await airsim.connect();
   console.log('connected: ', result);
 
-  const img = await airsim.getImage('0', ImageType.Scene);
+  const img = await airsim.getImage('front_center', ImageType.Scene);
   console.log('image: ', img);
 
   await Utils.delay(1000);

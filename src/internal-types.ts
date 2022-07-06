@@ -60,6 +60,9 @@ export type CameraInfo = {
   proj_mat: ProjectionMatrix
   }
 
+/**
+ * 
+ */
 export type CarState = {
   speed: number,
   gear: number,
@@ -71,6 +74,9 @@ export type CarState = {
   timestamp: number
 }
 
+/**
+ * Car control settings
+ */
 export type CarControls = {
   throttle: number,
   steering: number,
@@ -91,23 +97,39 @@ export const DEFAULT_CAR_CONTROLS: CarControls = {
   gear_immediate: true
 };
 
+/**
+ * Represents a multirotor landed/flying state
+ */
 export enum LandedState {
   Landed = 0,
   Flying = 1
 }
 
+/**
+ * Defines 2 modes for Yaw setting, a rate (deg/s) or an angle (deg).
+ */
 export type YawMode = {
-is_rate: boolean,
-yaw_or_rate: number
+  /** A selector for specifying if yaw_or_rate is a angle (deg) or a rate (deg/s) */
+  is_rate: boolean,
+
+  /** The yaw rate (deg/s) or yaw position in degrees */
+  yaw_or_rate: number
 }
 
+/** The default yaw mode is a rate of 0 deg/s */
 export const DEFAULT_YAW_MODE: YawMode = {
   is_rate: true,
   yaw_or_rate: 0
 };
 
+/**
+ * Specifies how a multirotor drivetrain can be used.
+ */
 export enum DrivetrainType {
+  /** Enables yaw to be independent of direction of flight */
   MaxDegreeOfFreedom = 0,
+
+  /** Locks yaw to the same direction as flight path. */
   ForwardOnly = 1
 }
 

@@ -6,12 +6,44 @@
     "Car1": {
       "VehicleType": "PhysXCar",
       "X": 0, "Y": 0, "Z": -2,
+      "EnableTrace": true,
+      "Sensors": {
+        "Distance": {
+            "SensorType": 5,
+            "Enabled" : true,
+            "DrawDebugPoints": true
+        },
+        "Lidar": {
+          "SensorType": 6,
+          "Enabled" : true,
+          "NumberOfChannels": 4,
+          "RotationsPerSecond": 10,
+          "PointsPerSecond": 10000,
+          "X": 0, "Y": 0, "Z": -1,
+          "Roll": 0, "Pitch": 0, "Yaw" : 0,
+          "VerticalFOVUpper": 0,
+          "VerticalFOVLower": 0,
+          "HorizontalFOVStart": -30,
+          "HorizontalFOVEnd": 30,
+          "DrawDebugPoints": true
+        }
+      },
       "Cameras": {
         "cam1": {
-            "X": -1, "Y": -1, "Z": -10,
-            "Pitch": -90, "Roll": 0, "Yaw": 0
+            "X": 0, "Y": 0, "Z": -2,
+            "Pitch": 10, "Roll": 0, "Yaw": 0,
+            "CaptureSettings": [
+                {
+                  "ImageType": 3,
+                  "Width": 256,
+                  "Height": 144
+                }
+              ]
         }
       }
     }
-  }
+  },
+  "SubWindows": [
+    {"WindowID": 0, "ImageType": 3, "CameraName": "0", "Visible": true}
+  ]
 }
