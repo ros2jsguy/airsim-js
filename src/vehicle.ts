@@ -32,7 +32,7 @@ export class Vehicle  {
 
   /**
    * Access the names of the default cameras.
-   * @see {@linkhttps://microsoft.github.io/AirSim/image_apis/#available_cameras|default cameras}
+   * @see {@link https://microsoft.github.io/AirSim/image_apis/#available_cameras|default cameras}
    * @returns The camera names for this type of vehicle.
    */
   getDefaultCameraNames(): Array<string> {

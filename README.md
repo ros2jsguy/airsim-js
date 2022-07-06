@@ -5,7 +5,7 @@ simulation environment and hosted virtual cars and multirotor vehicles from a No
 API is documented and super easy to use. To facilitate your learning a wide range of examples and AirSim
 settings files is provided.
 
-![Blocks World](blocks.png)
+![Blocks World](./blocks.png)
 # Quick Start
 You will need to have the Nodejs environment installed on your system to complete this Quick Start. 
 See [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for instructions.
@@ -137,9 +137,9 @@ command/control api include: `takeoff()`, `hover()`,
 Similar to Car, a multirotor instance can be created dynamically and added to an AirSim environment. Key classes when working with multirotors incldue
 `Multirotor`, `MultirotorState`, `RotorStates`, `Camera`.
 
-# Examples
+# Examples, How-To's, FAQ
 
-TBD
+See the [AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki) for additional information.
 
 
 
