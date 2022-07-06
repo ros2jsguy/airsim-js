@@ -5,7 +5,6 @@ dist/
 .project
 node_modules/
 build/
-docs/
 tmp/
 temp/
 /coverage/
@@ -13,6 +12,5 @@ temp/
 logs/
 
 # don't check in  env files
-.env.prod
-.env.staging
+.env*
 **/.DS_Store
