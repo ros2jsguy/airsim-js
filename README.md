@@ -143,6 +143,15 @@ task-oriented api include: `takeoff()`, `hover()`,
 Similar to Car, a multirotor instance can be created dynamically and added to an AirSim environment. Key classes when working with multirotors incldue
 `Multirotor`, `MultirotorState`, `RotorStates`, `Camera` and the various sensor data .
 
+### Math
+The api uses the [Three.js](https://threejs.org/docs/index.html) math module for the following classes:
+* [Box2](https://threejs.org/docs/index.html#api/en/math/Box2)
+* [Box3](https://threejs.org/docs/index.html#api/en/math/Box3)
+* [Euler](https://threejs.org/docs/index.html#api/en/math/Euler)
+* [Quaternion](https://threejs.org/docs/index.html#api/en/math/Quaternion)
+* [Vector2](https://threejs.org/docs/index.html#api/en/math/Vector2)
+* [Vector3](https://threejs.org/docs/index.html#api/en/math/Vector3) 
+
 # Examples, How-To's, FAQ
 
 [AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki)    
