@@ -144,20 +144,20 @@ Similar to Car, a multirotor instance can be created dynamically and added to an
 `Multirotor`, `MultirotorState`, `RotorStates`, `Camera` and the various sensor data .
 
 ### Math
-The api uses the [Three.js](https://threejs.org/docs/index.html) math module for the following classes:
-* [Box2](https://threejs.org/docs/index.html#api/en/math/Box2)
-* [Box3](https://threejs.org/docs/index.html#api/en/math/Box3)
-* [Euler](https://threejs.org/docs/index.html#api/en/math/Euler)
-* [Quaternion](https://threejs.org/docs/index.html#api/en/math/Quaternion)
-* [Vector2](https://threejs.org/docs/index.html#api/en/math/Vector2)
-* [Vector3](https://threejs.org/docs/index.html#api/en/math/Vector3) 
+The api uses a standalone TypeScript version of the [Three.js](https://threejs.org/docs/index.html) math module for the following classes:
+* [Box2](https://ros2jsguy.github.io/three.math/classes/Box2.html)
+* [Box3](https://ros2jsguy.github.io/three.math/classes/Box3.html)
+* [Euler](https://ros2jsguy.github.io/three.math/classes/Euler.html)
+* [Quaternion](https://ros2jsguy.github.io/three.math/classes/Quaternion.html)
+* [Vector2](https://ros2jsguy.github.io/three.math/classes/Vector2.html)
+* [Vector3](https://ros2jsguy.github.io/three.math/classes/Vector3.html)
 
-# Examples, How-To's, FAQ
-
+Additional three.js math classes are available for your application use. You can find more information including my updated fork of the three-math-ts library [here](https://ros2jsguy.github.io/three.math/index.html).
+# Examples, How-To's, FAQ - *work in progress*
 [AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki)    
 [API documentation](https://ros2jsguy.github.io/airsim-node/)
 
-
+</br>
 
 # Team
 Please connect with me on Twitter [@ros2jsguy](https://twitter.com/ros2jsguy) & [https://medium.com/@ros2jsguy](https://medium.com/@ros2jsguy)
