@@ -24,8 +24,7 @@ npx tsc -init
 Create a file named `ping.ts` and add the following code.
 ```typescript
 // ping.ts - Runs AirSim ping command
-import { AirSim } from '../src/airsim';
-import { Vehicle } from '../src/vehicle';
+import { AirSim, Vehicle } from 'airsim';
 
 async function main() {
   // create airsim client; assumes AirSim server is on localhost

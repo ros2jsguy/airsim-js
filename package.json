@@ -1,6 +1,6 @@
 {
   "name": "airsim",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nodejs client for AirSim",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
@@ -23,6 +23,7 @@
     "@ros2jsguy/msgpack-rpc-node": "^0.2.0",
     "@ros2jsguy/three-math-ts": "^0.127.2",
     "dotenv": "^16.0.0",
+    "tslib": "^2.4.0",
     "winston": "^3.7.2"
   },
   "devDependencies": {
@@ -38,7 +39,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
     "mocha": "^10.0.0",
-    "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "rimraf": "~3.0",
     "supertest": "^6.2.3",
