@@ -51,7 +51,7 @@ export type Pose3 = {
 
 export class MathConverter {
 
-  // eslint-disable-next-line no-useless-constructor
+  // eslint-disable-next-line no-useless-constructor, @typescript-eslint/no-empty-function
   private constructor() {}
 
   static toVector2(v2r: Vector2r): Vector2 {

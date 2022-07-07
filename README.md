@@ -73,19 +73,24 @@ Bingo! you've just developed your first AirSim client application.
 
 See the wide range of exmples on github.
 
-# API
+# API Overview
 The majority of the AirSim api is Promise-based as communications with
 an AirSim server is via msgpack-rpc over a TCP socket. The main components
 you'll work with and their relationships are shown below.
 ```
 
-    AirSim ---uses---> Vehicle
-      |                /   ^
-     uses             / inherits
-      v              /     |
-   Session<---uses--/   --------
-                        |      |
-                       Car  Multirotor
+    AirSim ---uses---> Vehicle               CarState           BarometerData
+      |                /   ^                 CarControls        DistanceSensorData
+     uses             / inherits             CollisionInfo      GpsData
+      v              /     |                 CameraInfo         ImuData
+   Session<---uses--/   --------             ImageType          LidarData
+                        |      |             ImageRequest       Box2
+                       Car  Multirotor       ImageResponse      Box3
+                                             KinematicsState    Vector2
+                                             MultirotorState    Vector3
+                                             DrivetrainType     Pose3
+                                             LandedState
+                                             YawMode
 ```
 
 ### AirSim
@@ -117,29 +122,31 @@ The Session class is a gateway for converting API function calls into msgpack-rp
 after the [AirSim Python client](https://github.com/microsoft/AirSim/blob/master/PythonClient/airsim/client.py). When needed use the low-level Session `_call()` method to interact directly at the msgpack-rpc layer.
 
 ### Vehicle
-The Vehicle class provides the common properties and behaviors for all AirSim vehicles such as a unique name,api control, 
-pose and location, sensor data access, collision detection, camera access and control, 
+The Vehicle class provides the common properties and behaviors for all AirSim vehicles such as a name, api control, 
+position and orientation, sensor data access, collision detection, camera information and requesting images. 
 
 **NOTE**
-When accessing a vehicle's cameras with `getCameraInfo(cameraName)`, only use valid camera names. Otherwise typically results in the AirSim environment crashing. Use `Vehicle.getDefaultCameraNames()` for a list of valid camera names. 
+When accessing a vehicle's cameras with `getCameraInfo(cameraName)`, only use valid camera names. Using an unknown camera name frequently results in the AirSim environment crashing. Use `Vehicle.getDefaultCameraNames()` for a list of valid camera names. 
 
 ### Car
 The Car class extends Vehicle with API for accessing a car's state
-and controlling its movement. Additionally can create
-new Car instances and dynamically add them to an AirSim environment. Key classes for working with cars are `Car`, `CarState`, `CarControl` and `CameraInfo`.
-
+and controlling its movement. Additionally can create new Car instances 
+and dynamically add them to an AirSim environment. Key classes for working 
+with cars are `Car`, `CarState`, `CarControls` and sensor data access such 
+as `LidarData`.
  
 ### MultiRotor, aka Drone
 The Multirotor class extends Vehicle with API for accessing a drone's state and controlling its movement. High-level 
-command/control api include: `takeoff()`, `hover()`, 
+task-oriented api include: `takeoff()`, `hover()`, 
 `moveToPosition()`, `goHome()` and `land()`.
 
 Similar to Car, a multirotor instance can be created dynamically and added to an AirSim environment. Key classes when working with multirotors incldue
-`Multirotor`, `MultirotorState`, `RotorStates`, `Camera`.
+`Multirotor`, `MultirotorState`, `RotorStates`, `Camera` and the various sensor data .
 
 # Examples, How-To's, FAQ
 
-See the [AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki) for additional information.
+[AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki)    
+[API documentation](https://ros2jsguy.github.io/airsim-node/)
 
 
 
