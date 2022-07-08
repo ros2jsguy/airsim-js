@@ -1,3 +1,3 @@
 
-AirSim server must be running on localhost with default ports.
+TODO: impl workflow that starts an airsim simulation and then runs a basic test suite against it.
 
