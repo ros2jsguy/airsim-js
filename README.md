@@ -154,7 +154,7 @@ The api uses a standalone TypeScript version of the [Three.js](https://threejs.o
 Additional three.js math classes are available for your application use. You can find more information including my updated fork of the three-math-ts library [here](https://ros2jsguy.github.io/three.math/index.html).
 # Examples, How-To's, FAQ - *work in progress*
 [AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki)    
-[API documentation](https://ros2jsguy.github.io/airsim-node/)
+[API documentation](https://ros2jsguy.github.io/airsim-node/api)
 
 </br>
 
