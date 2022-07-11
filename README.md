@@ -3,7 +3,9 @@
 Programmatically configure and control the [Microsoft AirSim](https://microsoft.github.io/AirSim/) 
 simulation environment and hosted virtual cars and multirotor vehicles from a Nodejs app. The TypeScript
 API is documented and super easy to use. To facilitate your learning a wide range of examples and AirSim
-settings files is provided.
+settings files is provided.    
+
+**Note - this package was renamed from `airsim` to `airsim-js` on 20220711.**
 
 ![Blocks World](./blocks.png)
 # Quick Start
@@ -16,7 +18,7 @@ Create and intialize a Nodejs TypeScript package. Begin by entering the followin
 mkdir airsim-ping
 cd airsim-ping
 npm init -y
-npm i airsim
+npm i airsim-js
 npm i typescript @types/node --save-dev
 npx tsc -init
 ```
@@ -24,7 +26,7 @@ npx tsc -init
 Create a file named `ping.ts` and add the following code.
 ```typescript
 // ping.ts - Runs AirSim ping command
-import { AirSim, Vehicle } from 'airsim';
+import { AirSim, Vehicle } from 'airsim-js';
 
 async function main() {
   // create airsim client; assumes AirSim server is on localhost
@@ -68,12 +70,12 @@ Client Ver: 1 (Min Req: 1)
 Server Ver: 1 (Min Req: 1)
 ```
 
-Bingo! you've just developed your first AirSim client application.
+Bingo! you've just developed your first AirSim-js client application.
 
 See the wide range of exmples on github.
 
 # API Overview
-The majority of the AirSim api is Promise-based as communications with
+The majority of the AirSim-js api is Promise-based as communications with
 an AirSim server is via msgpack-rpc over a TCP socket. The main components
 you'll work with and their relationships are shown below.
 ```
@@ -101,6 +103,8 @@ knows the proper type of Vehicle to construct and return.
 
 Examples:
 ```typescript
+  import { AirSim } from 'airsim-js';
+
   // minimal parameters, default IP (localhost) and port (41451)
   let airsim = new AirSim(Vehicle);
   let airsim = new AirSim(Car);
@@ -122,7 +126,12 @@ after the [AirSim Python client](https://github.com/microsoft/AirSim/blob/master
 
 ### Vehicle
 The Vehicle class provides the common properties and behaviors for all AirSim vehicles such as a name, api control, 
-position and orientation, sensor data access, collision detection, camera information and requesting images. 
+position and orientation, sensor data access, collision detection, camera information and requesting images.    
+
+example import
+```
+  import { Vehicle } from 'airsim-js';
+```
 
 **NOTE**
 When accessing a vehicle's cameras with `getCameraInfo(cameraName)`, only use valid camera names. Using an unknown camera name frequently results in the AirSim environment crashing. Use `Vehicle.getDefaultCameraNames()` for a list of valid camera names. 
@@ -132,15 +141,25 @@ The Car class extends Vehicle with API for accessing a car's state
 and controlling its movement. Additionally can create new Car instances 
 and dynamically add them to an AirSim environment. Key classes for working 
 with cars are `Car`, `CarState`, `CarControls` and sensor data access such 
-as `LidarData`.
- 
+as `LidarData`.    
+</b>
+example import
+```
+  import { Car } from 'airsim-js';
+```
+
 ### MultiRotor, aka Drone
 The Multirotor class extends Vehicle with API for accessing a drone's state and controlling its movement. High-level 
 task-oriented api include: `takeoff()`, `hover()`, 
 `moveToPosition()`, `goHome()` and `land()`.
 
 Similar to Car, a multirotor instance can be created dynamically and added to an AirSim environment. Key classes when working with multirotors incldue
-`Multirotor`, `MultirotorState`, `RotorStates`, `Camera` and the various sensor data .
+`Multirotor`, `MultirotorState`, `RotorStates`, `Camera` and the various sensor data.    
+</b>
+example import
+```
+  import { Multirotor } from 'airsim-js';
+```
 
 ### Math
 The api uses a standalone TypeScript version of the [Three.js](https://threejs.org/docs/index.html) math module for the following classes:
@@ -153,8 +172,8 @@ The api uses a standalone TypeScript version of the [Three.js](https://threejs.o
 
 Additional three.js math classes are available for your application use. You can find more information including my updated fork of the three-math-ts library [here](https://ros2jsguy.github.io/three.math/index.html).
 # Examples, How-To's, FAQ - *work in progress*
-[AirSim-Node wiki](https://github.com/ros2jsguy/airsim-node/wiki)    
-[API documentation](https://ros2jsguy.github.io/airsim-node/api)
+[AirSim-js wiki](https://github.com/ros2jsguy/airsim-js/wiki)    
+[API documentation](https://ros2jsguy.github.io/airsim-js/api)
 
 </br>
 

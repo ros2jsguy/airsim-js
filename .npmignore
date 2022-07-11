@@ -8,3 +8,4 @@ tsconfig*
 .git*
 .husky
 .prettier*
+examples/test.ts

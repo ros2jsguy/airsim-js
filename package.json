@@ -1,6 +1,6 @@
 {
-  "name": "airsim",
-  "version": "0.1.3",
+  "name": "airsim-js",
+  "version": "0.1.4",
   "description": "Client library for Microsoft AirSim Simulator",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
@@ -30,10 +30,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ros2jsguy/airsim-node.git"
+    "url": "git+https://github.com/ros2jsguy/airsim-js.git"
   },
   "bugs": {
-    "url": "https://github.com/ros2jsguy/airsim-node/issues"
+    "url": "https://github.com/ros2jsguy/airsim-js/issues"
   },
   "dependencies": {
     "@ros2jsguy/msgpack-rpc-node": "^0.2.0",
