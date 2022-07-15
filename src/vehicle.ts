@@ -5,8 +5,8 @@
 
 
 import { ImageRequest, ImageResponse, ImageType } from './image';
-import { CameraInfo, CollisionInfo, RGBA } from './internal-types';
-import { GeoPoint, MathConverter, Pose3 } from './math';
+import { CameraInfo, CollisionInfo, DetectionInfo, DetectionSearch, EnvironmentState, GeoPoint, KinematicsState, RawKinematicsState, RGBA } from './internal-types';
+import { MathConverter, Pose } from './math';
 import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData } from './sensor';
 import { Session } from './session';
 
@@ -67,9 +67,9 @@ export class Vehicle  {
    * Access the vehicle's Pose
    * @returns The vehicle pose.
    */
-  async getPose(): Promise<Pose3> {
-    const pose = await this._session.simGetVehiclePose(this.name);
-    return MathConverter.toPose3(pose);
+  async getPose(): Promise<Pose> {
+    const rawPose = await this._session.simGetVehiclePose(this.name);
+    return MathConverter.toPose(rawPose);
   }
 
   /**
@@ -78,13 +78,62 @@ export class Vehicle  {
    * @param ignorecollision - Whether to ignore any collision or not
    * @returns A Promise<void> to await on.
    */
-  setPose(pose: Pose3, ignorecollision = true): Promise<void> {
+  setPose(pose: Pose, ignorecollision = true): Promise<void> {
     return this._session.simSetVehiclePose(
-            MathConverter.toPose(pose),
+            MathConverter.toRawPose(pose),
             ignorecollision,
             this.name);
   }
 
+  /**
+   * Set the kinematics state of the vehicle
+   * If you don't want to change position (or orientation) then just set components of position (or orientation) to floating point nan values
+   * @param state -  Desired Pose pf the vehicle
+   * @param ignoreCollision - Whether to ignore any collision or not
+   */
+   setKinematics(state: KinematicsState, ignoreCollision: boolean): Promise<void> {
+    const rawState: RawKinematicsState =  {
+      position: MathConverter.toVector3r(state.position),
+      orientation: MathConverter.toQuaternionr(state.orientation),
+      linear_velocity: MathConverter.toVector3r(state.angular_velocity),
+      angular_velocity: MathConverter.toVector3r(state.angular_velocity),
+      linear_acceleration: MathConverter.toVector3r(state.linear_acceleration),
+      angular_acceleration: MathConverter.toVector3r(state.angular_acceleration)
+    };
+    return this._session.simSetKinematics(rawState, ignoreCollision, this.name);
+  }
+
+  /**
+   * Get ground-truth kinematics of the vehicle
+   * The position inside the returned KinematicsState is in the frame of the vehicle's starting point
+   * @returns  Ground truth of the vehicle
+   */
+  async getGroundTruthKinematics(): Promise<KinematicsState> {
+    const rawState = await this._session.simGetGroundTruthKinematics(this.name);
+    return {
+      position: MathConverter.toVector3(rawState.position),
+      orientation: MathConverter.toQuaternion(rawState.orientation),
+      linear_velocity: MathConverter.toVector3(rawState.angular_velocity),
+      angular_velocity: MathConverter.toVector3(rawState.angular_velocity),
+      linear_acceleration: MathConverter.toVector3(rawState.linear_acceleration),
+      angular_acceleration: MathConverter.toVector3(rawState.angular_acceleration)
+    };
+  }
+
+  /**
+   * Get ground truth environment state
+   * The position inside the returned EnvironmentState is in the frame of the vehicle's starting point
+   * @returns  Ground truth environment state
+   */
+  async getGroundTruthEnvironment(): Promise<EnvironmentState> {
+    const groundTruth = await this._session.simGetGroundTruthEnvironment(this.name);
+    return {
+      ...groundTruth,
+      position: MathConverter.toVector3(groundTruth.position),
+      gravity: MathConverter.toVector3(groundTruth.gravity),
+    };
+  }
+  
   /**
    *Get the Home NED-frame location (north, east, down) of the vehicle.
    * @returns The Home location of the vehicle
@@ -142,11 +191,11 @@ export class Vehicle  {
    * @param external - Whether the camera is an External Camera
    * @returns A void promise to await on.
    */
-  setCameraPose(cameraName: string, pose3: Pose3): Promise<void> {
+  setCameraPose(cameraName: string, pose: Pose): Promise<void> {
     return this._session
               .simSetCameraPose(
                   cameraName,
-                  MathConverter.toPose(pose3),
+                  MathConverter.toRawPose(pose),
                   this.name,
                   false);
   }
@@ -174,6 +223,81 @@ export class Vehicle  {
    */
   getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
     return this._session.simGetImages(requests, this.name, false);
+  }
+
+  /**
+   * Configure a camera to perform a computer vision search and detection of 
+   * specific mesh object(s). 
+   * @param search - The search details
+   * @returns A Promise<void> to await on
+   * 
+   * @example
+   * Example for detecting all instances named "Car_*"
+   * ```
+   * startDetectionSearch(
+   *   {
+   *     camera: 'front_center',
+   *     image_type: ImageType.Scene,
+   *     meshName: 'Car_*'
+   *   }
+   * );
+   * ```
+   */
+  async startDetectionSearch(search: DetectionSearch): Promise<void> {
+    return this._session.simAddDetectionFilterMeshName(
+              search.cameraName,
+              search.imageType,
+              search.meshName,
+              this.name,
+              false)
+            .then( () => {
+              if (search.radius) {
+                this._session.simSetDetectionFilterRadius(
+                  search.cameraName,
+                  search.imageType,
+                  search.radius,
+                  this.name,
+                  false);
+              }
+            });
+  }
+
+  /**
+   * Find the detections in the camera field of view defined by the search details
+   * @returns Array of object detections
+   */
+  async findDetections(search: DetectionSearch): Promise<Array<DetectionInfo>> {
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const detections: Array<any> =
+      await this._session.simGetDetections(
+        search.cameraName,
+        search.imageType,
+        this.name,
+        false);
+
+    detections.forEach( detection => {
+      // eslint-disable-next-line no-param-reassign
+      detection.box2D =  MathConverter.toBox2(detection.box2D);
+      // eslint-disable-next-line no-param-reassign
+      detection.box3D =  MathConverter.toBox3(detection.box3D);
+      // eslint-disable-next-line no-param-reassign
+      detection.relative_pose = MathConverter.toPose(detection.relative_pose);
+    });
+
+    return detections as Array<DetectionInfo>;
+  }
+
+  /**
+   * Clear a detection search
+   * @returns A Promise<void> to await on
+   */
+  clearDetectionSearch(search: DetectionSearch): Promise<void> {
+    return this._session.simClearDetectionMeshNames(
+        search.cameraName,
+        search.imageType,
+        this.name,
+        false) as Promise<void>;
   }
 
   /**

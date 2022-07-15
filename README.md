@@ -117,7 +117,7 @@ Examples:
   let airsim = new AirSim(Multirotor, undefined, '172.21.96.1');
 
   // remote server, custom port and IP
-  let airsim = new AirSim(Vehicle, 80, '172.21.96.1');
+  let airsim = new AirSim(Vehicle, 41451, '172.21.96.1');
 ```
 
 ### Session

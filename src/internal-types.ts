@@ -1,16 +1,15 @@
 /* eslint-disable import/no-cycle */
 
-import { GeoPoint, Box2D, Box3D, Pose, Vector3r, Quaternionr, ProjectionMatrix } from './math';
+import { Box2, Box3, Quaternion, Vector3 } from '@ros2jsguy/three-math-ts';
+import { ImageType } from './image';
+import { Pose, Vector3r, Quaternionr, ProjectionMatrix, RawBox2, RawBox3, RawPose } from './math';
 
 export type RGBA = [number, number, number, number];
 
-export type EnvironmentState = {
-  position: Vector3r,
-  geoPoint: GeoPoint,
-  gravity: Vector3r,
-  airPressure: number,
-  temperature: number
-  air_density: number
+export type GeoPoint = {
+  latitude: number,
+  longitude: number,
+  altitude: number
 }
 
 export enum WeatherParameter {
@@ -25,16 +24,52 @@ export enum WeatherParameter {
   Enabled = 8,
 }
 
-// TODO: convert to three.math
-export type DetectionInfo = {
-  name: string,
-  geoPoint: GeoPoint,
-  box2D: Box2D,
-  box3D: Box3D,
-  relativePose: Pose
+/**
+ * Defines the object detection criteria 
+ */
+export type DetectionSearch =  {
+  /**
+   * Name of the camera, for backwards compatibility, 
+   * ID numbers such as 0,1,etc. can also be used
+   */
+  cameraName: string,
+
+  /**
+   * The type of camera image to search for the meshName.
+   */
+  imageType: ImageType,
+
+  /**
+   * A regex pattern identifying the target object mesh to search. 
+   */
+  meshName: string,
+
+  /**
+   * The maximum radius from the camera to the target mesh object in centimeters 
+   */
+  radius?: number
 }
 
-export type CollisionInfo = {
+export type RawDetectionInfo = {
+  name: string,
+  geo_point: GeoPoint,
+  box2D: RawBox2,
+  box3D: RawBox3,
+  relative_pose: RawPose
+}
+
+/**
+ * An object detection result.
+ */
+export type DetectionInfo = {
+  name: string, /** The name of the target object */
+  geo_point: GeoPoint, /** The global point of the detection. */
+  box2D: Box2, /** 2D bounding box */
+  box3D: Box3, /** 3D bounding box */
+  relative_pose: Pose /** The detection relative to the camera pose */
+}
+
+export type RawCollisionInfo = {
   has_collided: boolean,
   normal: Vector3r,
   impact_point: Vector3r,
@@ -45,13 +80,51 @@ export type CollisionInfo = {
   object_id: number
 }
 
-export type KinematicsState = {
+export type CollisionInfo = {
+  has_collided: boolean,
+  normal: Vector3,
+  impact_point: Vector3,
+  position: Vector3,
+  penetration_depth: number,
+  time_stamp: number
+  object_name: string
+  object_id: number
+}
+
+export type RawKinematicsState = {
   position: Vector3r,
   orientation: Quaternionr,
   linear_velocity: Vector3r,
   angular_velocity: Vector3r,
   linear_acceleration: Vector3r,
   angular_acceleration: Vector3r
+}
+
+export type KinematicsState = {
+  position: Vector3,
+  orientation: Quaternion,
+  linear_velocity: Vector3,
+  angular_velocity: Vector3,
+  linear_acceleration: Vector3,
+  angular_acceleration: Vector3
+}
+
+export type RawEnvironmentState = {
+  position: Vector3r,
+  geo_point: GeoPoint,
+  gravity: Vector3r,
+  air_pressure: number,
+  temperature: number
+  air_density: number
+}
+
+export type EnvironmentState = {
+  position: Vector3,
+  geo_point: GeoPoint,
+  gravity: Vector3,
+  air_pressure: number,
+  temperature: number
+  air_density: number
 }
 
 export type CameraInfo = {
@@ -78,12 +151,12 @@ export type CarState = {
  * Car control settings
  */
 export type CarControls = {
-  throttle: number,
-  steering: number,
-  brake: number,
-  handbrake: boolean,
-  is_manual_gear: boolean,
-  manual_gear: number,
+  throttle: number, /** 0.0 - 1.0 */ // TODO: what does -0.5 mean wrt to 
+  steering: number, /** -1.0 to 1.0 */
+  brake: number, /** 0.0 - 1.0 */
+  handbrake: boolean, /** true = apply handbrake */
+  is_manual_gear: boolean, /** true imples use manual_gear property */
+  manual_gear: number, /** -1 to 5, 0 = neutral */
   gear_immediate: boolean
 }
 
@@ -93,7 +166,7 @@ export const DEFAULT_CAR_CONTROLS: CarControls = {
   brake: 0.0,
   handbrake: false,
   is_manual_gear: false,
-  manual_gear: 0.0,
+  manual_gear: 0,
   gear_immediate: true
 };
 

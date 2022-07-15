@@ -65,7 +65,7 @@ async function main() {
     waitKey('Continuing landing task using kinematic info');
     console.log('drone state: ', droneState);
     await drone.moveToZ(
-        Math.abs(droneState.kinematics_estimated.position.z_val + 0.1),
+        Math.abs(droneState.kinematics_estimated.position.z + 0.1),
         1,
         15);
   }

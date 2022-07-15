@@ -6,9 +6,10 @@ import { ImageRequest, ImageResponse, ImageType } from './image';
 import { CameraInfo, CarControls, CarState, CollisionInfo, 
         DEFAULT_YAW_MODE, 
         DrivetrainType, 
-        MultirotorState, RGBA, RotorStates, WeatherParameter
+        GeoPoint, 
+        MultirotorState, RawDetectionInfo, RawEnvironmentState, RawKinematicsState, RGBA, RotorStates, WeatherParameter
       } from './internal-types';
-import { GeoPoint, Pose, Vector3r } from './math';
+import { RawPose, Vector3r } from './math';
 import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData } from './sensor';
 
 type MsgpackrpcClient = Client<TcpClient>;
@@ -263,7 +264,7 @@ export class Session {
    * @param external - Whether the camera is an External Camera
    * @returns A Promise<void> to await on.
    */
-  simSetCameraPose(cameraName: string, pose: Pose, vehicleName = '', external = false): Promise<void> {
+  simSetCameraPose(cameraName: string, pose: RawPose, vehicleName = '', external = false): Promise<void> {
     return this._call('simSetCameraPose', cameraName, pose,
                        vehicleName, external) as Promise<void>;
   }
@@ -295,7 +296,7 @@ export class Session {
    * @param isBlueprint - Whether to spawn a blueprint or an actor
    * @returns Name of spawned object, in case it had to be modified
    */
-   simSpawnObject(objectName: string, assetName: string, pose: Pose, 
+   simSpawnObject(objectName: string, assetName: string, pose: RawPose, 
     scale: Vector3r, physicsEnabled=false, isBlueprint=false): Promise<string> {
       return this._call('simSpawnObject', objectName, assetName,
                         pose, scale, physicsEnabled, isBlueprint) as Promise<string>;
@@ -315,8 +316,8 @@ export class Session {
    * @param objectName - The name of the object who's pose is being requested.
    * @returns The pose
    */
-   simGetObjectPose(objectName: string): Promise<Pose | undefined> {
-    return this._call('simGetObjectPose', objectName) as Promise<Pose | undefined>;
+   simGetObjectPose(objectName: string): Promise<RawPose | undefined> {
+    return this._call('simGetObjectPose', objectName) as Promise<RawPose | undefined>;
   }
 
   /**
@@ -330,7 +331,7 @@ export class Session {
    * @param teleport - Whether to move the object immediately without affecting their velocity
    * @returns Promise<true> when the move was successful
    */
-  simSetObjectPose(objectName: string, pose: Pose, teleport = true): Promise<boolean> {
+  simSetObjectPose(objectName: string, pose: RawPose, teleport = true): Promise<boolean> {
     return this._call('simSetObjectPose', objectName, pose, teleport) as Promise<boolean>;
   }
 
@@ -354,6 +355,107 @@ export class Session {
   }
 
   /**
+   * Add mesh name to detect in wild card format.
+   * 
+   * @example
+   * Example for detecting all instances named "Car_*"
+   * ```
+   * simAddDetectionFilterMeshName("Car_*")
+   * ```
+   * @param cameraName - Name of the camera, for backwards compatibility,
+   *                     ID numbers such as 0,1,etc. can also be used
+   * @param imageType - Type of image
+   * @param meshName - mesh name in wild card format
+   * @param vehicleName - Vehicle which the camera is associated with
+   * @param external -  Whether the camera is an External Camera
+   * @returns A Promise<void> to await on
+   */
+  simAddDetectionFilterMeshName(
+      cameraName: string, 
+      imageType: ImageType,
+      meshName: string,
+      vehicleName = '',
+      external = false): Promise<void> {
+
+    return this._call(
+      'simAddDetectionFilterMeshName',
+      cameraName,
+      imageType,
+      meshName,
+      vehicleName,
+      external) as Promise<void>;
+  }
+
+  /**
+   * Set detection radius in centimeters for a camera
+   * @param cameraName - Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
+   * @param imageType - Type of image
+   * @param radiusCm - Radius in [cm]
+   * @param vehicleName - Vehicle which the camera is associated with
+   * @param external - Whether the camera is an external  amera
+   * @returns A Promise<void> to await on
+   */
+  simSetDetectionFilterRadius(
+      cameraName: string,
+      imageType: ImageType,
+      radiusCm: number,
+      vehicleName = '',
+      external = false): Promise<void> {
+       
+    return this._call(
+      'simSetDetectionFilterRadius',
+      cameraName,
+      imageType,
+      radiusCm,
+      vehicleName,
+      external) as Promise<void>;
+  }
+
+  /**
+   * Get current object detections in camera view
+   * @param cameraName - Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
+   * @param imageType - Type of image
+   * @param vehicleName - Vehicle which the camera is associated with
+   * @param external - Whether the camera is an External Camera
+   * @returns Array of detections
+   */
+  simGetDetections(
+      cameraName: string,
+      imageType: ImageType,
+      vehicleName = '',
+      external = false): Promise<Array<RawDetectionInfo>> {
+
+    return this._call(
+      'simGetDetections',
+      cameraName,
+      imageType,
+      vehicleName,
+      external) as Promise<Array<RawDetectionInfo>>;
+  }
+
+  /**
+   * Clear all mesh names from detection filter
+   * @param cameraName -  Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
+   * @param imageType - Type of image
+   * @param vehicleName - Vehicle which the camera is associated with
+   * @param external - Whether the camera is an External Camera
+   * @returns A Promise<void> to await on
+   */
+  simClearDetectionMeshNames(
+      cameraName: string,
+      imageType: ImageType,
+      vehicleName = '',
+      external = false): Promise<void> {
+      
+    return this._call(
+      'simClearDetectionMeshNames',
+      cameraName,
+      imageType,
+      vehicleName,
+      external) as Promise<void>;
+  }
+
+  /**
  * Lists the names of the vehicles in the simulation.
  * @returns List containing names of all vehicles
  */
@@ -370,7 +472,7 @@ export class Session {
    *                    default blueprint for the vehicle type
    * @returns Promise<true> when vehicle was created
    */
-  simAddVehicle(name: string, type: string, pose: Pose,
+  simAddVehicle(name: string, type: string, pose: RawPose,
                  pawnPath: string): Promise<boolean> {
     return this._call('simAddVehicle', name, type,
             pose, pawnPath) as Promise<boolean>;
@@ -481,7 +583,7 @@ export class Session {
    * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
    * @returns A Promise<void> to await on.
    */
-  simPlotTransforms(poses: Array<Pose>, scale = 5.0, thickness = 5.0, 
+  simPlotTransforms(poses: Array<RawPose>, scale = 5.0, thickness = 5.0, 
     duration = -1.0, isPersistent = false): Promise<void> {
 
     return this._call('simPlotTransforms', poses, scale, thickness, 
@@ -499,7 +601,7 @@ export class Session {
    * @param duration - Duration (seconds) to plot for
    * @returns  A void promise to await on.
    */
-  simPlotTransformsWithNames(poses: Array<Pose>, names: Array<string>, scale = 5.0,
+  simPlotTransformsWithNames(poses: Array<RawPose>, names: Array<string>, scale = 5.0,
       thickness = 5.0, textScale = 10.0, textColor = [1.0, 0.0, 0.0, 1.0],
       duration = -1.0): Promise<void> {
     return this._call(
@@ -561,8 +663,8 @@ export class Session {
    * @param vehicleName 
    * @returns The vehicle pose.
    */
-   simGetVehiclePose(vehicleName: string): Promise<Pose> {
-    return this._call('simGetVehiclePose', vehicleName) as Promise<Pose>;
+   simGetVehiclePose(vehicleName: string): Promise<RawPose> {
+    return this._call('simGetVehiclePose', vehicleName) as Promise<RawPose>;
   }
 
   /**
@@ -572,8 +674,39 @@ export class Session {
    * @param vehicleName - The name of the vehicle.
    * @returns A Promise<void> to await on. 
    */
-   simSetVehiclePose(pose: Pose, ignoreCollision=true, vehicleName=''): Promise<void> {
+   simSetVehiclePose(pose: RawPose, ignoreCollision=true, vehicleName=''): Promise<void> {
     return this._call('simSetVehiclePose', pose, ignoreCollision, vehicleName) as Promise<void>;
+  }
+
+  /**
+   * Get Ground truth kinematics of the vehicle
+   * The position inside the returned KinematicsState is in the frame of the vehicle's starting point   
+   * @param vehicleName -  Name of the vehicle
+   * @returns Ground truth of the vehicle
+   */
+  simGetGroundTruthKinematics(vehicleName = ''): Promise<RawKinematicsState> {
+    return this._call('simGetGroundTruthKinematics', vehicleName) as Promise<RawKinematicsState>;
+  }
+
+  /**
+   * Set the kinematics state of the vehicle
+   * If you don't want to change position (or orientation) then just set components of position (or orientation) to floating point nan values
+   * @param state -  Desired Pose pf the vehicle
+   * @param ignoreCollision - Whether to ignore any collision or not
+   * @param vehicleName - Name of the vehicle to move
+   */
+  simSetKinematics(state: RawKinematicsState, ignoreCollision: boolean, vehicleName = ''): Promise<void> {
+    return this._call('simSetKinematics', state, ignoreCollision, vehicleName) as Promise<void>;
+  }
+
+  /**
+   *  Get ground truth environment state
+  The position inside the returned EnvironmentState is in the frame of the vehicle's starting point
+   * @param vehicleName - Name of the vehicle
+   * @returns  Ground truth environment state
+   */
+  simGetGroundTruthEnvironment(vehicleName = ''): Promise<RawEnvironmentState> {
+    return this._call('simGetGroundTruthEnvironment', vehicleName) as Promise<RawEnvironmentState>;
   }
 
   /**

@@ -4,8 +4,8 @@
 import { Vector3 } from '@ros2jsguy/three-math-ts';
 import { DEFAULT_HOST_IP, DEFAULT_PORT } from './constants';
 import {  ImageRequest, ImageResponse, ImageType } from './image';
-import { WeatherParameter, CameraInfo } from './internal-types';
-import { GeoPoint, MathConverter, Pose3 } from './math';
+import { WeatherParameter, CameraInfo, DetectionInfo, DetectionSearch, GeoPoint } from './internal-types';
+import { MathConverter, Pose } from './math';
 import { Session } from './session';
 import { Vehicle } from './vehicle';
 
@@ -364,8 +364,8 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param external - Whether the camera is an External Camera
    * @returns A Promise<void> to await on.
    */
-  setCameraPose(cameraName: string, pose: Pose3, vehicleName = '', external = false): void {
-    this.session.simSetCameraPose(cameraName, MathConverter.toPose(pose), vehicleName, external);
+  setCameraPose(cameraName: string, pose: Pose, vehicleName = '', external = false): void {
+    this.session.simSetCameraPose(cameraName, MathConverter.toRawPose(pose), vehicleName, external);
   }
 
   /**
@@ -395,12 +395,12 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param isBlueprint - Whether to spawn a blueprint or an actor
    * @returns Name of spawned object, in case it had to be modified
    */
-  spawnObject(objectName: string, assetName: string, pose: Pose3, 
+  spawnObject(objectName: string, assetName: string, pose: Pose, 
     scale: Vector3, physicsEnabled=false, isBlueprint=false): Promise<string> {
     return this.session.simSpawnObject(
                 objectName,
                 assetName,
-                MathConverter.toPose(pose), 
+                MathConverter.toRawPose(pose), 
                 MathConverter.toVector3r(scale),
                 physicsEnabled,
                 isBlueprint);
@@ -420,9 +420,9 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param objectName - The name of the object who's pose is being requested.
    * @returns The pose
    */
-  async getObjectPose(objectName: string): Promise<Pose3 | undefined> {
-    const pose = await this.session.simGetObjectPose(objectName);
-    return pose ? MathConverter.toPose3(pose) : undefined;
+  async getObjectPose(objectName: string): Promise<Pose | undefined> {
+    const rawPose = await this.session.simGetObjectPose(objectName);
+    return rawPose ? MathConverter.toPose(rawPose) : undefined;
   }
 
   /**
@@ -436,8 +436,8 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param teleport - Whether to move the object immediately without affecting their velocity
    * @returns Promise<true> when the move was successful
    */
-  setObjectPose(objectName: string, pose: Pose3, teleport = true): Promise<boolean> {
-    return this.session.simSetObjectPose(objectName, MathConverter.toPose(pose), teleport);
+  setObjectPose(objectName: string, pose: Pose, teleport = true): Promise<boolean> {
+    return this.session.simSetObjectPose(objectName, MathConverter.toRawPose(pose), teleport);
   }
 
   /**
@@ -490,12 +490,88 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    *                    default blueprint for the vehicle type
    * @returns Promise<true> when vehicle was created
    */
-   async addVehicle(vehicle: T, pose: Pose3): Promise<boolean> {
+   async addVehicle(vehicle: T, pose: Pose): Promise<boolean> {
     const result = 
       await this.session.simAddVehicle(vehicle.name, vehicle.controller,
-            MathConverter.toPose(pose), vehicle.pawnPath) as boolean;
+            MathConverter.toRawPose(pose), vehicle.pawnPath) as boolean;
     if (result) this._vehicles.set(vehicle.name, vehicle);
     return result;
+  }
+
+
+  /**
+   * Configure a camera to perform a computer vision search and detection of 
+   * specific mesh object(s). 
+   * @param search - The search details
+   * @returns A Promise<void> to await on
+   * 
+   * @example
+   * Example for detecting all instances named "Car_*"
+   * ```
+   * startDetectionSearch(
+   *   {
+   *     camera: 'front_center',
+   *     image_type: ImageType.Scene,
+   *     meshName: 'Car_*'
+   *   }
+   * );
+   * ```
+   */
+   async startDetectionSearch(search: DetectionSearch): Promise<void> {
+    return this._session.simAddDetectionFilterMeshName(
+              search.cameraName,
+              search.imageType,
+              search.meshName,
+              undefined,
+              true)
+            .then( () => {
+              if (search.radius) {
+                this._session.simSetDetectionFilterRadius(
+                  search.cameraName,
+                  search.imageType,
+                  search.radius,
+                  undefined,
+                  true);
+              }
+            });
+  }
+
+  /**
+   * Find the detections in the camera field of view defined by the search details
+   * @returns Array of object detections
+   */
+  async findDetections(search: DetectionSearch): Promise<Array<DetectionInfo>> {
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const detections: Array<any> =
+      await this._session.simGetDetections(
+        search.cameraName,
+        search.imageType,
+        undefined,
+        true);
+
+    detections.forEach( detection => {
+      // eslint-disable-next-line no-param-reassign
+      detection.box2D =  MathConverter.toBox2(detection.box2D);
+      // eslint-disable-next-line no-param-reassign
+      detection.box3D =  MathConverter.toBox3(detection.box3D);
+      // eslint-disable-next-line no-param-reassign
+      detection.relative_pose = MathConverter.toPose(detection.relative_pose);
+    });
+
+    return detections as Array<DetectionInfo>;
+  }
+
+  /**
+   * Clear a detection search
+   * @returns A Promise<void> to await on
+   */
+  clearDetectionSearch(search: DetectionSearch): Promise<void> {
+    return this._session.simClearDetectionMeshNames(
+        search.cameraName,
+        search.imageType,
+        undefined,
+        true) as Promise<void>;
   }
 
   /**
@@ -622,10 +698,10 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param isPersistent - WHen true, the desired object will be plotted for infinite time.
    * @returns  A Promise<void> to await on.
    */
-  plotTransforms(poses: Array<Pose3>, scale = 5.0, thickness = 5.0, 
+  plotTransforms(poses: Array<Pose>, scale = 5.0, thickness = 5.0, 
         duration = -1.0, isPersistent = false): Promise<void> {
-    const newPoses = poses.map(pose3 => MathConverter.toPose(pose3));
-    return this.session.simPlotTransforms(newPoses, scale, thickness,
+    const rawPoses = poses.map(pose => MathConverter.toRawPose(pose));
+    return this.session.simPlotTransforms(rawPoses, scale, thickness,
                 duration, isPersistent) as Promise<void>;
   }
 
@@ -640,11 +716,11 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param duration - Duration (seconds) to plot for
    * @returns A Promise<void> to await on.
    */
-   plotTransformsWithNames(poses: Array<Pose3>, names: Array<string>, scale = 5.0,
+   plotTransformsWithNames(poses: Array<Pose>, names: Array<string>, scale = 5.0,
         thickness = 5.0, textScale = 10.0, textColor = [1.0, 0.0, 0.0, 1.0],
         duration = -1.0): Promise<void> {
-    const newPoses = poses.map(pose3 => MathConverter.toPose(pose3));
-    return this.session.simPlotTransformsWithNames(newPoses, names, scale, thickness,
+    const rawPoses = poses.map(pose => MathConverter.toRawPose(pose));
+    return this.session.simPlotTransformsWithNames(rawPoses, names, scale, thickness,
             textScale, textColor, duration) as Promise<void>;
   }
 

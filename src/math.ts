@@ -18,35 +18,28 @@ export type Quaternionr = {
   z_val: number
 }
 
-export type Box2D = {
+export type RawBox2 = {
   min: Vector2r,
   max:Vector2r
 }
 
-export type Box3D = {
+export type RawBox3 = {
   min: Vector3r,
   max:Vector3r
 }
 
-export type Pose = {
+export type RawPose = {
   position: Vector3r,
   orientation: Quaternionr;
 }
 
-export type ProjectionMatrix = {
-  matrix: Array<number> 
-}
-
-export type GeoPoint = {
-  latitude: number,
-  longitude: number,
-  altitude: number
-}
-
-
-export type Pose3 = {
+export type Pose = {
   position: Vector3,
   orientation: Quaternion
+}
+
+export type ProjectionMatrix = {
+  matrix: Array<number> 
 }
 
 export class MathConverter {
@@ -78,42 +71,42 @@ export class MathConverter {
     return { x_val: q.x, y_val: q.y, z_val: q.z, w_val: q.w };
   }
 
-  static toPose3(pose: Pose): Pose3 {
+  static toPose(pose: RawPose): Pose {
     return {
       position: MathConverter.toVector3(pose.position),
       orientation: MathConverter.toQuaternion(pose.orientation)
     };
   }
 
-  static toPose(pose3: Pose3): Pose {
+  static toRawPose(pose: Pose): RawPose {
     return {
-      position: MathConverter.toVector3r(pose3.position),
-      orientation: MathConverter.toQuaternionr(pose3.orientation)
+      position: MathConverter.toVector3r(pose.position),
+      orientation: MathConverter.toQuaternionr(pose.orientation)
     };
   }
 
-  static toBox2(box2d: Box2D): Box2 {
+  static toBox2(rawBox2: RawBox2): Box2 {
     return new Box2(
-            MathConverter.toVector2(box2d.min),
-            MathConverter.toVector2(box2d.max)
+            MathConverter.toVector2(rawBox2.min),
+            MathConverter.toVector2(rawBox2.max)
           );
   }
 
-  static toBox2D(box2: Box2): Box2D {
+  static toRawBox2(box2: Box2): RawBox2 {
     return {
       min: MathConverter.toVector2r(box2.min),
       max:MathConverter. toVector2r(box2.max)
     };
   }
 
-  static toBox3(box3d: Box3D): Box3 {
+  static toBox3(rawBox3: RawBox3): Box3 {
     return new Box3(
-                MathConverter.toVector3(box3d.min),
-                MathConverter. toVector3(box3d.max)
+                MathConverter.toVector3(rawBox3.min),
+                MathConverter. toVector3(rawBox3.max)
               );
   }
 
-  static toBox3D(box3: Box3): Box3D {
+  static toRawBox3(box3: Box3): RawBox3 {
     return { 
       min: MathConverter.toVector3r(box3.min),
       max: MathConverter.toVector3r(box3.max)
