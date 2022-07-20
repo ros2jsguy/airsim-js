@@ -152,7 +152,7 @@ export type CarState = {
  */
 export type CarControls = {
   throttle: number, /** 0.0 - 1.0 */ // TODO: what does -0.5 mean wrt to 
-  steering: number, /** -1.0 to 1.0, left to right*/
+  steering: number, /** -1.0 to 1.0, left to right */
   brake: number, /** 0.0 - 1.0 */
   handbrake: boolean, /** true = apply handbrake */
   is_manual_gear: boolean, /** true imples use manual_gear property */
