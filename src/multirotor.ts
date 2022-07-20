@@ -5,8 +5,6 @@ import { DEFAULT_YAW_MODE, DrivetrainType, MultirotorState, RotorStates, YawMode
 import { Vector3r } from './math';
 import { Vehicle } from './vehicle';
 
-export const DEFAULT_CONTROLLER = 'SimpleFlight';
-
 const DEFAULT_CAMERAS = [
   'front_center',
   'front_right',
@@ -35,8 +33,15 @@ export class Multirotor extends Vehicle {
    * @param pawnPath - Vehicle blueprint path, when undefined
    *                   uses the default blueprint.
    */
-  constructor(readonly name: string, controller = DEFAULT_CONTROLLER, pawnPath = '') {
+  constructor(readonly name: string, controller = Multirotor.DEFAULT_CONTROLLER, pawnPath = '') {
     super(name, controller, pawnPath);
+  }
+
+  /**
+   * Access the default controller (e.g., flight controller) of the vehicle.
+   */
+  static get DEFAULT_CONTROLLER(): string | undefined {
+    return 'SimpleFlight';
   }
 
   /**

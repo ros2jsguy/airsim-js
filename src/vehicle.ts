@@ -31,6 +31,13 @@ export class Vehicle  {
   }
 
   /**
+   * Access the default controller (e.g., flight controller) of the vehicle.
+   */
+  static get DEFAULT_CONTROLLER(): string | undefined {
+    return undefined;
+  }
+
+  /**
    * Access the names of the default cameras.
    * @see {@link https://microsoft.github.io/AirSim/image_apis/#available_cameras|default cameras}
    * @returns The camera names for this type of vehicle.

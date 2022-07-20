@@ -1,8 +1,7 @@
+/* eslint-disable import/prefer-default-export */
 
 import { CarControls, CarState  } from './internal-types';
 import { Vehicle } from './vehicle';
-
-export const DEFAULT_CONTROLLER = 'PhysXCar';
 
 const DEFAULT_CAMERAS = [
   'front_center',
@@ -25,8 +24,15 @@ export class Car extends Vehicle {
    * @param pawnPath - Vehicle blueprint path, when undefined
    *                   uses the default blueprint for cars, PhysXCar
    */
-  constructor(readonly name: string, controller = DEFAULT_CONTROLLER, pawnPath = '') {
+  constructor(readonly name: string, controller = Car.DEFAULT_CONTROLLER, pawnPath = '') {
     super(name, controller, pawnPath);
+  }
+
+  /**
+   * Access the default controller (e.g., flight controller) of the vehicle.
+   */
+  static get DEFAULT_CONTROLLER(): string | undefined {
+      return 'PhysXCar';
   }
 
   /**
