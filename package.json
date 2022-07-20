@@ -1,6 +1,6 @@
 {
   "name": "airsim-js",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Client library for Microsoft AirSim Simulator",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
@@ -38,7 +38,6 @@
   "dependencies": {
     "@ros2jsguy/msgpack-rpc-node": "^0.2.0",
     "@ros2jsguy/three-math-ts": "^0.127.2",
-    "dotenv": "^16.0.0",
     "tslib": "^2.4.0",
     "winston": "^3.7.2"
   },

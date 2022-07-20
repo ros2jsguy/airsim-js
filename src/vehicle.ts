@@ -243,7 +243,7 @@ export class Vehicle  {
    * );
    * ```
    */
-  async startDetectionSearch(search: DetectionSearch): Promise<void> {
+  startDetectionSearch(search: DetectionSearch): Promise<void> {
     return this._session.simAddDetectionFilterMeshName(
               search.cameraName,
               search.imageType,
@@ -259,7 +259,7 @@ export class Vehicle  {
                   this.name,
                   false);
               }
-            });
+            }) as Promise<void>;
   }
 
   /**

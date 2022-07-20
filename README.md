@@ -5,8 +5,6 @@ simulation environment and hosted virtual cars and multirotor vehicles from a No
 API is documented and super easy to use. To facilitate your learning a wide range of examples and AirSim
 settings files is provided.    
 
-**Note - this package was renamed from `airsim` to `airsim-js` on 20220711.**
-
 ![Blocks World](./blocks.png)
 # Quick Start
 You will need to have the Nodejs environment installed on your system to complete this Quick Start. 

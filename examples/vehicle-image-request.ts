@@ -1,6 +1,5 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
-
 /* eslint-disable no-console */
 
 import { AirSim } from '../src/airsim';
@@ -29,7 +28,7 @@ async function main() {
 
   const imgRequest: ImageRequest = {
     camera_name: '0',
-    image_type: ImageType.Segmentation,
+    image_type: ImageType.Scene,
     pixels_as_float: false,
     compress: false
   };
