@@ -1,7 +1,7 @@
 
 /* eslint-disable no-console */
 
-import { Vector3 } from '@ros2jsguy/three-math-ts';
+import { Vector3 } from 'threejs-math';
 import { AirSim } from '../src/airsim';
 import { WeatherParameter } from '../src/internal-types';
 import { Vehicle } from '../src/vehicle';

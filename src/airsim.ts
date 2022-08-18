@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-console */
 
-import { Vector3 } from '@ros2jsguy/three-math-ts';
+import { Vector3 } from 'threejs-math';
 import { DEFAULT_HOST_IP, DEFAULT_PORT } from './constants';
 import {  ImageRequest, ImageResponse, ImageType } from './image';
 import { WeatherParameter, CameraInfo, DetectionInfo, DetectionSearch, GeoPoint } from './internal-types';

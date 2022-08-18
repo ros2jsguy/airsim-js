@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 
-import { Box2, Box3, Quaternion, Vector3 } from '@ros2jsguy/three-math-ts';
+import { Box2, Box3, Quaternion, Vector3 } from 'threejs-math';
 import { ImageType } from './image';
 import { Pose, Vector3r, Quaternionr, ProjectionMatrix, RawBox2, RawBox3, RawPose } from './math';
 

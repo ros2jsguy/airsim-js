@@ -9,4 +9,4 @@ export * from './car';
 export * from './multirotor';
 export * from './airsim';
 export * as Utils from './utils';
-export * as Three from '@ros2jsguy/three-math-ts';
+export * as Three from 'threejs-math';

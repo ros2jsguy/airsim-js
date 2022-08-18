@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-import { Vector3 } from '@ros2jsguy/three-math-ts';
+import { Vector3 } from 'threejs-math';
 import { DEFAULT_YAW_MODE, DrivetrainType, MultirotorState, RotorStates, YawMode } from './internal-types';
 import { Vector3r } from './math';
 import { Vehicle } from './vehicle';

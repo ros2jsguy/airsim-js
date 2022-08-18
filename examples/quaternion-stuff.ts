@@ -1,5 +1,5 @@
 
-import { MathUtils, Quaternion, Vector3 } from "@ros2jsguy/three-math-ts";
+import { MathUtils, Quaternion, Vector3 } from "threejs-math";
 
 let q1 = new Quaternion();
 let q2 = new Quaternion();

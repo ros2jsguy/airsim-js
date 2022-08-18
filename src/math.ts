@@ -1,4 +1,4 @@
-import { Box2, Box3, Quaternion, Vector2, Vector3 } from '@ros2jsguy/three-math-ts';
+import { Box2, Box3, Quaternion, Vector2, Vector3 } from 'threejs-math';
 
 export type Vector2r = {
   x_val: number,
