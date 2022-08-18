@@ -1,6 +1,8 @@
 tests
 examples
 settings
+.project
+CODE_OF_CONDUCT*
 .vscode
 .editorconfig
 .eslint*
@@ -9,3 +11,5 @@ tsconfig*
 .husky
 .prettier*
 examples/test.ts
+src/
+docs/

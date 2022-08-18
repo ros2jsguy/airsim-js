@@ -3,10 +3,10 @@ dist/
 .idea/
 .vscode/
 .project
+
 node_modules/
 build/
 tmp/
-temp/
 /coverage/
 /.nyc_output/
 logs/
