@@ -1,13 +1,13 @@
 /* eslint-disable import/no-cycle */
 
-import { Box2, Box3, ColorName as ColorName3, Quaternion, Vector3 } from 'threejs-math';
+import { Box2, Box3, ColorName as CSSColorName, Quaternion, Vector3 } from 'threejs-math';
 import { Pose, Vector3r, Quaternionr, ProjectionMatrix, RawBox2, RawBox3, RawPose, RawProjectionMatrix } from './math';
 
 export type RGBA = [number, number, number, number];
 
-export type Color = RGBA | ColorName3;
+export type Color = RGBA | CSSColorName;
 
-export type CameraName = string | number;
+export type CameraName = string | 0 | 1 | 2 | 3 | 4;
 
 export type RawCameraInfo = {
   pose: RawPose;

@@ -43,6 +43,11 @@ export class AirSim<T extends Vehicle>  {
    * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
    * hosted in an AirSim environment. When constructing a new AirSim
    * client instance you must provide the class of Vehicle hosted by AirSim.
+   * @example
+   * ```
+   * new AirSim(Vehicle);
+   * new AirSim(Car, 80);
+   * ```
    * @param vehicleClass - The type of vehicle hosted by the AirSim server
    * @param port - The AirSim server port number, default = 41451
    */
@@ -56,6 +61,12 @@ export class AirSim<T extends Vehicle>  {
    * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
    * hosted in an AirSim environment. When constructing a new AirSim
    * client instance you must provide the class of Vehicle hosted by AirSim.
+   * @example
+   * ```
+   * new AirSim(Vehicle);
+   * new AirSim(Multirotor, '127.0.0.1');
+   * new AirSim(Car, 'localhost');
+   * ```
    * @param vehicleClass - The type of vehicle hosted by the AirSim server
    * @param ip - The AirSim server IP address, default = localhost
    */
@@ -68,6 +79,11 @@ export class AirSim<T extends Vehicle>  {
    * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
    * hosted in an AirSim environment. When constructing a new AirSim
    * client instance you must provide the class of Vehicle hosted by AirSim.
+   * ```
+   * new AirSim(Vehicle);
+   * new AirSim(Multirotor, 80);
+   * new AirSim(Car, 80, '127.0.0.1');
+   * ```
    * @param vehicleClass - The type of vehicle hosted by the AirSim server
    * @param port - The AirSim server port number, default = 41451
    * @param ip - The AirSim server IP address, default = localhost
