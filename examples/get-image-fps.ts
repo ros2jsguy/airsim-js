@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 import { AirSim } from '../src/airsim';
-import { ImageType } from '../src/image';
+import { ImageType } from '../src/internal-types';
 import { Vehicle } from '../src/vehicle';
 
 // eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-var-requires

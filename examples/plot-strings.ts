@@ -25,7 +25,7 @@ async function main() {
     ['hello'],
     [pose.position],
     5,
-    [1,0,0,1],
+    'green',
     5
   );
   

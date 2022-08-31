@@ -4,8 +4,6 @@
 import { AirSim } from '../src/airsim';
 import { Vehicle } from '../src/vehicle';
 
-// '10.249.1.223'
-
 async function main() {
   const airsim = new AirSim(Vehicle);
   const connectResult = await airsim.connect();

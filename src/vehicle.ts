@@ -3,11 +3,14 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-
-import { ImageRequest, ImageResponse, ImageType } from './image';
-import { CameraInfo, CollisionInfo, DetectionInfo, DetectionSearch, EnvironmentState, GeoPoint, KinematicsState, RawKinematicsState, RGBA } from './internal-types';
+import { Quaternion, Vector3 } from 'threejs-math';
+import { CameraInfo, CameraName, CollisionInfo, Color, 
+  DetectionInfo, DetectionSearch,
+  EnvironmentState, GeoPoint, ImageRequest, ImageResponse,
+  ImageType, KinematicsState, RawKinematicsState } from './internal-types';
 import { MathConverter, Pose } from './math';
-import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData } from './sensor';
+import { BarometerData, DistanceSensorData, ImuData,
+  LidarData, MagnetometerData } from './sensor';
 import { Session } from './session';
 
 /**
@@ -42,7 +45,7 @@ export class Vehicle  {
    * @see {@link https://microsoft.github.io/AirSim/image_apis/#available_cameras|default cameras}
    * @returns The camera names for this type of vehicle.
    */
-  getDefaultCameraNames(): Array<string> {
+  getDefaultCameraNames(): Array<CameraName> {
     return [];
   }
 
@@ -162,12 +165,15 @@ export class Vehicle  {
    * Modify the color and thickness of the line when tracing is enabled.
    * Tracing can be enabled by pressing T in the Editor or
    * setting `EnableTrace` to `True` in the Vehicle Settings
-   * @param color - the RGBA color
+   * @param color - the RGBA tuple or CSS color name.
    * @param thickness - Thickness of the line
    * @returns A Promise<void> to await on.
    */
-  setTraceLine(color: RGBA, thickness = 1.0): Promise<void> {
-    return this._session.simSetTraceLine(color, thickness, this.name);
+  setTraceLine(color: Color, thickness = 1.0): Promise<void> {
+    return this._session.simSetTraceLine(
+        MathConverter.colorToRGBA(color),
+        thickness,
+        this.name);
   }
 
   /**
@@ -186,8 +192,17 @@ export class Vehicle  {
    *                     ID numbers such as 0,1,etc. can also be used
    * @returns A CameraInfo promise
    */
-   getCameraInfo(cameraName: string | number): Promise<CameraInfo> {
-    return this._session.simGetCameraInfo(cameraName, this.name, false);
+   async getCameraInfo(cameraName: CameraName): Promise<CameraInfo> {
+    const rawCameraInfo = await this._session.simGetCameraInfo(cameraName, this.name, false);
+    return {
+      pose: MathConverter.toPose(rawCameraInfo.pose),
+      fov: rawCameraInfo.fov,
+      proj_mat: MathConverter.toProjectionMatrix(rawCameraInfo.proj_mat)
+    };
+  }
+
+  async getCameraPose(cameraName:CameraName): Promise<Pose> {
+    return (await this.getCameraInfo(cameraName)).pose;
   }
 
   /**
@@ -198,7 +213,7 @@ export class Vehicle  {
    * @param external - Whether the camera is an External Camera
    * @returns A void promise to await on.
    */
-  setCameraPose(cameraName: string, pose: Pose): Promise<void> {
+  setCameraPose(cameraName: CameraName, pose: Pose): Promise<void> {
     return this._session
               .simSetCameraPose(
                   cameraName,
@@ -206,7 +221,41 @@ export class Vehicle  {
                   this.name,
                   false);
   }
+
+  /**
+   * Rotate a camera to point towards a target position.
+   * @param cameraName - The name or id of the camera to move.
+   * @param target - The position to point camera towards.
+   * @param rearFacing - Set True when camera is mounting looking towards
+   *  the rear of the vehicle, default = false.
+   * @returns A Promise<Pose> with the camera rotation..
+   */
+  async cameraLookAt(cameraName: CameraName, target: Vector3, rearFacing = false): Promise<Pose> {
+    // need the vehicle orientation
+    const vehiclePose = await this.getPose();
+
+    // create a vector rotated to parallel with vehicle
+    const vVehicle = new Vector3(rearFacing ? -1 : 1,0,0);
+    vVehicle.applyQuaternion(vehiclePose.orientation);
   
+    // create a vector from target to vehicle
+    const vTarget2Vehicle = (new Vector3()).subVectors(target, vehiclePose.position);
+
+    // create a quaternion with rotation from vehicle to target
+    const q = new Quaternion();
+    q.setFromUnitVectors(vVehicle.normalize(), vTarget2Vehicle.normalize());
+
+    // update camera pose with q, the rotation from 
+    const cameraPose: Pose = {
+      position: new Vector3(Number.NaN, Number.NaN, Number.NaN),
+      orientation: q
+    };
+
+    await this.setCameraPose(cameraName, cameraPose);
+
+    return Promise.resolve(cameraPose);
+  }
+
   /**
    * Get a single image in compressed PNG format.
    * @param cameraName - Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
@@ -214,7 +263,7 @@ export class Vehicle  {
    * @param vehicleName - Name of the vehicle with the camera
    * @returns Promise<Uint8Array> of compressed png image data
    */
-  getImage(cameraName: string, imageType = ImageType.Scene): Promise<Uint8Array> {
+  getImage(cameraName: CameraName, imageType = ImageType.Scene): Promise<Uint8Array> {
     return this._session.simGetImage(
       cameraName,
       imageType,
@@ -229,6 +278,8 @@ export class Vehicle  {
    * @returns The ImageResponse(s)
    */
   getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
+    // eslint-disable-next-line no-return-assign
+    requests.forEach(request => request.camera_name = request.camera_name.toString());
     return this._session.simGetImages(requests, this.name, false);
   }
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { AirSim } from '../src/airsim';
-import { ImageType } from '../src/image';
+import { ImageType } from '../src/internal-types';
 import * as Utils from '../src/utils';
 import { Vehicle } from '../src/vehicle';
 

@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 
 import { AirSim } from '../src/airsim';
-import { ImageRequest, ImageType } from '../src/image';
+import { ImageRequest, ImageType } from '../src/internal-types';
 import { Vehicle } from '../src/vehicle';
 
 async function main() {

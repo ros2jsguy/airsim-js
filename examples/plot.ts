@@ -22,7 +22,8 @@ async function main() {
   await vehicle.enableApiControl();
   const pose3 = await vehicle.getPose();
 
-  await airsim.plotPoints([pose3.position], [0,1,0,1], 10);
+  await airsim.plotPoints([pose3.position], [0,0,0,1], 30);
+
   // const LEN = 1;
   // await client.simPlotLineStrip(
   //   [
@@ -34,24 +35,18 @@ async function main() {
   //   10,
   //   10);
 
-    // await client.simPlotArrows(
-    //   [carPosition, carPosition, carPosition],
-    //   [{x_val: carPosition.x_val+LEN, y_val: carPosition.y_val, z_val: carPosition.z_val},
-    //    {x_val: carPosition.x_val, y_val: carPosition.y_val+LEN, z_val: carPosition.z_val},
-    //    {x_val: carPosition.x_val, y_val: carPosition.y_val, z_val: carPosition.z_val-LEN}],
-    //   [1,0,1,1],
-    //   2,
-    //   20,
-    //   5,
-    //   true);
+  const vehiclePose = await vehicle.getPose();
+  const vehiclePosition = vehiclePose.position;
 
-  await airsim.plotTransforms([pose3], 100, 5, 0, true);
 
-  await airsim.plotStrings(
-    ['X'],
-    [pose3.position],
-    
-  );
+  const endPt = vehiclePosition.clone();
+  const LEN = 20;
+  endPt.setX(endPt.x + LEN);
+  await airsim.plotArrows([vehiclePosition],[endPt]);
+
+  await airsim.plotTransforms([pose3], 100, 5, true);
+
+  await airsim.plotStrings(['X'], [pose3.position]);
 
   vehicle.disableApiControl();
   airsim.close();

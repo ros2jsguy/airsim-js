@@ -1,6 +1,5 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
-
 /* eslint-disable no-console */
 
 import { AirSim } from '../../src/airsim';
@@ -12,8 +11,6 @@ async function main() {
   const airsim = new AirSim(Car);
   const connectResult = await airsim.connect();
   console.log(`Connecting: ${connectResult}`);
-
-  // await airsim.reset();
 
   const cars = await airsim.getVehicles();
   if (cars.length === 0) {

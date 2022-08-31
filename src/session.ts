@@ -2,15 +2,33 @@
 
 
 import { Client, TcpClient } from '@ros2jsguy/msgpack-rpc-node';
-import { ImageRequest, ImageResponse, ImageType } from './image';
-import { CameraInfo, CarControls, CarState, CollisionInfo, 
-        DEFAULT_YAW_MODE, 
-        DrivetrainType, 
-        GeoPoint, 
-        MultirotorState, RawDetectionInfo, RawEnvironmentState, RawKinematicsState, RGBA, RotorStates, WeatherParameter
-      } from './internal-types';
+import { 
+  CameraName,
+  CarControls,
+  CarState,
+  CollisionInfo, 
+  DEFAULT_YAW_MODE, 
+  DrivetrainType, 
+  GeoPoint, 
+  ImageRequest, 
+  ImageResponse, 
+  ImageType, 
+  MultirotorState,
+  RawCameraInfo,
+  RawDetectionInfo,
+  RawEnvironmentState,
+  RawKinematicsState,
+  RGBA,
+  RotorStates,
+  WeatherParameter
+} from './internal-types';
 import { RawPose, Vector3r } from './math';
-import { BarometerData, DistanceSensorData, ImuData, LidarData, MagnetometerData } from './sensor';
+import { 
+  BarometerData,
+  DistanceSensorData,
+  ImuData,
+  LidarData,MagnetometerData
+} from './sensor';
 
 type MsgpackrpcClient = Client<TcpClient>;
 
@@ -248,12 +266,12 @@ export class Session {
    * @param isExternal - Whether the camera is an external camera
    * @returns A CameraInfo promise
    */
-  simGetCameraInfo(cameraName: string | number, vehicleName = '', isExternal = false): Promise<CameraInfo> {
+  simGetCameraInfo(cameraName: CameraName, vehicleName = '', isExternal = false): Promise<RawCameraInfo> {
     return this._call(
       'simGetCameraInfo',
-      typeof cameraName === 'number' ? cameraName.toString() : cameraName,
+      cameraName.toString(),
       vehicleName,
-      isExternal) as Promise<CameraInfo>;
+      isExternal) as Promise<RawCameraInfo>;
   }
 
   /**
@@ -264,8 +282,8 @@ export class Session {
    * @param external - Whether the camera is an External Camera
    * @returns A Promise<void> to await on.
    */
-  simSetCameraPose(cameraName: string, pose: RawPose, vehicleName = '', external = false): Promise<void> {
-    return this._call('simSetCameraPose', cameraName, pose,
+  simSetCameraPose(cameraName: CameraName, pose: RawPose, vehicleName = '', external = false): Promise<void> {
+    return this._call('simSetCameraPose', cameraName.toString(), pose,
                        vehicleName, external) as Promise<void>;
   }
 
@@ -371,7 +389,7 @@ export class Session {
    * @returns A Promise<void> to await on
    */
   simAddDetectionFilterMeshName(
-      cameraName: string, 
+      cameraName: CameraName, 
       imageType: ImageType,
       meshName: string,
       vehicleName = '',
@@ -379,7 +397,7 @@ export class Session {
 
     return this._call(
       'simAddDetectionFilterMeshName',
-      cameraName,
+      cameraName.toString(),
       imageType,
       meshName,
       vehicleName,
@@ -396,7 +414,7 @@ export class Session {
    * @returns A Promise<void> to await on
    */
   simSetDetectionFilterRadius(
-      cameraName: string,
+      cameraName: CameraName,
       imageType: ImageType,
       radiusCm: number,
       vehicleName = '',
@@ -404,7 +422,7 @@ export class Session {
        
     return this._call(
       'simSetDetectionFilterRadius',
-      cameraName,
+      cameraName.toString(),
       imageType,
       radiusCm,
       vehicleName,
@@ -420,14 +438,14 @@ export class Session {
    * @returns Array of detections
    */
   simGetDetections(
-      cameraName: string,
+      cameraName: CameraName,
       imageType: ImageType,
       vehicleName = '',
       external = false): Promise<Array<RawDetectionInfo>> {
 
     return this._call(
       'simGetDetections',
-      cameraName,
+      cameraName.toString(),
       imageType,
       vehicleName,
       external) as Promise<Array<RawDetectionInfo>>;
@@ -442,14 +460,14 @@ export class Session {
    * @returns A Promise<void> to await on
    */
   simClearDetectionMeshNames(
-      cameraName: string,
+      cameraName: CameraName,
       imageType: ImageType,
       vehicleName = '',
       external = false): Promise<void> {
       
     return this._call(
       'simClearDetectionMeshNames',
-      cameraName,
+      cameraName.toString(),
       imageType,
       vehicleName,
       external) as Promise<void>;
@@ -767,10 +785,10 @@ export class Session {
    * @param external - Whether the camera is an External Camera
    * @returns  Promise<Uint8Array> of compressed png image data
    */
-  simGetImage(cameraName: string, imageType: ImageType, vehicleName = '', isExternal = false): Promise<unknown> {
+  simGetImage(cameraName: CameraName, imageType: ImageType, vehicleName = '', isExternal = false): Promise<unknown> {
     return this._call(
         'simGetImage',
-        cameraName,
+        cameraName.toString(),
         imageType,
         vehicleName,
         isExternal) as Promise<unknown>;

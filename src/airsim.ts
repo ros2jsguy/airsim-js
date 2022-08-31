@@ -3,11 +3,16 @@
 
 import { Vector3 } from 'threejs-math';
 import { DEFAULT_HOST_IP, DEFAULT_PORT } from './constants';
-import {  ImageRequest, ImageResponse, ImageType } from './image';
-import { WeatherParameter, CameraInfo, DetectionInfo, DetectionSearch, GeoPoint } from './internal-types';
+import {
+  CameraInfo, CameraName, Color,
+  DetectionInfo, DetectionSearch,
+  GeoPoint, ImageRequest, ImageResponse, ImageType, WeatherParameter
+  } from './internal-types';
 import { MathConverter, Pose } from './math';
 import { Session } from './session';
 import { Vehicle } from './vehicle';
+
+const PLOT_MAX_TIME = 10000;
 
 export enum LogSeverity {
   DEBUG,
@@ -25,9 +30,52 @@ type Constructor<T> = new (name: string) => T;
 // eslint-disable-next-line import/prefer-default-export
 export class AirSim<T extends Vehicle>  {
 
+  private _port: number;
+
+  private _ip: string;
+
   private _session: Session | undefined;
 
   private _vehicles: Map<string,T>;
+
+  /**
+   * Create an AirSim client to a server on localhost.
+   * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
+   * hosted in an AirSim environment. When constructing a new AirSim
+   * client instance you must provide the class of Vehicle hosted by AirSim.
+   * @param vehicleClass - The type of vehicle hosted by the AirSim server
+   * @param port - The AirSim server port number, default = 41451
+   */
+  constructor(
+    vehicleClass: Constructor<T>,
+    port?: number);
+
+  /**
+   * Create an AirSim client to a server on host at ipAddress with
+   * default port, 41451.
+   * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
+   * hosted in an AirSim environment. When constructing a new AirSim
+   * client instance you must provide the class of Vehicle hosted by AirSim.
+   * @param vehicleClass - The type of vehicle hosted by the AirSim server
+   * @param ip - The AirSim server IP address, default = localhost
+   */
+  constructor(
+    vehicleClass: Constructor<T>,
+    ipAddress?: string);
+
+  /**
+   * Create an AirSim client to a server on host ip:port.
+   * AirSim serves as a factory for Vehicles, (e.g., Car, Multirotor)
+   * hosted in an AirSim environment. When constructing a new AirSim
+   * client instance you must provide the class of Vehicle hosted by AirSim.
+   * @param vehicleClass - The type of vehicle hosted by the AirSim server
+   * @param port - The AirSim server port number, default = 41451
+   * @param ip - The AirSim server IP address, default = localhost
+   */
+  constructor(
+    vehicleClass: Constructor<T>,
+    port?: number,
+    ipAddress?: string);
 
   /**
    * Create an AirSim client.
@@ -35,14 +83,23 @@ export class AirSim<T extends Vehicle>  {
    * hosted in an AirSim environment. When constructing a new AirSim
    * client instance you must provide the class of Vehicle hosted by AirSim.
    * @param vehicleClass - The type of vehicle hosted by the AirSim server
-   * @param port - The AirSim server port number, default = localhost
+   * @param portOrIp - The AirSim server port number, default = localhost
    * @param ip - The AirSim server IP address, default = 41451
    */
   constructor(
       private vehicleClass: Constructor<T>,
-      public port: string | number = DEFAULT_PORT,
-      public readonly ip = DEFAULT_HOST_IP) {
+      portOrIp: string | number = DEFAULT_PORT,
+      ip = DEFAULT_HOST_IP) {
+
     this._vehicles = new Map<string, T>();
+
+    if (typeof portOrIp  === 'string') {
+      this._ip = portOrIp;
+      this._port = DEFAULT_PORT;
+    } else {
+      this._port = portOrIp;
+      this._ip = ip;
+    }
   }
 
   /**
@@ -51,7 +108,7 @@ export class AirSim<T extends Vehicle>  {
    */
   async connect(): Promise<boolean> {
     // eslint-disable-next-line no-use-before-define
-    const newSession = new Session(this.port, this.ip);
+    const newSession = new Session(this._port, this._ip);
     const result = await newSession.connect();
     if (result) {
       this._session = newSession;
@@ -352,8 +409,17 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    *                     ID numbers such as 0,1,etc. can also be used
    * @returns A CameraInfo promise
    */
-  getCameraInfo(cameraName: string | number): Promise<CameraInfo> {
-    return this.session.simGetCameraInfo(cameraName, undefined, true);
+  async getCameraInfo(cameraName: CameraName): Promise<CameraInfo> {
+    const rawCameraInfo = await this._session.simGetCameraInfo(cameraName, undefined, true);
+    return {
+      pose: MathConverter.toPose(rawCameraInfo.pose),
+      fov: rawCameraInfo.fov,
+      proj_mat: MathConverter.toProjectionMatrix(rawCameraInfo.proj_mat)
+    };
+  }
+
+  async getCameraPose(cameraName: CameraName): Promise<Pose> {
+    return (await this.getCameraInfo(cameraName)).pose;
   }
 
   /**
@@ -364,7 +430,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param external - Whether the camera is an External Camera
    * @returns A Promise<void> to await on.
    */
-  setCameraPose(cameraName: string, pose: Pose, vehicleName = '', external = false): void {
+  setCameraPose(cameraName: CameraName, pose: Pose, vehicleName = '', external = false): void {
     this.session.simSetCameraPose(cameraName, MathConverter.toRawPose(pose), vehicleName, external);
   }
 
@@ -586,19 +652,29 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   /**
    * Plot a list of 3D points in World NED frame
    * @param points - List of Vector3 objects
-   * @param colorRGBA - desired RGBA values from 0.0 to 1.0
-   * @param size - Size of plotted point
-   * @param duration -Duration (seconds) to plot for
-   * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
+   * @param color - Color of points as an RGBA tuple with value 0.0 to 1.0 or
+   *    CSS color name, Default = 'red'.
+   * @param size - Size of plotted point. Default = 10.
+   * @param durationOrPersistent - Duration (seconds) to display points or True to display indefinetly.
+   *    Default = True.
    * @returns A Promise<void> to await on.
    */
-  plotPoints(points: Array<Vector3>, colorRGBA=[1.0, 0.0, 0.0, 1.0],
-             size = 10.0, duration = -1.0, isPersistent = false): Promise<void> {
+  plotPoints(points: Array<Vector3>, color: Color = 'red',
+      size = 10, durationOrPersistent: number | true = true): Promise<void> {
+
+    let duration = -1;
+    let isPersistent = false;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    } else {
+      duration = 0;
+      isPersistent = true;
+    }
     const newPoints = points.map(point => MathConverter.toVector3r(point));
     return this.session
             .simPlotPoints(
               newPoints,
-              colorRGBA,
+              MathConverter.colorToRGBA(color),
               size,
               duration,
               isPersistent);
@@ -608,19 +684,29 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Plots a line strip in World NED frame, defined from points[0] to
    * points[1], points[1] to points[2], ... , points[n-2] to points[n-1]
    * @param points - Array of 3D locations of line start and end points, specified as Vector3r objects
-   * @param colorRGBA - Array of desired RGBA values from 0.0 to 1.0
-   * @param thickness - Thickness of line
-   * @param duration - Duration (seconds) to plot for
-   * @param isPersistent - If set to True, the desired object will be plotted for infinite time.
+   * @param color - Line color as RGBA tuple of 0.0 to 1.0 values or
+   *    CSS color name. Default = 'red'.
+   * @param thickness - Thickness of line. Default = 5.
+   * @param durationOrPersistent - Duration (seconds) to display line-strip or True to display indefinetly.
+   *    Default = true.
    * @returns A Promise<void> to await on.
    */
-  plotLineStrip(points: Array<Vector3>, colorRGBA=[1.0, 0.0, 0.0, 1.0], thickness = 5.0, duration = -1.0, 
-                  isPersistent = false): Promise<void> {
+  plotLineStrip(points: Array<Vector3>, color: Color = 'red', thickness = 5.0, 
+      durationOrPersistent: number | true = true): Promise<void> {
+
+    let duration = -1;
+    let isPersistent = false;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    } else {
+      duration = 0;
+      isPersistent = true;
+    }
     const newPoints = points.map(point => MathConverter.toVector3r(point));
     return this.session
             .simPlotLineStrip(
                 newPoints,
-                colorRGBA,
+                MathConverter.colorToRGBA(color),
                 thickness,
                 duration,
                 isPersistent);
@@ -630,46 +716,67 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Plots a line strip in World NED frame, defined from points[0] to
    * points[1], points[2] to points[3], ... , points[n-2] to points[n-1]
    * @param points - List of 3D locations of line start and end points, specified as Vector3r objects. Must be even
-   * @param colorRGBA - desired RGBA values from 0.0 to 1.0
-   * @param thickness - Thickness of line
-   * @param duration - Duration (seconds) to plot for
-   * @param isPersistent - If set to True, the desired object will
-   *                       be plotted for infinite time.
+   * @param color - Line color as RGBA tuple of values from 0.0 to 1.0 or
+   *    CSS color name. Default = 'red'.
+   * @param thickness - Thickness of line. Default = 5.0.
+   * @param durationOrPersistent - Duration (seconds) to display lines or True to display indefinetly.
+   *    Default = True.
    * @returns A Promise<void> to await on.
    */
-  plotLineList(points: Array<Vector3>, colorRGBA=[1.0, 0.0, 0.0, 1.0], thickness = 5.0,
-       duration = -1.0, isPersistent = false): Promise<void> {
+  plotLineList(points: Array<Vector3>, color: Color = 'red', thickness = 5.0,
+      durationOrPersistent: number | boolean = true): Promise<void> {
+
+    let duration = -1;
+    let isPersistent = false;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    } else {
+      duration = 0;
+      isPersistent = true;
+    }
     const newPoints = points.map(point => MathConverter.toVector3r(point));
     return this.session
             .simPlotLineList(
                 newPoints,
-                colorRGBA,
+                MathConverter.colorToRGBA(color),
                 thickness,
                 duration,
                 isPersistent);
-  }
+  } 
 
   /**
    * Plots a list of arrows in World NED frame, defined from points_start[0]
    * to points_end[0], points_start[1] to points_end[1], ... , 
    * points_start[n-1] to points_end[n-1]
-   * @param pointsStart - Array of 3D start positions of arrow start positions, specified as Vector3r objects
-   * @param pointsEnd - Array of 3D end positions of arrow start positions, specified as Vector3r objects
-   * @param colorRGBA - desired RGBA values from 0.0 to 1.0
-   * @param thickness - Thickness of line
-   * @param arrowSize - Size of arrow head
-   * @param duration - Duration (seconds) to plot for
-   * @param isPersistent - If set to true, the desired object will be plotted for infinite time.
+   * @param pointsStart - Array of 3D start positions of arrow start positions, specified as Vector3 objects
+   * @param pointsEnd - Array of 3D end positions of arrow start positions, specified as Vector3 objects
+   * @param color - Line color as RGBA tuple of values from 0.0 to 1.0 or
+   *    CSS color name. Default = 'red'.
+   * @param thickness - Thickness of line. Default = 5.0.
+   * @param arrowSize - Size of arrow head. Default = 2.0.
+   * @param durationOrPersistent - Duration (seconds) to display arrows or True to display indefinetly.
+   *    Default = True.
    * @returns A Promise<void> to await on.
    */
   plotArrows(pointsStart: Array<Vector3>, pointsEnd: Array<Vector3>, 
-                colorRGBA=[1.0, 0.0, 0.0, 1.0],
-                thickness = 5.0, arrowSize = 2.0, duration = -1.0,
-                isPersistent = false): Promise<void> {
+      color: Color = 'red',
+      thickness = 5.0, arrowSize = 2.0,
+      durationOrPersistent: number | true = true): Promise<void> {
+
+    let duration = -1;
+    let isPersistent = false;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    } else {
+      duration = 0;
+      isPersistent = true;
+    }
     const newPointsStart = pointsStart.map(point => MathConverter.toVector3r(point));
     const newPointsEnd = pointsEnd.map(point => MathConverter.toVector3r(point));
-    return this.session.simPlotArrows(newPointsStart, newPointsEnd, colorRGBA,
-                     thickness, arrowSize, duration, isPersistent);
+    return this.session.simPlotArrows(newPointsStart, newPointsEnd,
+                    MathConverter.colorToRGBA(color),
+                    thickness, arrowSize, duration,
+                    isPersistent);
   }
 
   /**
@@ -678,28 +785,48 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param positions - List of positions where the strings should be
    *                    plotted. Should be in one-to-one correspondence
    *                    with the strings' list
-   * @param scale - Font scale of transform name
-   * @param colorRGBA - RGBA values from 0.0 to 1.0
-   * @param duration - Duration (seconds) to plot for
+   * @param scale - Font scale of transform name. Default = 5.
+   * @param color - Text color as RGBA tuple of values from 0.0 to 1.0 or
+   *    CSS color name. Default = 'red'.
+   * @param durationOrPersistent - Duration (seconds) to display strings or True to display indefinetly.
+   *    Default = True.
    * @returns A Promise<void> to await on. 
    */
   plotStrings(strings: Array<string>, positions: Array<Vector3>,
-                 scale = 5, colorRGBA=[1.0, 0.0, 0.0, 1.0], duration = -1.0): Promise<void> {
+      scale = 5, color: Color = 'red', 
+      durationOrPersistent: number | true = true): Promise<void> {
+
+    let duration = PLOT_MAX_TIME;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    } 
     const newPositions = positions.map(position => MathConverter.toVector3r(position));              
-    return this.session.simPlotStrings(strings, newPositions, scale, colorRGBA, duration) as Promise<void>;
+    return this.session.simPlotStrings(
+              strings, newPositions, scale,
+              MathConverter.colorToRGBA(color),
+              duration) as Promise<void>;
   }
 
   /**
    * Plots a list of transforms in World NED frame.
    * @param poses - Pose objects representing the transforms to plot
-   * @param scale - Length of transforms' axes
-   * @param thickness -Thickness of transforms' axes
-   * @param duration - Duration (seconds) to plot for
-   * @param isPersistent - WHen true, the desired object will be plotted for infinite time.
+   * @param scale - Length of transforms' axes. Default = 5.
+   * @param thickness -Thickness of transforms' axes. Default = 5.0.
+   * @param durationOrPersistent - Duration (seconds) to display transform or True to display indefinetly.
+   *    Default = True.
    * @returns  A Promise<void> to await on.
    */
   plotTransforms(poses: Array<Pose>, scale = 5.0, thickness = 5.0, 
-        duration = -1.0, isPersistent = false): Promise<void> {
+      durationOrPersistent: number | true = true): Promise<void> {
+
+    let duration = -1;
+    let isPersistent = false;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    } else {
+      duration = 0;
+      isPersistent = true;
+    }
     const rawPoses = poses.map(pose => MathConverter.toRawPose(pose));
     return this.session.simPlotTransforms(rawPoses, scale, thickness,
                 duration, isPersistent) as Promise<void>;
@@ -709,19 +836,27 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Plots a list of transforms with their names in World NED frame.
    * @param poses - Pose objects representing the transforms to plot
    * @param names - Strings with one-to-one correspondence to list of poses 
-   * @param scale - Length of transforms' axes
-   * @param thickness -Thickness of transforms' axes
-   * @param textScale - Font scale of transform name
-   * @param textColor - RGBA values from 0.0 to 1.0 for the transform name
-   * @param duration - Duration (seconds) to plot for
+   * @param scale - Length of transforms' axes. Default = 5.0.
+   * @param thickness -Thickness of transforms' axes. Default = 5.0.
+   * @param textScale - Font scale of transform name. Default = 10.
+    * @param textColor - Color of transform name as RGBA tuple
+    *   of values from 0.0 to 1.0 or CSS color name. 
+   *    Default = 'red'.
+   * @param durationOrPersistent - Duration (seconds) to display transforms or True to display indefinetly.
+   *    Default = True.
    * @returns A Promise<void> to await on.
    */
-   plotTransformsWithNames(poses: Array<Pose>, names: Array<string>, scale = 5.0,
-        thickness = 5.0, textScale = 10.0, textColor = [1.0, 0.0, 0.0, 1.0],
-        duration = -1.0): Promise<void> {
+  plotTransformsWithNames(poses: Array<Pose>, names: Array<string>, scale = 5.0,
+        thickness = 5.0, textScale = 10.0, textColor: Color = 'red',
+        durationOrPersistent: number | true = true): Promise<void> {
+
+    let duration = PLOT_MAX_TIME;
+    if (typeof(durationOrPersistent) === 'number') {
+      duration = durationOrPersistent;
+    }
     const rawPoses = poses.map(pose => MathConverter.toRawPose(pose));
     return this.session.simPlotTransformsWithNames(rawPoses, names, scale, thickness,
-            textScale, textColor, duration) as Promise<void>;
+            textScale,  MathConverter.colorToRGBA(textColor), duration) as Promise<void>;
   }
 
   /**
@@ -742,7 +877,7 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @param external - Whether the camera is an External Camera
    * @returns Uint8Array of compressed png image
    */
-  getImage(cameraName: string, imageType: ImageType): Promise<Uint8Array> {
+  getImage(cameraName: CameraName, imageType: ImageType): Promise<Uint8Array> {
     return this.session.simGetImage(cameraName, imageType, undefined, true) as Promise<Uint8Array>;
   }
 
@@ -753,6 +888,8 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * @returns The ImageResponse(s)
    */
   getImages(requests: Array<ImageRequest>): Promise<Array<ImageResponse>> {
+    // eslint-disable-next-line no-return-assign
+    requests.forEach(request => request.camera_name = request.camera_name.toString());
     return this._session.simGetImages(requests, undefined, true);
   }
 
