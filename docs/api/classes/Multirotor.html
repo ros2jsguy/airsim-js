@@ -1,0 +1,1266 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Multirotor | airsim-js</title><meta name="description" content="Documentation for airsim-js"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base="..">
+<div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">airsim-js</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb">
+<li><a href="../modules.html">airsim-js</a></li>
+<li><a href="Multirotor.html">Multirotor</a></li></ul>
+<h1>Class Multirotor</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The base class for AirSim vehicles providing access to a vehicle&#39;s
+state, position, orientation, sensor data, cameras and images, collision
+info and visibility to points test.</p>
+</div></section>
+<section class="tsd-panel tsd-hierarchy">
+<h4>Hierarchy</h4>
+<ul class="tsd-hierarchy">
+<li><a href="Vehicle.html" class="tsd-signature-type" data-tsd-kind="Class">Vehicle</a>
+<ul class="tsd-hierarchy">
+<li><span class="target">Multirotor</span></li></ul></li></ul></section>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
+<h5 class="tsd-index-heading uppercase" role="button" aria-expanded="false" tabIndex=0><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.50969L8 11.6609L14.5 5.50969L12.5466 3.66086L8 7.96494L3.45341 3.66086L1.5 5.50969Z" fill="var(--color-text)"></path></svg> Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Constructors</h3>
+<div class="tsd-index-list"><a href="Multirotor.html#constructor" class="tsd-index-link tsd-kind-constructor tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#4D7FFF" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-512-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-512-text"></path></svg><span>constructor</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Properties</h3>
+<div class="tsd-index-list"><a href="Multirotor.html#_session" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>_session</span></a>
+<a href="Multirotor.html#controller" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>controller</span></a>
+<a href="Multirotor.html#name" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>name</span></a>
+<a href="Multirotor.html#pawnPath" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>pawn<wbr/>Path</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Accessors</h3>
+<div class="tsd-index-list"><a href="Multirotor.html#DEFAULT_CONTROLLER" class="tsd-index-link tsd-kind-accessor tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4D4D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-262144-path"></rect><path d="M8.85 16L11.13 7.24H12.582L14.85 16H13.758L13.182 13.672H10.53L9.954 16H8.85ZM10.746 12.76H12.954L12.282 10.06C12.154 9.548 12.054 9.12 11.982 8.776C11.91 8.432 11.866 8.208 11.85 8.104C11.834 8.208 11.79 8.432 11.718 8.776C11.646 9.12 11.546 9.544 11.418 10.048L10.746 12.76Z" fill="var(--color-text)" id="icon-262144-text"></path></svg><span>DEFAULT_<wbr/>CONTROLLER</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Methods</h3>
+<div class="tsd-index-list"><a href="Multirotor.html#arm" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>arm</span></a>
+<a href="Multirotor.html#cameraLookAt" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>camera<wbr/>Look<wbr/>At</span></a>
+<a href="Multirotor.html#cancelLastTask" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>cancel<wbr/>Last<wbr/>Task</span></a>
+<a href="Multirotor.html#clearDetectionSearch" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>clear<wbr/>Detection<wbr/>Search</span></a>
+<a href="Multirotor.html#disableApiControl" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>disable<wbr/>Api<wbr/>Control</span></a>
+<a href="Multirotor.html#disarm" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>disarm</span></a>
+<a href="Multirotor.html#enableApiControl" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>enable<wbr/>Api<wbr/>Control</span></a>
+<a href="Multirotor.html#findDetections" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>find<wbr/>Detections</span></a>
+<a href="Multirotor.html#getBarometerData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Barometer<wbr/>Data</span></a>
+<a href="Multirotor.html#getCameraInfo" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Camera<wbr/>Info</span></a>
+<a href="Multirotor.html#getCameraPose" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Camera<wbr/>Pose</span></a>
+<a href="Multirotor.html#getCollisionInfo" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Collision<wbr/>Info</span></a>
+<a href="Multirotor.html#getDefaultCameraNames" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Default<wbr/>Camera<wbr/>Names</span></a>
+<a href="Multirotor.html#getDistanceSensorData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Distance<wbr/>Sensor<wbr/>Data</span></a>
+<a href="Multirotor.html#getGroundTruthEnvironment" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Ground<wbr/>Truth<wbr/>Environment</span></a>
+<a href="Multirotor.html#getGroundTruthKinematics" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Ground<wbr/>Truth<wbr/>Kinematics</span></a>
+<a href="Multirotor.html#getHome" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Home</span></a>
+<a href="Multirotor.html#getImage" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Image</span></a>
+<a href="Multirotor.html#getImages" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Images</span></a>
+<a href="Multirotor.html#getImuData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Imu<wbr/>Data</span></a>
+<a href="Multirotor.html#getLidarData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Lidar<wbr/>Data</span></a>
+<a href="Multirotor.html#getMagnetometerData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Magnetometer<wbr/>Data</span></a>
+<a href="Multirotor.html#getPose" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Pose</span></a>
+<a href="Multirotor.html#getRotorStates" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Rotor<wbr/>States</span></a>
+<a href="Multirotor.html#getState" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>State</span></a>
+<a href="Multirotor.html#goHome" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>go<wbr/>Home</span></a>
+<a href="Multirotor.html#hover" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>hover</span></a>
+<a href="Multirotor.html#isApiControlEnabled" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>is<wbr/>Api<wbr/>Control<wbr/>Enabled</span></a>
+<a href="Multirotor.html#land" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>land</span></a>
+<a href="Multirotor.html#moveByVelocity" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>By<wbr/>Velocity</span></a>
+<a href="Multirotor.html#moveByVelocityBodyFrame" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>By<wbr/>Velocity<wbr/>Body<wbr/>Frame</span></a>
+<a href="Multirotor.html#moveByVelocityZ" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>By<wbr/>VelocityZ</span></a>
+<a href="Multirotor.html#moveByVelocityZBodyFrame" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>By<wbr/>VelocityZBody<wbr/>Frame</span></a>
+<a href="Multirotor.html#moveOnPath" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>On<wbr/>Path</span></a>
+<a href="Multirotor.html#moveToGPS" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>ToGPS</span></a>
+<a href="Multirotor.html#moveToPosition" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>To<wbr/>Position</span></a>
+<a href="Multirotor.html#moveToZ" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>move<wbr/>ToZ</span></a>
+<a href="Multirotor.html#rotateByYawRate" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>rotate<wbr/>By<wbr/>Yaw<wbr/>Rate</span></a>
+<a href="Multirotor.html#rotateToYaw" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>rotate<wbr/>To<wbr/>Yaw</span></a>
+<a href="Multirotor.html#setCameraPose" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Camera<wbr/>Pose</span></a>
+<a href="Multirotor.html#setKinematics" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Kinematics</span></a>
+<a href="Multirotor.html#setPose" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Pose</span></a>
+<a href="Multirotor.html#setTraceLine" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Trace<wbr/>Line</span></a>
+<a href="Multirotor.html#startDetectionSearch" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>start<wbr/>Detection<wbr/>Search</span></a>
+<a href="Multirotor.html#takeoff" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>takeoff</span></a>
+<a href="Multirotor.html#testLineOfSightToPoint" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>test<wbr/>Line<wbr/>Of<wbr/>Sight<wbr/>To<wbr/>Point</span></a>
+<a href="Multirotor.html#waitOnLastTask" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>wait<wbr/>On<wbr/>Last<wbr/>Task</span></a>
+</div></section></div></details></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Constructors</h2>
+<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class"><a id="constructor" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+<li class="tsd-signature" id="constructor.new_Multirotor">new <wbr/>Multirotor<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, controller<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, pawnPath<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Multirotor.html" class="tsd-signature-type" data-tsd-kind="Class">Multirotor</a></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Create a new instance.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>name: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>The name of the vehicle.</p>
+</div></li>
+<li>
+<h5>controller: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = Multirotor.DEFAULT_CONTROLLER</span></h5>
+<div class="tsd-comment tsd-typography"><p>The vehicle controller, default = SimpleFlight</p>
+</div></li>
+<li>
+<h5>pawnPath: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Vehicle blueprint path, when undefined
+                  uses the default blueprint.</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="Multirotor.html" class="tsd-signature-type" data-tsd-kind="Class">Multirotor</a></h4><aside class="tsd-sources">
+<p>Overrides <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#constructor">constructor</a></p></aside></li></ul></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Properties</h2>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="_session" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>_session</span><a href="#_session" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">_session<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Session</span></div>
+<div class="tsd-comment tsd-typography"><p>The low-level AirSim api and network connection.</p>
+</div><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#_session">_session</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ros2jsguy/airsim-js/blob/49e8556/src/vehicle.ts#L24">src/vehicle.ts:24</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="controller" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>controller</span><a href="#controller" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">controller<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></div><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#controller">controller</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ros2jsguy/airsim-js/blob/49e8556/src/vehicle.ts#L33">src/vehicle.ts:33</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="name" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#name">name</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ros2jsguy/airsim-js/blob/49e8556/src/multirotor.ts#L36">src/multirotor.ts:36</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="pawnPath" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>pawn<wbr/>Path</span><a href="#pawnPath" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">pawn<wbr/>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></div><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#pawnPath">pawnPath</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/ros2jsguy/airsim-js/blob/49e8556/src/vehicle.ts#L33">src/vehicle.ts:33</a></li></ul></aside></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Accessors</h2>
+<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="DEFAULT_CONTROLLER" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>DEFAULT_<wbr/>CONTROLLER</span><a href="#DEFAULT_CONTROLLER" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+<li class="tsd-signature" id="DEFAULT_CONTROLLER.DEFAULT_CONTROLLER-1"><span class="tsd-signature-symbol">get</span> DEFAULT_CONTROLLER<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access the default controller (e.g., flight controller) of the vehicle.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
+<p>Overrides Vehicle.DEFAULT_CONTROLLER</p></aside></li></ul></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Methods</h2>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="arm" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>arm</span><a href="#arm" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="arm.arm-1">arm<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The drone must be armed before it will fly.
+Set arm to true to arm the drone. On some drones
+arming may cause the motors to spin on low throttle,
+this is normal.</p>
+
+<h3>Returns</h3><p>Promise<true> if successful.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="cameraLookAt" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>camera<wbr/>Look<wbr/>At</span><a href="#cameraLookAt" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="cameraLookAt.cameraLookAt-1">camera<wbr/>Look<wbr/>At<span class="tsd-signature-symbol">(</span>cameraName<span class="tsd-signature-symbol">: </span><a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a>, target<span class="tsd-signature-symbol">: </span><a href="Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a>, rearFacing<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Rotate a camera to point towards a target position.</p>
+
+<h3>Returns</h3><p>A Promise<Pose> with the camera rotation..</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>cameraName: <a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a></h5>
+<div class="tsd-comment tsd-typography"><p>The name or id of the camera to move.</p>
+</div></li>
+<li>
+<h5>target: <a href="Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+<div class="tsd-comment tsd-typography"><p>The position to point camera towards.</p>
+</div></li>
+<li>
+<h5>rearFacing: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+<div class="tsd-comment tsd-typography"><p>Set True when camera is mounting looking towards
+ the rear of the vehicle, default = false.</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#cameraLookAt">cameraLookAt</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="cancelLastTask" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>cancel<wbr/>Last<wbr/>Task</span><a href="#cancelLastTask" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="cancelLastTask.cancelLastTask-1">cancel<wbr/>Last<wbr/>Task<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Terminate the current task execution.</p>
+
+<h3>Returns</h3><p>Promise<true> when the current task is terminated</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#cancelLastTask">cancelLastTask</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="clearDetectionSearch" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>clear<wbr/>Detection<wbr/>Search</span><a href="#clearDetectionSearch" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="clearDetectionSearch.clearDetectionSearch-1">clear<wbr/>Detection<wbr/>Search<span class="tsd-signature-symbol">(</span>search<span class="tsd-signature-symbol">: </span><a href="../types/DetectionSearch.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionSearch</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Clear a detection search</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>search: <a href="../types/DetectionSearch.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionSearch</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#clearDetectionSearch">clearDetectionSearch</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="disableApiControl" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>disable<wbr/>Api<wbr/>Control</span><a href="#disableApiControl" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="disableApiControl.disableApiControl-1">disable<wbr/>Api<wbr/>Control<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Disables API control.</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#disableApiControl">disableApiControl</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="disarm" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>disarm</span><a href="#disarm" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="disarm.disarm-1">disarm<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>This will disable the motors, so don&#39;t do that unless
+the drone is on the ground! Arming the drone also sets
+the &quot;home position&quot; This home position is local position
+x=0,y=0,z=0. You can query what GPS location that is
+via getHomeGeo().</p>
+
+<h3>Returns</h3><p>Promise<true> if successful.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="enableApiControl" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>enable<wbr/>Api<wbr/>Control</span><a href="#enableApiControl" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="enableApiControl.enableApiControl-1">enable<wbr/>Api<wbr/>Control<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Enables API control.</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#enableApiControl">enableApiControl</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="findDetections" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>find<wbr/>Detections</span><a href="#findDetections" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="findDetections.findDetections-1">find<wbr/>Detections<span class="tsd-signature-symbol">(</span>search<span class="tsd-signature-symbol">: </span><a href="../types/DetectionSearch.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionSearch</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/DetectionInfo.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Find the detections in the camera field of view defined by the search details</p>
+
+<h3>Returns</h3><p>Array of object detections</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>search: <a href="../types/DetectionSearch.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionSearch</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/DetectionInfo.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#findDetections">findDetections</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getBarometerData" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Barometer<wbr/>Data</span><a href="#getBarometerData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getBarometerData.getBarometerData-1">get<wbr/>Barometer<wbr/>Data<span class="tsd-signature-symbol">(</span>barometerName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BarometerData</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access the data from an barometer sensor.</p>
+
+<h3>Returns</h3><p>The barometer sensor data</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>barometerName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Name of barometer to get data from, specified in settings.json</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BarometerData</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getBarometerData">getBarometerData</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getCameraInfo" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Camera<wbr/>Info</span><a href="#getCameraInfo" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getCameraInfo.getCameraInfo-1">get<wbr/>Camera<wbr/>Info<span class="tsd-signature-symbol">(</span>cameraName<span class="tsd-signature-symbol">: </span><a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/CameraInfo.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraInfo</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get details about the vehicle camera.</p>
+<p>Note if the cameraName is unknown to airsim, the server may crash.</p>
+
+<h3>Returns</h3><p>A CameraInfo promise</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>cameraName: <a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a></h5>
+<div class="tsd-comment tsd-typography"><p>Name of the camera, for backwards compatibility,
+                    ID numbers such as 0,1,etc. can also be used</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/CameraInfo.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraInfo</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getCameraInfo">getCameraInfo</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getCameraPose" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Camera<wbr/>Pose</span><a href="#getCameraPose" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getCameraPose.getCameraPose-1">get<wbr/>Camera<wbr/>Pose<span class="tsd-signature-symbol">(</span>cameraName<span class="tsd-signature-symbol">: </span><a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>cameraName: <a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getCameraPose">getCameraPose</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getCollisionInfo" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Collision<wbr/>Info</span><a href="#getCollisionInfo" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getCollisionInfo.getCollisionInfo-1">get<wbr/>Collision<wbr/>Info<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/CollisionInfo.html" class="tsd-signature-type" data-tsd-kind="Type alias">CollisionInfo</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get the vehicle&#39;s collision state.</p>
+
+<h3>Returns</h3><p>The collision state info.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/CollisionInfo.html" class="tsd-signature-type" data-tsd-kind="Type alias">CollisionInfo</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getCollisionInfo">getCollisionInfo</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getDefaultCameraNames" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Default<wbr/>Camera<wbr/>Names</span><a href="#getDefaultCameraNames" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="getDefaultCameraNames.getDefaultCameraNames-1">get<wbr/>Default<wbr/>Camera<wbr/>Names<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get details about the vehicle camera.</p>
+<p>Note if the cameraName is unknown to airsim, the server may crash.</p>
+
+<h3>Returns</h3><p>A CameraInfo promise</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<p>Overrides <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getDefaultCameraNames">getDefaultCameraNames</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getDistanceSensorData" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Distance<wbr/>Sensor<wbr/>Data</span><a href="#getDistanceSensorData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getDistanceSensorData.getDistanceSensorData-1">get<wbr/>Distance<wbr/>Sensor<wbr/>Data<span class="tsd-signature-symbol">(</span>distanceSensorName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DistanceSensorData</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access distance sensor data.</p>
+
+<h3>Returns</h3><p>The distance data</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>distanceSensorName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Name of distance sensor to get data from, specified in settings.json</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DistanceSensorData</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getDistanceSensorData">getDistanceSensorData</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getGroundTruthEnvironment" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Ground<wbr/>Truth<wbr/>Environment</span><a href="#getGroundTruthEnvironment" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getGroundTruthEnvironment.getGroundTruthEnvironment-1">get<wbr/>Ground<wbr/>Truth<wbr/>Environment<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/EnvironmentState.html" class="tsd-signature-type" data-tsd-kind="Type alias">EnvironmentState</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get ground truth environment state
+The position inside the returned EnvironmentState is in the frame of the vehicle&#39;s starting point</p>
+
+<h3>Returns</h3><p>Ground truth environment state</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/EnvironmentState.html" class="tsd-signature-type" data-tsd-kind="Type alias">EnvironmentState</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getGroundTruthEnvironment">getGroundTruthEnvironment</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getGroundTruthKinematics" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Ground<wbr/>Truth<wbr/>Kinematics</span><a href="#getGroundTruthKinematics" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getGroundTruthKinematics.getGroundTruthKinematics-1">get<wbr/>Ground<wbr/>Truth<wbr/>Kinematics<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/KinematicsState.html" class="tsd-signature-type" data-tsd-kind="Type alias">KinematicsState</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get ground-truth kinematics of the vehicle
+The position inside the returned KinematicsState is in the frame of the vehicle&#39;s starting point</p>
+
+<h3>Returns</h3><p>Ground truth of the vehicle</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/KinematicsState.html" class="tsd-signature-type" data-tsd-kind="Type alias">KinematicsState</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getGroundTruthKinematics">getGroundTruthKinematics</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getHome" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Home</span><a href="#getHome" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getHome.getHome-1">get<wbr/>Home<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/GeoPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">GeoPoint</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get the Home NED-frame location (north, east, down) of the vehicle.</p>
+
+<h3>Returns</h3><p>The Home location of the vehicle</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/GeoPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">GeoPoint</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getHome">getHome</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getImage" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Image</span><a href="#getImage" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getImage.getImage-1">get<wbr/>Image<span class="tsd-signature-symbol">(</span>cameraName<span class="tsd-signature-symbol">: </span><a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a>, imageType<span class="tsd-signature-symbol">?: </span><a href="../enums/ImageType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ImageType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get a single image in compressed PNG format.</p>
+
+<h3>Returns</h3><p>Promise<Uint8Array> of compressed png image data</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>cameraName: <a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a></h5>
+<div class="tsd-comment tsd-typography"><p>Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used</p>
+</div></li>
+<li>
+<h5>imageType: <a href="../enums/ImageType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ImageType</a><span class="tsd-signature-symbol"> = ImageType.Scene</span></h5>
+<div class="tsd-comment tsd-typography"><p>Type of image</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getImage">getImage</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getImages" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Images</span><a href="#getImages" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getImages.getImages-1">get<wbr/>Images<span class="tsd-signature-symbol">(</span>requests<span class="tsd-signature-symbol">: </span><a href="../types/ImageRequest.html" class="tsd-signature-type" data-tsd-kind="Type alias">ImageRequest</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/ImageResponse.html" class="tsd-signature-type" data-tsd-kind="Type alias">ImageResponse</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get multiple images</p>
+
+<h3>See</h3>
+<h3>Link</h3><p>for details and examples</p>
+
+<h3>Returns</h3><p>The ImageResponse(s)</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>requests: <a href="../types/ImageRequest.html" class="tsd-signature-type" data-tsd-kind="Type alias">ImageRequest</a><span class="tsd-signature-symbol">[]</span></h5>
+<div class="tsd-comment tsd-typography"><p>Images required</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/ImageResponse.html" class="tsd-signature-type" data-tsd-kind="Type alias">ImageResponse</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getImages">getImages</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getImuData" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Imu<wbr/>Data</span><a href="#getImuData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getImuData.getImuData-1">get<wbr/>Imu<wbr/>Data<span class="tsd-signature-symbol">(</span>imuName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ImuData</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access the data from an IMU sensor.</p>
+
+<h3>Returns</h3><p>The IMU sensor data</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>imuName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Name of IMU to get data from, specified in settings.json</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ImuData</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getImuData">getImuData</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getLidarData" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Lidar<wbr/>Data</span><a href="#getLidarData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getLidarData.getLidarData-1">get<wbr/>Lidar<wbr/>Data<span class="tsd-signature-symbol">(</span>lidarName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">LidarData</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access the data from a LIDAR sensor.</p>
+
+<h3>Returns</h3><p>The LIDAR sensor data</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>lidarName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Name of IMU to get data from, specified in settings.json</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">LidarData</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getLidarData">getLidarData</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getMagnetometerData" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Magnetometer<wbr/>Data</span><a href="#getMagnetometerData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getMagnetometerData.getMagnetometerData-1">get<wbr/>Magnetometer<wbr/>Data<span class="tsd-signature-symbol">(</span>magnetometerName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MagnetometerData</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access the data from an magnetometer sensor.</p>
+
+<h3>Returns</h3><p>The magnetometer sensor data</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>magnetometerName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5>
+<div class="tsd-comment tsd-typography"><p>Name of Magnetometer to get data from, specified in settings.json</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MagnetometerData</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getMagnetometerData">getMagnetometerData</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="getPose" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Pose</span><a href="#getPose" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="getPose.getPose-1">get<wbr/>Pose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Access the vehicle&#39;s Pose</p>
+
+<h3>Returns</h3><p>The vehicle pose.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#getPose">getPose</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getRotorStates" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Rotor<wbr/>States</span><a href="#getRotorStates" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="getRotorStates.getRotorStates-1">get<wbr/>Rotor<wbr/>States<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RotorStates.html" class="tsd-signature-type" data-tsd-kind="Type alias">RotorStates</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Obtain the current state of all a multirotor&#39;s rotors. The state includes the speeds,
+     thrusts and torques for all rotors.</p>
+
+<h3>Returns</h3><p>RotorStates containing a timestamp, the speed, thrust and torque of all rotors</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RotorStates.html" class="tsd-signature-type" data-tsd-kind="Type alias">RotorStates</a><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getState" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>State</span><a href="#getState" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="getState.getState-1">get<wbr/>State<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/MultirotorState.html" class="tsd-signature-type" data-tsd-kind="Type alias">MultirotorState</a><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>The position inside the returned MultirotorState is in the frame of the vehicle&#39;s starting point</p>
+
+<h3>Returns</h3><p>The drone state</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/MultirotorState.html" class="tsd-signature-type" data-tsd-kind="Type alias">MultirotorState</a><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="goHome" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>go<wbr/>Home</span><a href="#goHome" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="goHome.goHome-1">go<wbr/>Home<span class="tsd-signature-symbol">(</span>timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Initiate a return-to-home, i.e. Launch location, task which must be
+completed within timeoutSec.</p>
+
+<h3>Returns</h3><p>Promise<true> if success</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>Timeout (seconds) to complete task.</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="hover" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>hover</span><a href="#hover" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="hover.hover-1">hover<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Hover at the current x, y, and z. If the drone is moving when this is called,
+it will try and move back to the location it was at when this command was
+received and hover there.</p>
+
+<h3>Returns</h3><p>A void promise to await on.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="isApiControlEnabled" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>is<wbr/>Api<wbr/>Control<wbr/>Enabled</span><a href="#isApiControlEnabled" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="isApiControlEnabled.isApiControlEnabled-1">is<wbr/>Api<wbr/>Control<wbr/>Enabled<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns true if API control is established.</p>
+
+<h3>Returns</h3><p>Promise<true> if API is enabled.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#isApiControlEnabled">isApiControlEnabled</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="land" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>land</span><a href="#land" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="land.land-1">land<span class="tsd-signature-symbol">(</span>timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>At any point this command will disable offboard
+control and land the drone at the current GPS location
+How quickly the drone descends is up to the drone. Some
+models will descend slowly if they have no lidar telling
+them how far it is to the ground, while others that can
+see the ground will descend more quickly until they get
+near the ground. None of that behavior is defined in this
+API because it is depends on what kind of hardware the
+drone has onboard. Pass non-zero timeoutSec if you
+want the method to wait until the drone reports it
+has landed, the timeout here is a bit tricky, depends on
+how high you are and what the drone&#39;s configured descent
+velocity is. If you don&#39;t want to wait pass zero. You
+can also periodically check getLandedState() to see if it
+has landed.</p>
+
+<h3>Returns</h3><p>Promise<true> when successful</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 60</span></h5>
+<div class="tsd-comment tsd-typography"><p>Timeout (seconds) for the vehicle to land</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveByVelocity" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>By<wbr/>Velocity</span><a href="#moveByVelocity" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveByVelocity.moveByVelocity-1">move<wbr/>By<wbr/>Velocity<span class="tsd-signature-symbol">(</span>vx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vz<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Move by velocity to the world (NED) XYZ axes.</p>
+
+<h3>Returns</h3><p>Promise<true> on success.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>vx: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in world (NED) X axis.</p>
+</div></li>
+<li>
+<h5>vy: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in world (NED) Y axis.</p>
+</div></li>
+<li>
+<h5>vz: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocityvin world (NED) Z axis.</p>
+</div></li>
+<li>
+<h5>duration: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Amount of time (seconds), to send this command.</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5>
+<div class="tsd-comment tsd-typography"><p>The drivetrain mode to use.</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The rate (deg/sec) or angle (deg) of yaw maneuvering</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveByVelocityBodyFrame" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>By<wbr/>Velocity<wbr/>Body<wbr/>Frame</span><a href="#moveByVelocityBodyFrame" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveByVelocityBodyFrame.moveByVelocityBodyFrame-1">move<wbr/>By<wbr/>Velocity<wbr/>Body<wbr/>Frame<span class="tsd-signature-symbol">(</span>vx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vz<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Move by velocity relative to the vehicle&#39;s XYZ axies.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>vx: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in the X axis of the vehicle&#39;s local NED frame.</p>
+</div></li>
+<li>
+<h5>vy: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in the Y axis of the vehicle&#39;s local NED frame.</p>
+</div></li>
+<li>
+<h5>vz: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in the Z axis of the vehicle&#39;s local NED frame.</p>
+</div></li>
+<li>
+<h5>duration: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired amount of time (seconds), to send this command.</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5>
+<div class="tsd-comment tsd-typography"><p>The drivetrain mode to use.</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The rate (deg/sec) or angle (deg) of yaw maneuvering</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveByVelocityZ" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>By<wbr/>VelocityZ</span><a href="#moveByVelocityZ" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveByVelocityZ.moveByVelocityZ-1">move<wbr/>By<wbr/>VelocityZ<span class="tsd-signature-symbol">(</span>vx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Move by velocity to the world (NED) XY axes with fixed Z (NED) position.</p>
+
+<h3>Returns</h3><p>Promise<true> on success.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>vx: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in world (NED) X axis.</p>
+</div></li>
+<li>
+<h5>vy: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity in world (NED) Y axis.</p>
+</div></li>
+<li>
+<h5>z: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired Z position in world (NED) Z axis.</p>
+</div></li>
+<li>
+<h5>duration: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Amount of time (seconds), to send this command.</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5>
+<div class="tsd-comment tsd-typography"><p>The drivetrain mode to use.</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The rate (deg/sec) or angle (deg) of yaw maneuvering</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveByVelocityZBodyFrame" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>By<wbr/>VelocityZBody<wbr/>Frame</span><a href="#moveByVelocityZBodyFrame" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveByVelocityZBodyFrame.moveByVelocityZBodyFrame-1">move<wbr/>By<wbr/>VelocityZBody<wbr/>Frame<span class="tsd-signature-symbol">(</span>vx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, vy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Move by velocity relative to the vehicle&#39;s XY axies at Z altitude.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>vx: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity (m/s) in the X axis of the vehicle&#39;s local NED frame.</p>
+</div></li>
+<li>
+<h5>vy: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired velocity (m/s) in the Y axis of the vehicle&#39;s local NED frame.</p>
+</div></li>
+<li>
+<h5>z: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired Z position (m) in vehicle&#39;s local NED frame.</p>
+</div></li>
+<li>
+<h5>duration: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Desired amount of time (seconds), to send this command.</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5>
+<div class="tsd-comment tsd-typography"><p>The drivetrain mode to use.</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The rate (deg/sec) or angle (deg) of yaw maneuvering</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveOnPath" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>On<wbr/>Path</span><a href="#moveOnPath" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveOnPath.moveOnPath-1">move<wbr/>On<wbr/>Path<span class="tsd-signature-symbol">(</span>waypoints<span class="tsd-signature-symbol">: </span><a href="Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">[]</span>, velocity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a>, lookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, adaptiveLookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Initiate a task to follow a path consisting of waypoints.</p>
+
+<h3>Returns</h3><p>Promise<true> if successful completion</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>waypoints: <a href="Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a><span class="tsd-signature-symbol">[]</span></h5>
+<div class="tsd-comment tsd-typography"><p>The 3d points for the path trajectory</p>
+</div></li>
+<li>
+<h5>velocity: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>The target speed (m/s)</p>
+</div></li>
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>The maximum time (seconds) for this task to complete</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5>
+<div class="tsd-comment tsd-typography"><p>The drivetrain mode to use</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The yaw configuration</p>
+</div></li>
+<li>
+<h5>lookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></h5>
+<div class="tsd-comment tsd-typography"><p>How far to look ahead on the path (default -1 means auto)</p>
+</div></li>
+<li>
+<h5>adaptiveLookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></h5>
+<div class="tsd-comment tsd-typography"><p>Whether to apply adaptive lookahead (1=yes, 0=no)</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveToGPS" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>ToGPS</span><a href="#moveToGPS" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveToGPS.moveToGPS-1">move<wbr/>ToGPS<span class="tsd-signature-symbol">(</span>latitude<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, longitude<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, altitude<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, velocity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yaw_mode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a>, lookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, adaptive_lookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Initiate task to relocate vehile to a XY position with fixed Z (height) within
+timeoutSec.</p>
+
+<h3>Returns</h3><p>A Promise<true> on successful completion.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>latitude: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Target latitude (North, South) coordinate.</p>
+</div></li>
+<li>
+<h5>longitude: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Target longitude (East, West) coordinate.</p>
+</div></li>
+<li>
+<h5>altitude: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Altitude in meters</p>
+</div></li>
+<li>
+<h5>velocity: <span class="tsd-signature-type">any</span></h5>
+<div class="tsd-comment tsd-typography"><p>The velocity m/s by which to relocate.</p>
+</div></li>
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>The maximum time (seconds) to complete this relocation.</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5></li>
+<li>
+<h5>yaw_mode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5></li>
+<li>
+<h5>lookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></h5>
+<div class="tsd-comment tsd-typography"><p>How far (m) to look ahead on the path (default -1 means auto)</p>
+</div></li>
+<li>
+<h5>adaptive_lookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveToPosition" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>To<wbr/>Position</span><a href="#moveToPosition" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveToPosition.moveToPosition-1">move<wbr/>To<wbr/>Position<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><a href="Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a>, velocity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, drivetrain<span class="tsd-signature-symbol">?: </span><a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a>, lookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, adaptiveLookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Initiate task to relocate vehile to a new 3D position
+within timeoutSec.</p>
+
+<h3>Returns</h3><p>A void promise to await on</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>position: <a href="Vector3.html" class="tsd-signature-type" data-tsd-kind="Class">Vector3</a></h5>
+<div class="tsd-comment tsd-typography"><p>The target position.</p>
+</div></li>
+<li>
+<h5>velocity: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>The velocity (m/s) by which to relocate.</p>
+</div></li>
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>The maximum time (seconds) to complete this relocation.</p>
+</div></li>
+<li>
+<h5>drivetrain: <a href="../enums/DrivetrainType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DrivetrainType</a><span class="tsd-signature-symbol"> = DrivetrainType.MaxDegreeOfFreedom</span></h5>
+<div class="tsd-comment tsd-typography"><p>The drivetrain mode to use</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The rate of yaw maneuvering</p>
+</div></li>
+<li>
+<h5>lookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></h5>
+<div class="tsd-comment tsd-typography"><p>How far to look ahead on the path (default -1 means auto)</p>
+</div></li>
+<li>
+<h5>adaptiveLookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></h5>
+<div class="tsd-comment tsd-typography"><p>Whether to apply adaptive lookahead (1=yes, 0=no)</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="moveToZ" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>move<wbr/>ToZ</span><a href="#moveToZ" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="moveToZ.moveToZ-1">move<wbr/>ToZ<span class="tsd-signature-symbol">(</span>z<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, velocity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, yawMode<span class="tsd-signature-symbol">?: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a>, lookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, adaptiveLookahead<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Initiate task to relocate vehile to a XY position with fixed Z (height) within
+timeoutSec.</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>z: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>The target NED Z position (negative is up) in meters,.</p>
+</div></li>
+<li>
+<h5>velocity: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>The velocity m/s by which to relocate.</p>
+</div></li>
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>The maximum time (seconds) to complete this relocation.</p>
+</div></li>
+<li>
+<h5>yawMode: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a><span class="tsd-signature-symbol"> = DEFAULT_YAW_MODE</span></h5>
+<div class="tsd-comment tsd-typography"><p>The rate of yaw maneuvering</p>
+</div></li>
+<li>
+<h5>lookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></h5>
+<div class="tsd-comment tsd-typography"><p>How far to look ahead on the path (default -1 means auto)</p>
+</div></li>
+<li>
+<h5>adaptiveLookahead: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></h5>
+<div class="tsd-comment tsd-typography"><p>Whether to apply adaptive lookahead (1=yes, 0=no)</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="rotateByYawRate" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>rotate<wbr/>By<wbr/>Yaw<wbr/>Rate</span><a href="#rotateByYawRate" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="rotateByYawRate.rotateByYawRate-1">rotate<wbr/>By<wbr/>Yaw<wbr/>Rate<span class="tsd-signature-symbol">(</span>yawRate<span class="tsd-signature-symbol">: </span><a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Rotate the drone to the specified yaw rate while remaining
+stationery at the current x, y, and z.</p>
+
+<h3>Returns</h3><p>Promise<true> on success</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>yawRate: <a href="../types/YawMode.html" class="tsd-signature-type" data-tsd-kind="Type alias">YawMode</a></h5>
+<div class="tsd-comment tsd-typography"><p>rate in degrees/second</p>
+</div></li>
+<li>
+<h5>duration: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>length of time to apply this command</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="rotateToYaw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>rotate<wbr/>To<wbr/>Yaw</span><a href="#rotateToYaw" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="rotateToYaw.rotateToYaw-1">rotate<wbr/>To<wbr/>Yaw<span class="tsd-signature-symbol">(</span>yaw<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, margin<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Initiate rotation task to absolute yaw angle (deg) of home position in degrees.</p>
+
+<h3>Returns</h3><p>Promise<true> on success</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>yaw: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>angle in degrees</p>
+</div></li>
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>maximum time in seconds to complete manuever</p>
+</div></li>
+<li>
+<h5>margin: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 5</span></h5>
+<div class="tsd-comment tsd-typography"><p>+/- allowable error in degrees</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="setCameraPose" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Camera<wbr/>Pose</span><a href="#setCameraPose" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="setCameraPose.setCameraPose-1">set<wbr/>Camera<wbr/>Pose<span class="tsd-signature-symbol">(</span>cameraName<span class="tsd-signature-symbol">: </span><a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a>, pose<span class="tsd-signature-symbol">: </span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Control the pose of a selected camera</p>
+
+<h3>Returns</h3><p>A void promise to await on.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>cameraName: <a href="../types/CameraName.html" class="tsd-signature-type" data-tsd-kind="Type alias">CameraName</a></h5>
+<div class="tsd-comment tsd-typography"><p>Name of the camera to be controlled</p>
+</div></li>
+<li>
+<h5>pose: <a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a></h5>
+<div class="tsd-comment tsd-typography"><p>Pose representing the desired position and orientation of the camera</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#setCameraPose">setCameraPose</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="setKinematics" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Kinematics</span><a href="#setKinematics" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="setKinematics.setKinematics-1">set<wbr/>Kinematics<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../types/KinematicsState.html" class="tsd-signature-type" data-tsd-kind="Type alias">KinematicsState</a>, ignoreCollision<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Set the kinematics state of the vehicle
+If you don&#39;t want to change position (or orientation) then just set components of position (or orientation) to floating point nan values</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>state: <a href="../types/KinematicsState.html" class="tsd-signature-type" data-tsd-kind="Type alias">KinematicsState</a></h5>
+<div class="tsd-comment tsd-typography"><p>Desired Pose pf the vehicle</p>
+</div></li>
+<li>
+<h5>ignoreCollision: <span class="tsd-signature-type">boolean</span></h5>
+<div class="tsd-comment tsd-typography"><p>Whether to ignore any collision or not</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#setKinematics">setKinematics</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="setPose" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Pose</span><a href="#setPose" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="setPose.setPose-1">set<wbr/>Pose<span class="tsd-signature-symbol">(</span>pose<span class="tsd-signature-symbol">: </span><a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a>, ignorecollision<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Set the pose of the vehicle.</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>pose: <a href="../types/Pose.html" class="tsd-signature-type" data-tsd-kind="Type alias">Pose</a></h5>
+<div class="tsd-comment tsd-typography"><p>The new pose.</p>
+</div></li>
+<li>
+<h5>ignorecollision: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></h5>
+<div class="tsd-comment tsd-typography"><p>Whether to ignore any collision or not</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#setPose">setPose</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="setTraceLine" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Trace<wbr/>Line</span><a href="#setTraceLine" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="setTraceLine.setTraceLine-1">set<wbr/>Trace<wbr/>Line<span class="tsd-signature-symbol">(</span>color<span class="tsd-signature-symbol">: </span><a href="../types/Color.html" class="tsd-signature-type" data-tsd-kind="Type alias">Color</a>, thickness<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Modify the color and thickness of the line when tracing is enabled.
+Tracing can be enabled by pressing T in the Editor or
+setting <code>EnableTrace</code> to <code>True</code> in the Vehicle Settings</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>color: <a href="../types/Color.html" class="tsd-signature-type" data-tsd-kind="Type alias">Color</a></h5>
+<div class="tsd-comment tsd-typography"><p>the RGBA tuple or CSS color name.</p>
+</div></li>
+<li>
+<h5>thickness: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1.0</span></h5>
+<div class="tsd-comment tsd-typography"><p>Thickness of the line</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#setTraceLine">setTraceLine</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="startDetectionSearch" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>start<wbr/>Detection<wbr/>Search</span><a href="#startDetectionSearch" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="startDetectionSearch.startDetectionSearch-1">start<wbr/>Detection<wbr/>Search<span class="tsd-signature-symbol">(</span>search<span class="tsd-signature-symbol">: </span><a href="../types/DetectionSearch.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionSearch</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Configure a camera to perform a computer vision search and detection of 
+specific mesh object(s).</p>
+
+<h3>Returns</h3><p>A Promise<void> to await on</p>
+
+<h3>Example</h3><p>Example for detecting all instances named &quot;Car_*&quot;</p>
+<pre><code><span class="hl-6">startDetectionSearch</span><span class="hl-1">(</span><br/><span class="hl-1">  {</span><br/><span class="hl-1">    </span><span class="hl-0">camera:</span><span class="hl-1"> </span><span class="hl-4">&#39;front_center&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-0">image_type:</span><span class="hl-1"> </span><span class="hl-0">ImageType</span><span class="hl-1">.</span><span class="hl-0">Scene</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-0">meshName:</span><span class="hl-1"> </span><span class="hl-4">&#39;Car_*&#39;</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">);</span>
+</code></pre>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>search: <a href="../types/DetectionSearch.html" class="tsd-signature-type" data-tsd-kind="Type alias">DetectionSearch</a></h5>
+<div class="tsd-comment tsd-typography"><p>The search details</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#startDetectionSearch">startDetectionSearch</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="takeoff" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>takeoff</span><a href="#takeoff" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature" id="takeoff.takeoff-1">takeoff<span class="tsd-signature-symbol">(</span>timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>When armed you can tell the drone to takeoff. This will fly to a 
+preset altitude of 3 metters above the home position. Once the
+drone is safely in the air you can use other commands to fly from
+there. If the drone is already flying takeoff will be ignored.
+Pass non-zer max_wait_seconds if you want the method to also
+wait until the takeoff altitude is achieved.</p>
+
+<h3>Returns</h3><p>A boolean Promise</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 20</span></h5>
+<div class="tsd-comment tsd-typography"><p>Timeout (seconds) for the vehicle to reach desired altitude.
+                    A value of 0 implies no timeout.</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="testLineOfSightToPoint" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>test<wbr/>Line<wbr/>Of<wbr/>Sight<wbr/>To<wbr/>Point</span><a href="#testLineOfSightToPoint" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="testLineOfSightToPoint.testLineOfSightToPoint-1">test<wbr/>Line<wbr/>Of<wbr/>Sight<wbr/>To<wbr/>Point<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><a href="../types/GeoPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">GeoPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns whether the target point is visible from the perspective of the vehicle</p>
+
+<h3>Returns</h3><p>Promise<true> if target point is visible.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>point: <a href="../types/GeoPoint.html" class="tsd-signature-type" data-tsd-kind="Type alias">GeoPoint</a></h5>
+<div class="tsd-comment tsd-typography"><p>Target point</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#testLineOfSightToPoint">testLineOfSightToPoint</a></p></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="waitOnLastTask" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>wait<wbr/>On<wbr/>Last<wbr/>Task</span><a href="#waitOnLastTask" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature" id="waitOnLastTask.waitOnLastTask-1">wait<wbr/>On<wbr/>Last<wbr/>Task<span class="tsd-signature-symbol">(</span>timeoutSec<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li></ul>
+<ul class="tsd-descriptions">
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Wait on the current task being executed.</p>
+
+<h3>Returns</h3><p>Promise<true> if the task completed without cancellation or timeout</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>timeoutSec: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 3e+38</span></h5>
+<div class="tsd-comment tsd-typography"><p>seconds to wait for task completion.</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Vehicle.html">Vehicle</a>.<a href="Vehicle.html#waitOnLastTask">waitOnLastTask</a></p></aside></li></ul></section></section></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li><a href="../modules.html">airsim-<wbr/>js</a>
+<ul>
+<li class="tsd-kind-namespace"><a href="../modules/Utils.html">Utils</a></li></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="current tsd-kind-class"><a href="Multirotor.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg><span>Multirotor</span></a>
+<ul>
+<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="Multirotor.html#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-512-path"></use><use href="#icon-512-text"></use></svg>constructor</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#_session" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>_session</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#controller" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>controller</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#name" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>name</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#pawnPath" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>pawn<wbr/>Path</a></li>
+<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="Multirotor.html#DEFAULT_CONTROLLER" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-262144-path"></use><use href="#icon-262144-text"></use></svg>DEFAULT_<wbr/>CONTROLLER</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#arm" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>arm</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#cameraLookAt" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>camera<wbr/>Look<wbr/>At</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#cancelLastTask" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>cancel<wbr/>Last<wbr/>Task</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#clearDetectionSearch" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>clear<wbr/>Detection<wbr/>Search</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#disableApiControl" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>disable<wbr/>Api<wbr/>Control</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#disarm" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>disarm</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#enableApiControl" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>enable<wbr/>Api<wbr/>Control</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#findDetections" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>find<wbr/>Detections</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getBarometerData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Barometer<wbr/>Data</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getCameraInfo" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Camera<wbr/>Info</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getCameraPose" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Camera<wbr/>Pose</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getCollisionInfo" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Collision<wbr/>Info</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#getDefaultCameraNames" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Default<wbr/>Camera<wbr/>Names</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getDistanceSensorData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Distance<wbr/>Sensor<wbr/>Data</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getGroundTruthEnvironment" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Ground<wbr/>Truth<wbr/>Environment</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getGroundTruthKinematics" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Ground<wbr/>Truth<wbr/>Kinematics</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getHome" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Home</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getImage" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Image</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getImages" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Images</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getImuData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Imu<wbr/>Data</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getLidarData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Lidar<wbr/>Data</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getMagnetometerData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Magnetometer<wbr/>Data</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#getPose" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Pose</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#getRotorStates" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Rotor<wbr/>States</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#getState" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>State</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#goHome" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>go<wbr/>Home</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#hover" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>hover</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#isApiControlEnabled" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>is<wbr/>Api<wbr/>Control<wbr/>Enabled</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#land" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>land</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveByVelocity" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>By<wbr/>Velocity</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveByVelocityBodyFrame" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>By<wbr/>Velocity<wbr/>Body<wbr/>Frame</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveByVelocityZ" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>By<wbr/>VelocityZ</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveByVelocityZBodyFrame" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>By<wbr/>VelocityZBody<wbr/>Frame</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveOnPath" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>On<wbr/>Path</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveToGPS" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>ToGPS</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveToPosition" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>To<wbr/>Position</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#moveToZ" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>move<wbr/>ToZ</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#rotateByYawRate" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>rotate<wbr/>By<wbr/>Yaw<wbr/>Rate</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#rotateToYaw" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>rotate<wbr/>To<wbr/>Yaw</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#setCameraPose" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Camera<wbr/>Pose</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#setKinematics" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Kinematics</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#setPose" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Pose</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#setTraceLine" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Trace<wbr/>Line</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#startDetectionSearch" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>start<wbr/>Detection<wbr/>Search</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Multirotor.html#takeoff" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>takeoff</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#testLineOfSightToPoint" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>test<wbr/>Line<wbr/>Of<wbr/>Sight<wbr/>To<wbr/>Point</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="Multirotor.html#waitOnLastTask" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>wait<wbr/>On<wbr/>Last<wbr/>Task</a></li></ul></li></ul></nav></div></div>
+<div class="overlay"></div><script src="../assets/main.js"></script></body></html>
