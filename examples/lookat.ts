@@ -29,7 +29,7 @@ async function main() {
   const vehicle = vehicles[0];
   console.log('Vehicle: ', vehicle);
 
-  let cameraName = 'front_center';
+  let cameraName = 'back_center';
   let cameraInfo = await vehicle.getCameraInfo(cameraName);
   console.log('camera: ', cameraInfo);
 

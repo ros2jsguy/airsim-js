@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import { Vector3 } from 'threejs-math';
-import { DEFAULT_YAW_MODE, DrivetrainType, MultirotorState, RotorStates, YawMode } from './internal-types';
+import { DEFAULT_YAW_MODE, DrivetrainType, MultirotorState, RCData, RotorStates, YawMode } from './internal-types';
 import { Vector3r } from './math';
 import { Vehicle } from './vehicle';
 
@@ -381,12 +381,20 @@ export class Multirotor extends Vehicle {
                   yawRate, 
                   duration) as Promise<boolean>;
   }
+
+  /**
+   * Apply radio controller data commands and settings.
+   * @param rcdata - The radio controller settings to apply.
+   * @returns A Promise<void> to await on.
+   */
+  moveByRC(rcdata: RCData): Promise<void> {
+    return this._session.moveByRC(rcdata, this.name);
+  }
 }
 
 
 // todo impl
 // moveByManual
-// moveByRC
 //
 // --- low level api ---
 // moveByMotorPWMsAsync

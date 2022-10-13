@@ -3,8 +3,8 @@
 /* eslint-disable no-console */
 
 import { Vector3 } from 'threejs-math';
+import { DrivetrainType, LandedState } from '../../src';
 import { AirSim } from '../../src/airsim';
-import { CameraName, DrivetrainType, LandedState } from '../../src/internal-types';
 import { Multirotor } from '../../src/multirotor';
 import { waitKey } from '../../src/utils';
 
@@ -26,16 +26,9 @@ async function main() {
   const drone = drones[0];
   console.log('drone info: ', drone);
 
-  const ballPose = await airsim.getObjectPose('OrangeBall');
-  console.log('orange ball pose: ', ballPose);
-
   await drone.enableApiControl();
   await drone.arm();
 
-  const timer = setInterval(()=>{
-    // eslint-disable-next-line no-use-before-define
-    aimCameraAt(drone, 'front_center', ballPose.position);
-  }, 100);
 
   const z = -50;
 
@@ -80,16 +73,10 @@ async function main() {
   droneState =  await drone.getState();
   console.log('Final state: ', droneState);
 
-  clearInterval(timer);
-
   await drone.disarm();
   await drone.disableApiControl();
   airsim.close();
   process.exit(0);
-}
-
-function aimCameraAt(drone: Multirotor, camera: CameraName, target: Vector3): void {
-  drone.cameraLookAt(camera, target);
 }
 
 main();

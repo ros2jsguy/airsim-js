@@ -18,6 +18,7 @@ import {
   RawDetectionInfo,
   RawEnvironmentState,
   RawKinematicsState,
+  RCData,
   RGBA,
   RotorStates,
   WeatherParameter
@@ -1209,6 +1210,16 @@ export class Session {
        drivetrain,
        yawMode,
        vehicleName) as Promise<boolean>;
+  }
+
+  /**
+   * Control a multirotor (drone) with radio controller data commands and settings.
+   * @param rcdata - The radio controller settings to apply.
+   * @param vehicleName - The name of the multirotor to apply rcdata to.
+   * @returns A Promise<void> to await on.
+   */
+  moveByRC(rcdata: RCData, vehicleName = ''): Promise<void> {
+    return this._call('moveByRC', rcdata, vehicleName) as Promise<void>;
   }
 }
 
