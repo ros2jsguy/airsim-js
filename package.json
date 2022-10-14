@@ -17,7 +17,7 @@
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
     "build:release": "npm run clean && tsc -p tsconfig.release.json",
-    "build:docs": "typedoc -out ./docs/api --hideGenerator true --cleanOutputDir false ./src",
+    "build:docs": "typedoc -out ./docs/api --githubPages true --hideGenerator true --cleanOutputDir true --entryPoints ./src/index.ts",
     "lint": "eslint src/**/*.ts",
     "lint-fix": "eslint --fix src/**/*.ts",
     "pretty": "prettier --write \"src/**/*.ts\"",
