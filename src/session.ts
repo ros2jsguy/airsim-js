@@ -289,6 +289,18 @@ export class Session {
   }
 
   /**
+   * Control the field of view of a selected camera
+   * @param cameraName - Name of the camera to be controlled
+   * @param fovDegrees - Value of field of view in degrees
+   * @param vehicleName - Name of vehicle which the camera corresponds to
+   * @param external - Whether the camera is an External Camera
+   * @returns A Promise<void> to await on.
+   */
+  simSetCameraFov(cameraName: CameraName, fovDegrees: number, vehicleName = '', external = false): Promise<void> {
+    return this._call('simSetCameraFov', cameraName, fovDegrees, vehicleName, external) as Promise<void>;
+  }
+
+  /**
    * Get a listing of the names of all objects that makeup the AirSim seem.
    * @param regEx - A regex for filtering the names.
    * @returns An array of object names.

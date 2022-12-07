@@ -3,7 +3,6 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Quaternion, Vector3 } from 'threejs-math';
 import { CameraInfo, CameraName, CollisionInfo, Color, 
   DetectionInfo, DetectionSearch,
   EnvironmentState, GeoPoint, ImageRequest, ImageResponse,
@@ -223,37 +222,13 @@ export class Vehicle  {
   }
 
   /**
-   * Rotate a camera to point towards a target position.
-   * @param cameraName - The name or id of the camera to move.
-   * @param target - The position to point camera towards.
-   * @param rearFacing - Set True when camera is mounting looking towards
-   *  the rear of the vehicle, default = false.
-   * @returns A Promise<Pose> with the camera rotation..
+   * Control the field of view of a selected camera
+   * @param cameraName - Name of the camera to be controlled
+   * @param fovDegrees - Value of field of view in degrees
+   * @returns A Promise<void> to await on.
    */
-  async cameraLookAt(cameraName: CameraName, target: Vector3, rearFacing = false): Promise<Pose> {
-    // need the vehicle orientation
-    const vehiclePose = await this.getPose();
-
-    // create a vector rotated to parallel with vehicle
-    const vVehicle = new Vector3(rearFacing ? -1 : 1,0,0);
-    vVehicle.applyQuaternion(vehiclePose.orientation);
-  
-    // create a vector from target to vehicle
-    const vTarget2Vehicle = (new Vector3()).subVectors(target, vehiclePose.position);
-
-    // create a quaternion with rotation from vehicle to target
-    const q = new Quaternion();
-    q.setFromUnitVectors(vVehicle.normalize(), vTarget2Vehicle.normalize());
-
-    // update camera pose with q, the rotation from 
-    const cameraPose: Pose = {
-      position: new Vector3(Number.NaN, Number.NaN, Number.NaN),
-      orientation: q
-    };
-
-    await this.setCameraPose(cameraName, cameraPose);
-
-    return Promise.resolve(cameraPose);
+   setCameraFov(cameraName: CameraName, fovDegrees: number): Promise<void> {
+    return this._session.simSetCameraFov(cameraName, fovDegrees, this.name);
   }
 
   /**

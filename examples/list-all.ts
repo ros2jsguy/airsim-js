@@ -15,11 +15,14 @@ async function main() {
   console.log('Vechicles: ', vehicles);
 
   const assets = await airsim.getAssets();
-  console.log('Assets: ', assets);
+  console.log('Assets: -------------');
+  assets.forEach(asset => {
+    console.log(`  ${asset}`);
+  });
 
 
   const sceneObjs = await airsim.getSceneObjectNames();
-  console.log('Scene objects: ');
+  console.log('Scene objects: -------------');
   sceneObjs.forEach((obj) => console.log(obj));
 
   airsim.close();

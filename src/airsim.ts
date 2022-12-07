@@ -442,13 +442,21 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Control the pose of a selected camera
    * @param cameraName - Name of the camera to be controlled
    * @param pose - Pose representing the desired position and orientation of the camera
-   * @param vehicleName - Name of vehicle which the camera corresponds to
-   * @param external - Whether the camera is an External Camera
    * @returns A Promise<void> to await on.
    */
-  setCameraPose(cameraName: CameraName, pose: Pose, vehicleName = '', external = false): void {
-    this.session.simSetCameraPose(cameraName, MathConverter.toRawPose(pose), vehicleName, external);
+  setCameraPose(cameraName: CameraName, pose: Pose,): void {
+    this.session.simSetCameraPose(cameraName, MathConverter.toRawPose(pose), undefined, true);
   }
+
+  /**
+   * Control the field of view of a selected camera
+   * @param cameraName - Name of the camera to be controlled
+   * @param fovDegrees - Value of field of view in degree
+   * @returns A Promise<void> to await on.
+   */
+    setCameraFov(cameraName: CameraName, fovDegrees: number): Promise<void> {
+      return this._session.simSetCameraFov(cameraName, fovDegrees, undefined, true);
+    }
 
   /**
    * Get a listing of the names of all objects that makeup the AirSim seem.
@@ -666,6 +674,22 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
 
   /**
+   * Plot a 3D point in World NED frame
+   * @param point - A Vector3 object
+   * @param color - Color of points as an RGBA tuple with value 0.0 to 1.0 or
+   *    CSS color name, Default = 'red'.
+   * @param size - Size of plotted point. Default = 10.
+   * @param durationOrPersistent - Duration (seconds) to display points or True to display indefinetly.
+   *    Default = True.
+   * @returns A Promise<void> to await on.
+   */
+    plotPoint(point: Vector3, color: Color = 'red', size = 10,
+      durationOrPersistent: number | true = true): Promise<void> {
+
+      return this.plotPoints([point], color, size, durationOrPersistent);
+    }
+
+  /**
    * Plot a list of 3D points in World NED frame
    * @param points - List of Vector3 objects
    * @param color - Color of points as an RGBA tuple with value 0.0 to 1.0 or
@@ -728,6 +752,24 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
                 isPersistent);
   }
 
+  
+  /**
+   * Plots a line strip in World NED frame, defined from points[0] to
+   * points[1], points[2] to points[3], ... , points[n-2] to points[n-1]
+   * @param points - List of 3D locations of line start and end points, specified as Vector3r objects. Must be even
+   * @param color - Line color as RGBA tuple of values from 0.0 to 1.0 or
+   *    CSS color name. Default = 'red'.
+   * @param thickness - Thickness of line. Default = 5.0.
+   * @param durationOrPersistent - Duration (seconds) to display lines or True to display indefinetly.
+   *    Default = True.
+   * @returns A Promise<void> to await on.
+   */
+  plotLine(start: Vector3, end: Vector3, color: Color = 'red', thickness = 5.0,
+    durationOrPersistent: number | boolean = true): Promise<void> {
+    
+    return this.plotLineList([start, end], color, thickness, durationOrPersistent);
+  }
+
   /**
    * Plots a line strip in World NED frame, defined from points[0] to
    * points[1], points[2] to points[3], ... , points[n-2] to points[n-1]
@@ -761,11 +803,31 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   } 
 
   /**
-   * Plots a list of arrows in World NED frame, defined from points_start[0]
+   * Plot an arrow in World NED frame.
+   * @param start - The 3D start positions of arrow, specified as Vector3 objects
+   * @param end - The 3D end position of arrow, specified as Vector3 objects
+   * @param color - Line color as RGBA tuple of values from 0.0 to 1.0 or
+   *    CSS color name. Default = 'red'.
+   * @param thickness - Thickness of line. Default = 5.0.
+   * @param arrowSize - Size of arrow head. Default = 2.0.
+   * @param durationOrPersistent - Duration (seconds) to display arrows or True to display indefinetly.
+   *    Default = True.
+   * @returns A Promise<void> to await on.
+   */
+  plotArrow(start: Vector3, end: Vector3, 
+    color: Color = 'red',
+    thickness = 5.0, arrowSize = 2.0,
+    durationOrPersistent: number | true = true): Promise<void> {
+  
+    return this.plotArrows([start], [end], color, thickness, arrowSize, durationOrPersistent);
+  }
+
+  /**
+   * Plots a list of arrow in World NED frame, defined from points_start[0]
    * to points_end[0], points_start[1] to points_end[1], ... , 
    * points_start[n-1] to points_end[n-1]
-   * @param pointsStart - Array of 3D start positions of arrow start positions, specified as Vector3 objects
-   * @param pointsEnd - Array of 3D end positions of arrow start positions, specified as Vector3 objects
+   * @param start - The 3D start positions of arrow, specified as Vector3 objects
+   * @param end - The 3D end position of arrow, specified as Vector3 objects
    * @param color - Line color as RGBA tuple of values from 0.0 to 1.0 or
    *    CSS color name. Default = 'red'.
    * @param thickness - Thickness of line. Default = 5.0.
@@ -796,6 +858,24 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
   }
 
   /**
+   * Plot a string at desired position in World NED frame.
+   * @param string - The string to plot
+   * @param position - The position where the strings should be plotted.
+   * @param scale - Font scale of transform name. Default = 5.
+   * @param color - Text color as RGBA tuple of values from 0.0 to 1.0 or
+   *    CSS color name. Default = 'red'.
+   * @param durationOrPersistent - Duration (seconds) to display strings or True to display indefinetly.
+   *    Default = True.
+   * @returns A Promise<void> to await on. 
+   */
+   plotString(s: string, position: Vector3,
+      scale = 5, color: Color = 'red', 
+      durationOrPersistent: number | true = true): Promise<void> {
+
+      return this.plotStrings([s], [position], scale, color, durationOrPersistent);
+}
+
+  /**
    * Plots a list of strings at desired positions in World NED frame.
    * @param strings - List of strings to plot
    * @param positions - List of positions where the strings should be
@@ -821,6 +901,21 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
               strings, newPositions, scale,
               MathConverter.colorToRGBA(color),
               duration) as Promise<void>;
+  }
+
+  /**
+   * Plots a transform in World NED frame.
+   * @param pose - Pose object representing the transforms to plot
+   * @param scale - Length of transform axes. Default = 5.
+   * @param thickness -Thickness of transform axes. Default = 5.0.
+   * @param durationOrPersistent - Duration (seconds) to display transform or True to display indefinetly.
+   *    Default = True.
+   * @returns  A Promise<void> to await on.
+   */
+   plotTransform(pose: Pose, scale = 5.0, thickness = 5.0, 
+      durationOrPersistent: number | true = true): Promise<void> {
+
+    return this.plotTransforms([pose], scale, thickness, durationOrPersistent);
   }
 
   /**
@@ -889,8 +984,6 @@ Server Ver: ${serverVer} (Min Req: ${serverMinVer})`;
    * Get a single image
    * @param cameraName - Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used
    * @param imageType - Type of image required
-   * @param vehicleName - Name of the vehicle with the camera
-   * @param external - Whether the camera is an External Camera
    * @returns Uint8Array of compressed png image
    */
   getImage(cameraName: CameraName, imageType: ImageType): Promise<Uint8Array> {

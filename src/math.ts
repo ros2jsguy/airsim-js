@@ -1,4 +1,4 @@
-import { Box2, Box3, Color as Color3, Matrix3, Matrix4, Quaternion, Vector2, Vector3 } from 'threejs-math';
+import { Box2, Box3, Color as Color3, MathUtils, Matrix4, Quaternion, Vector2, Vector3 } from 'threejs-math';
 // eslint-disable-next-line import/no-cycle
 import { Color, RGBA } from './internal-types';
 
@@ -187,24 +187,73 @@ export class MathConverter {
 
 
 // Coordinate system transforms
+
+export const NED2ENU_ROT_MATRIX = new Matrix4();
+NED2ENU_ROT_MATRIX.set(
+  0, 1, 0,  0,
+  1, 0, 0,  0,
+  0, 0, -1, 0,
+  0, 0, 0,  1
+);
+
+export const ENU2NED_ROT_MATRIX = new Matrix4();
+ENU2NED_ROT_MATRIX.set(
+  0, 1,  0, 0,
+  1, 0,  0, 0,
+  0, 0, -1, 0,
+  0, 0,  0, 1
+);
+
+// export const ENU2NED_QUATERNION = (new Quaternion).setFromRotationMatrix(ENU2NED_ROT_MATRIX);
+// export const NED2ENU_QUATERNION = (new Quaternion).setFromRotationMatrix(NED2ENU_ROT_MATRIX);
+const SQRT2HALF = Math.sqrt(2) / 2;
+const ENU2NED_QUATERNION = new Quaternion(-SQRT2HALF, -SQRT2HALF, 0, 0);
+const NED2ENU_QUATERNION = new Quaternion(SQRT2HALF, SQRT2HALF, 0, 0);
+
 /**
  * Convert a vector in the ENU (xyz) coordinate system to the
- * NED coordinate system.
+ * NED coordinate system. Swap x and y and negate z.
+ * 
+ * @param enu - The source east-north-up vector
+ * @param ned - (optional) The output north-east-down vector
+ * @returns A quaternion in NED coodinate system
+ */
+export function ENU2NED(enu: Vector3): Vector3;
+
+/**
+ * Convert a quaternion in the ENU (xyz) coordinate system to the
+ * NED coordinate system. Swap x and y and negate z.
  * 
  * @param enu - The source east-north-up vector
  * @param ned - (optional) The output north-east-down vector
  * @returns A vector in NED coodinate system
  */
- export function ENU2NED(enu: Vector3, ned?: Vector3): Vector3 {
-  return (ned || new Vector3()).set(enu.y, enu.x, -enu.z);
-}
+export function ENU2NED(enu: Quaternion): Quaternion
 
-const NED2ENU_ROT_MATRIX = new Matrix3();
-NED2ENU_ROT_MATRIX.set(
-  0, 1, 0,
-  1, 0, 0,
-  0, 0, -1
-);
+/**
+ * Convert a Pose in the ENU (xyz) coordinate system to the
+ * NED coordinate system. Swap x and y and negate z.
+ * 
+ * @param enu - The source east-north-up vector
+ * @param ned - (optional) The output north-east-down vector
+ * @returns A Pose in NED coodinate system
+ */
+ export function ENU2NED(enu: Pose): Pose
+
+export function ENU2NED(enu: Vector3 | Quaternion | Pose): Vector3 | Quaternion | Pose {
+  if (enu instanceof Vector3) {
+    return new Vector3(enu.y, enu.x, -enu.z);
+  } 
+
+  if (enu instanceof Quaternion) {
+    return ENU2NED_QUATERNION.clone().multiply(enu);
+  }
+
+  return {
+    position: ENU2NED(enu.position),
+    orientation: ENU2NED(enu.orientation),
+  };
+}
 
 /**
  * Convert a vector in the NED (north-east-down) coordinate system to the
@@ -214,6 +263,115 @@ NED2ENU_ROT_MATRIX.set(
  * @param enu - (optional) The output east-north-up vector
  * @returns A vector in ENU coodinate system
  */
-export function NED2ENU(ned: Vector3, emu?: Vector3): Vector3 {
-  return (emu || new Vector3()).copy(ned).applyMatrix3(NED2ENU_ROT_MATRIX);
+export function NED2ENU(ned: Vector3): Vector3;
+
+/**
+ * Convert a quaterion in the NED (north-east-down) coordinate system to the
+ * ENU (xyz) coordinate system.
+ * 
+ * @param ned - The source north-east-down vector
+ * @param enu - (optional) The output east-north-up vector
+ * @returns A quaternion in ENU coodinate system
+ */
+export function NED2ENU(ned: Quaternion): Quaternion;
+
+/**
+ * Convert a Pose in the NED (north-east-down) coordinate system to the
+ * ENU (xyz) coordinate system.
+ * 
+ * @param ned - The source north-east-down vector
+ * @param enu - (optional) The output east-north-up vector
+ * @returns A Pose in ENU coodinate system
+ */
+export function NED2ENU(ned: Pose): Pose;
+export function NED2ENU(ned: Vector3 | Quaternion | Pose): Vector3 | Quaternion | Pose {
+  if (ned instanceof Vector3) {
+    return ned.clone().applyMatrix4(NED2ENU_ROT_MATRIX);
+  }
+
+  if (ned instanceof Quaternion) {
+    return NED2ENU_QUATERNION.clone().multiply(ned);
+  }
+
+  return {
+    position: NED2ENU(ned.position),
+    orientation: NED2ENU(ned.orientation)
+  };
 }
+
+export const XYZ2NEDQuaternion = new Quaternion();
+MathUtils.setQuaternionFromProperEuler(
+  XYZ2NEDQuaternion,
+  1.5708,
+  1.5708,
+  0,
+  'YZY'
+);
+XYZ2NEDQuaternion.normalize();
+
+export function XYZ2NED(xyz: Vector3): Vector3;
+export function XYZ2NED(xyz: Quaternion): Quaternion;
+export function XYZ2NED(xyz: Pose): Pose;
+export function XYZ2NED(xyz: Vector3 | Quaternion | Pose): Vector3 | Quaternion | Pose {
+  // v = new Vector3(1,0,0);
+  // v.applyAxisAngle(new Vector3(0,1,0), 1.5708); // rotate y (vertical axis)
+  // v.applyAxisAngle(new Vector3(1,0,0), 1.5708); // rotate x
+
+  if (xyz instanceof Vector3) {
+    // return xyz.clone().applyQuaternion(XYZ2NEDQuaternion);
+    return new Vector3(-xyz.z, xyz.x, -xyz.y);
+  }
+
+  if (xyz instanceof Quaternion) {
+    return xyz.clone().multiply(XYZ2NEDQuaternion);
+  }
+
+  return { 
+    position: XYZ2NED(xyz.position),
+    orientation: XYZ2NED(xyz.orientation) 
+  };
+}
+
+export const NED2XYZQuaternion = XYZ2NEDQuaternion.conjugate().normalize();
+// export const NED2XYZQuaternion = new Quaternion();
+// MathUtils.setQuaternionFromProperEuler(
+//   NED2XYZQuaternion,
+//   -1.5708,
+//   -1.5708,
+//   0,
+//   'ZYZ'
+// );
+
+export function NED2XYZ(ned: Vector3): Vector3;
+export function NED2XYZ(ned: Quaternion): Quaternion;
+export function NED2XYZ(ned: Pose): Pose;
+export function NED2XYZ(ned: Vector3 | Quaternion | Pose): Vector3 | Quaternion | Pose {
+  // v = new Vector3(1,0,0);
+  // v.applyAxisAngle(new Vector3(1,0,0), -1.5708);
+  // v.applyAxisAngle(new Vector3(0,1,0), -1.5708);
+
+  if (ned instanceof Vector3) {
+    // return ned.clone().applyQuaternion(NED2XYZQuaternion);
+    return new Vector3(ned.y, -ned.z,-ned.x);
+  }
+
+  if (ned instanceof Quaternion) {
+    return ned.clone().multiply(NED2XYZQuaternion);
+  }
+
+  return { 
+    position: NED2XYZ(ned.position),
+    orientation: NED2XYZ(ned.orientation) 
+  };
+}
+
+// export function NEDQuaternion2ENUQuaternion(ned: Quaternion): Quaternion {
+//   const sqrt2half = Math.sqrt(2) / 2;
+//   return (new Quaternion(sqrt2half, sqrt2half, 0, 0)).multiply(ned);
+// }
+
+// export function ENUQuaternion2NEDQuaternion(enu: Quaternion): Quaternion {
+//   const sqrt2half = Math.sqrt(2) / 2;
+//   return (new Quaternion(-sqrt2half, -sqrt2half, 0, 0)).multiply(enu);
+// }
+

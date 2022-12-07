@@ -11,5 +11,6 @@ tsconfig*
 .husky
 .prettier*
 examples/test.ts
+settings/
 src/
 docs/
